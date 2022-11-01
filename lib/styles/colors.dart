@@ -33,7 +33,7 @@ class AppColorsPalette {
   static const textPrimaryInverse = Color(0xFFFFFFFF);
   static const textSecondary = Color(0xFF93929D);
   // strokes
-  static const strokeDefault = Color(0xFFFBFDFF);
+  static const strokeDefault = Color(0xFFB5B4BF);
   static const strokeFocused = Color(0xFF4941ED);
   static const strokeError = Color(0xFFD25555);
 }
