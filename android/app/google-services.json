@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "296887782739",
+    "project_id": "spot2-4bc57",
+    "storage_bucket": "spot2-4bc57.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296887782739:android:1c03719e8d749dccb5e5a6",
+        "android_client_info": {
+          "package_name": "com.kkndev.spot2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "296887782739-mikqdt87unpnh3616nmegsueub4ceaek.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDb4o9AxxKN-E-Ct1WUK21t2A_JHRlZQqY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "296887782739-mikqdt87unpnh3616nmegsueub4ceaek.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

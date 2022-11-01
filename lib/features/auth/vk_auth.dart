@@ -9,7 +9,7 @@ void vkAuth() async {
   await vk.initSdk();
 
 // Log in
-  final res = await vk.logIn();
+  final res = await vk.logIn(scope:[VKScope.email]);
 
 // Check result
   if (res.isValue) {
