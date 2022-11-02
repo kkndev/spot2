@@ -11,78 +11,108 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i5;
-import 'package:flutter/material.dart' as _i6;
+import 'package:auto_route/auto_route.dart' as _i8;
+import 'package:flutter/material.dart' as _i9;
 
 import '../core/presentation/root_screen.dart' as _i1;
-import '../core/presentation/splash_screen.dart' as _i4;
-import '../features/characters/domain/entities/person_entity.dart' as _i7;
-import '../features/characters/presentation/pages/person_detail_screen.dart'
-    as _i2;
-import '../features/characters/presentation/pages/person_screen.dart' as _i3;
+import '../core/presentation/splash_screen.dart' as _i3;
+import '../features/auth/presentation/pages/auth_screen.dart' as _i2;
+import '../features/auth/presentation/pages/enter_name_screen.dart' as _i6;
+import '../features/auth/presentation/pages/get_code_screen.dart' as _i4;
+import '../features/auth/presentation/pages/send_code_screen.dart' as _i5;
+import '../features/map/presentation/pages/map_screen.dart' as _i7;
 
-class AppRouter extends _i5.RootStackRouter {
-  AppRouter([_i6.GlobalKey<_i6.NavigatorState>? navigatorKey])
+class AppRouter extends _i8.RootStackRouter {
+  AppRouter([_i9.GlobalKey<_i9.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i5.PageFactory> pagesMap = {
+  final Map<String, _i8.PageFactory> pagesMap = {
     RootScreenRoute.name: (routeData) {
-      return _i5.CupertinoPageX<dynamic>(
+      return _i8.CupertinoPageX<dynamic>(
         routeData: routeData,
-        child: _i5.WrappedRoute(child: const _i1.RootScreen()),
+        child: _i8.WrappedRoute(child: const _i1.RootScreen()),
       );
     },
-    PersonDetailPageRoute.name: (routeData) {
-      final args = routeData.argsAs<PersonDetailPageRouteArgs>();
-      return _i5.CupertinoPageX<dynamic>(
+    AuthPageRoute.name: (routeData) {
+      return _i8.CupertinoPageX<dynamic>(
         routeData: routeData,
-        child: _i2.PersonDetailPage(
-          key: args.key,
-          person: args.person,
-        ),
-      );
-    },
-    HomePageRoute.name: (routeData) {
-      return _i5.CupertinoPageX<dynamic>(
-        routeData: routeData,
-        child: const _i3.HomePage(),
+        child: const _i2.AuthPage(),
       );
     },
     SplashScreenRoute.name: (routeData) {
-      return _i5.CupertinoPageX<dynamic>(
+      return _i8.CupertinoPageX<dynamic>(
         routeData: routeData,
-        child: const _i4.SplashScreen(),
+        child: const _i3.SplashScreen(),
+      );
+    },
+    GetCodePageRoute.name: (routeData) {
+      return _i8.CupertinoPageX<dynamic>(
+        routeData: routeData,
+        child: const _i4.GetCodePage(),
+      );
+    },
+    SendCodePageRoute.name: (routeData) {
+      return _i8.CupertinoPageX<dynamic>(
+        routeData: routeData,
+        child: const _i5.SendCodePage(),
+      );
+    },
+    EnterNamePageRoute.name: (routeData) {
+      return _i8.CupertinoPageX<dynamic>(
+        routeData: routeData,
+        child: const _i6.EnterNamePage(),
+      );
+    },
+    MapPageRoute.name: (routeData) {
+      return _i8.CupertinoPageX<dynamic>(
+        routeData: routeData,
+        child: const _i7.MapPage(),
       );
     },
   };
 
   @override
-  List<_i5.RouteConfig> get routes => [
-        _i5.RouteConfig(
+  List<_i8.RouteConfig> get routes => [
+        _i8.RouteConfig(
           RootScreenRoute.name,
           path: '/',
           children: [
-            _i5.RouteConfig(
+            _i8.RouteConfig(
               '#redirect',
               path: '',
               parent: RootScreenRoute.name,
-              redirectTo: 'splash',
+              redirectTo: 'auth',
               fullMatch: true,
             ),
-            _i5.RouteConfig(
-              PersonDetailPageRoute.name,
-              path: 'personDetail',
+            _i8.RouteConfig(
+              AuthPageRoute.name,
+              path: 'auth',
               parent: RootScreenRoute.name,
             ),
-            _i5.RouteConfig(
-              HomePageRoute.name,
-              path: 'persons',
-              parent: RootScreenRoute.name,
-            ),
-            _i5.RouteConfig(
+            _i8.RouteConfig(
               SplashScreenRoute.name,
               path: 'splash',
+              parent: RootScreenRoute.name,
+            ),
+            _i8.RouteConfig(
+              GetCodePageRoute.name,
+              path: 'getCode',
+              parent: RootScreenRoute.name,
+            ),
+            _i8.RouteConfig(
+              SendCodePageRoute.name,
+              path: 'sendCode',
+              parent: RootScreenRoute.name,
+            ),
+            _i8.RouteConfig(
+              EnterNamePageRoute.name,
+              path: 'enterName',
+              parent: RootScreenRoute.name,
+            ),
+            _i8.RouteConfig(
+              MapPageRoute.name,
+              path: 'map',
               parent: RootScreenRoute.name,
             ),
           ],
@@ -92,8 +122,8 @@ class AppRouter extends _i5.RootStackRouter {
 
 /// generated route for
 /// [_i1.RootScreen]
-class RootScreenRoute extends _i5.PageRouteInfo<void> {
-  const RootScreenRoute({List<_i5.PageRouteInfo>? children})
+class RootScreenRoute extends _i8.PageRouteInfo<void> {
+  const RootScreenRoute({List<_i8.PageRouteInfo>? children})
       : super(
           RootScreenRoute.name,
           path: '/',
@@ -104,55 +134,20 @@ class RootScreenRoute extends _i5.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i2.PersonDetailPage]
-class PersonDetailPageRoute
-    extends _i5.PageRouteInfo<PersonDetailPageRouteArgs> {
-  PersonDetailPageRoute({
-    _i6.Key? key,
-    required _i7.PersonEntity person,
-  }) : super(
-          PersonDetailPageRoute.name,
-          path: 'personDetail',
-          args: PersonDetailPageRouteArgs(
-            key: key,
-            person: person,
-          ),
-        );
-
-  static const String name = 'PersonDetailPageRoute';
-}
-
-class PersonDetailPageRouteArgs {
-  const PersonDetailPageRouteArgs({
-    this.key,
-    required this.person,
-  });
-
-  final _i6.Key? key;
-
-  final _i7.PersonEntity person;
-
-  @override
-  String toString() {
-    return 'PersonDetailPageRouteArgs{key: $key, person: $person}';
-  }
-}
-
-/// generated route for
-/// [_i3.HomePage]
-class HomePageRoute extends _i5.PageRouteInfo<void> {
-  const HomePageRoute()
+/// [_i2.AuthPage]
+class AuthPageRoute extends _i8.PageRouteInfo<void> {
+  const AuthPageRoute()
       : super(
-          HomePageRoute.name,
-          path: 'persons',
+          AuthPageRoute.name,
+          path: 'auth',
         );
 
-  static const String name = 'HomePageRoute';
+  static const String name = 'AuthPageRoute';
 }
 
 /// generated route for
-/// [_i4.SplashScreen]
-class SplashScreenRoute extends _i5.PageRouteInfo<void> {
+/// [_i3.SplashScreen]
+class SplashScreenRoute extends _i8.PageRouteInfo<void> {
   const SplashScreenRoute()
       : super(
           SplashScreenRoute.name,
@@ -160,4 +155,52 @@ class SplashScreenRoute extends _i5.PageRouteInfo<void> {
         );
 
   static const String name = 'SplashScreenRoute';
+}
+
+/// generated route for
+/// [_i4.GetCodePage]
+class GetCodePageRoute extends _i8.PageRouteInfo<void> {
+  const GetCodePageRoute()
+      : super(
+          GetCodePageRoute.name,
+          path: 'getCode',
+        );
+
+  static const String name = 'GetCodePageRoute';
+}
+
+/// generated route for
+/// [_i5.SendCodePage]
+class SendCodePageRoute extends _i8.PageRouteInfo<void> {
+  const SendCodePageRoute()
+      : super(
+          SendCodePageRoute.name,
+          path: 'sendCode',
+        );
+
+  static const String name = 'SendCodePageRoute';
+}
+
+/// generated route for
+/// [_i6.EnterNamePage]
+class EnterNamePageRoute extends _i8.PageRouteInfo<void> {
+  const EnterNamePageRoute()
+      : super(
+          EnterNamePageRoute.name,
+          path: 'enterName',
+        );
+
+  static const String name = 'EnterNamePageRoute';
+}
+
+/// generated route for
+/// [_i7.MapPage]
+class MapPageRoute extends _i8.PageRouteInfo<void> {
+  const MapPageRoute()
+      : super(
+          MapPageRoute.name,
+          path: 'map',
+        );
+
+  static const String name = 'MapPageRoute';
 }

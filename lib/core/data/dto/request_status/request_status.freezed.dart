@@ -21,7 +21,7 @@ mixin _$RequestStatus<T> {
     required TResult Function() init,
     required TResult Function() loading,
     required TResult Function(T data) success,
-    required TResult Function(ErrorApi error) failure,
+    required TResult Function(Failure error) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,7 +29,7 @@ mixin _$RequestStatus<T> {
     TResult? Function()? init,
     TResult? Function()? loading,
     TResult? Function(T data)? success,
-    TResult? Function(ErrorApi error)? failure,
+    TResult? Function(Failure error)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,7 +37,7 @@ mixin _$RequestStatus<T> {
     TResult Function()? init,
     TResult Function()? loading,
     TResult Function(T data)? success,
-    TResult Function(ErrorApi error)? failure,
+    TResult Function(Failure error)? failure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -127,7 +127,7 @@ class _$_LoadInit<T> implements _LoadInit<T> {
     required TResult Function() init,
     required TResult Function() loading,
     required TResult Function(T data) success,
-    required TResult Function(ErrorApi error) failure,
+    required TResult Function(Failure error) failure,
   }) {
     return init();
   }
@@ -138,7 +138,7 @@ class _$_LoadInit<T> implements _LoadInit<T> {
     TResult? Function()? init,
     TResult? Function()? loading,
     TResult? Function(T data)? success,
-    TResult? Function(ErrorApi error)? failure,
+    TResult? Function(Failure error)? failure,
   }) {
     return init?.call();
   }
@@ -149,7 +149,7 @@ class _$_LoadInit<T> implements _LoadInit<T> {
     TResult Function()? init,
     TResult Function()? loading,
     TResult Function(T data)? success,
-    TResult Function(ErrorApi error)? failure,
+    TResult Function(Failure error)? failure,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -241,7 +241,7 @@ class _$_LoadInProgress<T> implements _LoadInProgress<T> {
     required TResult Function() init,
     required TResult Function() loading,
     required TResult Function(T data) success,
-    required TResult Function(ErrorApi error) failure,
+    required TResult Function(Failure error) failure,
   }) {
     return loading();
   }
@@ -252,7 +252,7 @@ class _$_LoadInProgress<T> implements _LoadInProgress<T> {
     TResult? Function()? init,
     TResult? Function()? loading,
     TResult? Function(T data)? success,
-    TResult? Function(ErrorApi error)? failure,
+    TResult? Function(Failure error)? failure,
   }) {
     return loading?.call();
   }
@@ -263,7 +263,7 @@ class _$_LoadInProgress<T> implements _LoadInProgress<T> {
     TResult Function()? init,
     TResult Function()? loading,
     TResult Function(T data)? success,
-    TResult Function(ErrorApi error)? failure,
+    TResult Function(Failure error)? failure,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -382,7 +382,7 @@ class _$_LoadSuccess<T> implements _LoadSuccess<T> {
     required TResult Function() init,
     required TResult Function() loading,
     required TResult Function(T data) success,
-    required TResult Function(ErrorApi error) failure,
+    required TResult Function(Failure error) failure,
   }) {
     return success(data);
   }
@@ -393,7 +393,7 @@ class _$_LoadSuccess<T> implements _LoadSuccess<T> {
     TResult? Function()? init,
     TResult? Function()? loading,
     TResult? Function(T data)? success,
-    TResult? Function(ErrorApi error)? failure,
+    TResult? Function(Failure error)? failure,
   }) {
     return success?.call(data);
   }
@@ -404,7 +404,7 @@ class _$_LoadSuccess<T> implements _LoadSuccess<T> {
     TResult Function()? init,
     TResult Function()? loading,
     TResult Function(T data)? success,
-    TResult Function(ErrorApi error)? failure,
+    TResult Function(Failure error)? failure,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -466,9 +466,7 @@ abstract class _$$_LoadFailureCopyWith<T, $Res> {
           _$_LoadFailure<T> value, $Res Function(_$_LoadFailure<T>) then) =
       __$$_LoadFailureCopyWithImpl<T, $Res>;
   @useResult
-  $Res call({ErrorApi error});
-
-  $ErrorApiCopyWith<$Res> get error;
+  $Res call({Failure error});
 }
 
 /// @nodoc
@@ -488,16 +486,8 @@ class __$$_LoadFailureCopyWithImpl<T, $Res>
       error: null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
-              as ErrorApi,
+              as Failure,
     ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $ErrorApiCopyWith<$Res> get error {
-    return $ErrorApiCopyWith<$Res>(_value.error, (value) {
-      return _then(_value.copyWith(error: value));
-    });
   }
 }
 
@@ -507,7 +497,7 @@ class _$_LoadFailure<T> implements _LoadFailure<T> {
   const _$_LoadFailure({required this.error});
 
   @override
-  final ErrorApi error;
+  final Failure error;
 
   @override
   String toString() {
@@ -537,7 +527,7 @@ class _$_LoadFailure<T> implements _LoadFailure<T> {
     required TResult Function() init,
     required TResult Function() loading,
     required TResult Function(T data) success,
-    required TResult Function(ErrorApi error) failure,
+    required TResult Function(Failure error) failure,
   }) {
     return failure(error);
   }
@@ -548,7 +538,7 @@ class _$_LoadFailure<T> implements _LoadFailure<T> {
     TResult? Function()? init,
     TResult? Function()? loading,
     TResult? Function(T data)? success,
-    TResult? Function(ErrorApi error)? failure,
+    TResult? Function(Failure error)? failure,
   }) {
     return failure?.call(error);
   }
@@ -559,7 +549,7 @@ class _$_LoadFailure<T> implements _LoadFailure<T> {
     TResult Function()? init,
     TResult Function()? loading,
     TResult Function(T data)? success,
-    TResult Function(ErrorApi error)? failure,
+    TResult Function(Failure error)? failure,
     required TResult orElse(),
   }) {
     if (failure != null) {
@@ -607,10 +597,10 @@ class _$_LoadFailure<T> implements _LoadFailure<T> {
 }
 
 abstract class _LoadFailure<T> implements RequestStatus<T> {
-  const factory _LoadFailure({required final ErrorApi error}) =
+  const factory _LoadFailure({required final Failure error}) =
       _$_LoadFailure<T>;
 
-  ErrorApi get error;
+  Failure get error;
   @JsonKey(ignore: true)
   _$$_LoadFailureCopyWith<T, _$_LoadFailure<T>> get copyWith =>
       throw _privateConstructorUsedError;

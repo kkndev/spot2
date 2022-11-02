@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spot2/features/auth/presentation/bloc/auth/auth.dart';
 
 import '/features/characters/presentation/bloc/search_bloc/search_bloc.dart';
 import '/injection_container.dart';
@@ -22,6 +23,7 @@ class RootScreen extends StatelessWidget implements AutoRouteWrapper {
             create: (context) => sl<PersonListCubit>()..loadPerson()),
         BlocProvider<PersonSearchBloc>(
             create: (context) => sl<PersonSearchBloc>()),
+        BlocProvider<AuthBloc>(create: (context) => sl<AuthBloc>()),
       ],
       child: this,
     );

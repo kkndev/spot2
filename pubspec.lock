@@ -225,6 +225,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.7.8"
+  dgis_flutter:
+    dependency: "direct main"
+    description:
+      path: "2gis"
+      relative: true
+    source: path
+    version: "0.0.31"
   dio:
     dependency: "direct main"
     description:
@@ -709,6 +716,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.0"
+  rive:
+    dependency: "direct main"
+    description:
+      name: rive
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.9.1"
   rxdart:
     dependency: transitive
     description:

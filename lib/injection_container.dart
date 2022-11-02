@@ -1,9 +1,16 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:spot2/features/auth/data/repositories/auth_repository_impl.dart';
+import 'package:spot2/features/auth/domain/usecases/send_code_from_email.dart';
+import 'package:spot2/features/auth/domain/usecases/send_code_from_phone.dart';
 
 import 'core/platform/network_info.dart';
+import 'features/auth/data/datasources/auth_remote_data_source.dart';
+import 'features/auth/domain/repositories/auth_repository.dart';
+import 'features/auth/domain/usecases/get_code_by_email.dart';
+import 'features/auth/domain/usecases/get_code_by_phone.dart';
+import 'features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'features/characters/data/datasources/person_local_data_source.dart';
 import 'features/characters/data/datasources/person_remote_data_source.dart';
 import 'features/characters/domain/repositories/person_repository.dart';
@@ -23,10 +30,22 @@ Future<void> init() async {
   sl.registerFactory(
     () => PersonSearchBloc(searchPerson: sl()),
   );
+  sl.registerFactory(
+    () => AuthBloc(
+      getCodeByEmail: sl(),
+      getCodeByPhone: sl(),
+      sendCodeFromEmail: sl(),
+      sendCodeFromPhone: sl(),
+    ),
+  );
 
   // UseCases
   sl.registerLazySingleton(() => GetAllPersons(sl()));
   sl.registerLazySingleton(() => SearchPerson(sl()));
+  sl.registerLazySingleton(() => GetCodeByEmail(sl()));
+  sl.registerLazySingleton(() => GetCodeByPhone(sl()));
+  sl.registerLazySingleton(() => SendCodeFromEmail(sl()));
+  sl.registerLazySingleton(() => SendCodeFromPhone(sl()));
 
   // Repository
   sl.registerLazySingleton<PersonRepository>(
@@ -36,9 +55,21 @@ Future<void> init() async {
       networkInfo: sl(),
     ),
   );
+  sl.registerLazySingleton<AuthRepository>(
+    () => AuthRepositoryImpl(
+      remoteDataSource: sl(),
+      networkInfo: sl(),
+    ),
+  );
 
   sl.registerLazySingleton<PersonRemoteDataSource>(
     () => PersonRemoteDataSourceImpl(
+      client: sl(),
+    ),
+  );
+
+  sl.registerLazySingleton<AuthRemoteDataSource>(
+    () => AuthRemoteDataSourceImpl(
       client: sl(),
     ),
   );

@@ -9,7 +9,7 @@ void vkAuth() async {
   await vk.initSdk();
 
 // Log in
-  final res = await vk.logIn(scope:[VKScope.email]);
+  final res = await vk.logIn(scope: [VKScope.email]);
 
 // Check result
   if (res.isValue) {
@@ -25,7 +25,7 @@ void vkAuth() async {
 
 // Send access token to server for validation and auth
       final VKAccessToken? accessToken = res.asValue?.value.accessToken;
-      print('Access token: ${accessToken}');
+      print('Access token: $accessToken');
 
 // Get profile data
 //       final profile = await fb.getUserProfile();

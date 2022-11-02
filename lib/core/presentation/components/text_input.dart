@@ -6,10 +6,10 @@ import '/extensions/app_text_styles.dart';
 import '/styles/colors.dart';
 
 class TextInput extends StatefulWidget {
-   TextInput({
+  TextInput({
     Key? key,
     required this.controller,
-     this.hasError = false,
+    this.hasError = false,
   }) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
@@ -22,13 +22,11 @@ class TextInput extends StatefulWidget {
 }
 
 class _TextInputState extends State<TextInput> {
-
   @override
   void initState() {
     widget.controller.addListener(() {
       widget._formKey.currentState!.validate();
-      setState(() {
-      });
+      setState(() {});
     });
     super.initState();
   }
@@ -49,26 +47,29 @@ class _TextInputState extends State<TextInput> {
             style: textStyles?.body1,
             controller: widget.controller,
             decoration: InputDecoration(
-              errorText: 'Промокод недействителен',
-              errorStyle: textStyles?.caption.copyWith(color:AppColorsPalette.statusError),
               contentPadding: const EdgeInsets.only(
-                top: 12, bottom: 12, left: 20, right: 0
-              ),
-              suffixIcon: widget.controller.text.isNotEmpty ? GestureDetector(
-                onTap: _clear,
-                child: Container(
-                  color: Colors.transparent,
-                  padding: const EdgeInsets.only(bottom: 12, top: 12, right: 0,),
-                  child: SizedBox(
-                      height: 24,
-                      width: 24,
-                      child: SvgPicture.asset(
-                        AppImages.close,
-                        width: 24,
-                        height: 24,
-                      )),
-                ),
-              ) : null,
+                  top: 12, bottom: 12, left: 20, right: 0),
+              suffixIcon: widget.controller.text.isNotEmpty
+                  ? GestureDetector(
+                      onTap: _clear,
+                      child: Container(
+                        color: Colors.transparent,
+                        padding: const EdgeInsets.only(
+                          bottom: 12,
+                          top: 12,
+                          right: 0,
+                        ),
+                        child: SizedBox(
+                            height: 24,
+                            width: 24,
+                            child: SvgPicture.asset(
+                              AppImages.close,
+                              width: 24,
+                              height: 24,
+                            )),
+                      ),
+                    )
+                  : null,
               isDense: true,
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
@@ -101,10 +102,15 @@ class _TextInputState extends State<TextInput> {
             ),
           ),
         ),
-        if (!widget.hasError) Padding(
-          padding: const EdgeInsets.only(top: 4),
-          child:  Text('Промокод недействителен', style: textStyles?.caption.copyWith(color:AppColorsPalette.statusError),),
-        ),
+        if (widget.hasError)
+          Padding(
+            padding: const EdgeInsets.only(top: 4),
+            child: Text(
+              'Промокод недействителен',
+              style: textStyles?.caption
+                  .copyWith(color: AppColorsPalette.statusError),
+            ),
+          ),
       ],
     );
   }

@@ -16,7 +16,8 @@ class AppImages {
   static const searchTab = 'assets/images/icons/search_tab.svg';
   static const searchTabActive = 'assets/images/icons/search_tab_active.svg';
   static const favoriteTab = 'assets/images/icons/favorite_tab.svg';
-  static const favoriteTabActive = 'assets/images/icons/favorite_tab_active.svg';
+  static const favoriteTabActive =
+      'assets/images/icons/favorite_tab_active.svg';
   static const menuTab = 'assets/images/icons/menu_tab.svg';
   static const menuTabActive = 'assets/images/icons/menu_tab_active.svg';
   // icons
@@ -53,4 +54,6 @@ class AppImages {
   //
   static const auth = 'assets/images/auth/auth.svg';
   static const googleIcon = 'assets/images/auth/google.svg';
+  static const vkIcon = 'assets/images/auth/vk.svg';
+  static const appleIcon = 'assets/images/auth/apple.svg';
 }

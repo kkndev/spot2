@@ -1,1 +1,1 @@
-export 'main_button.dart';
+export 'primary_button.dart';

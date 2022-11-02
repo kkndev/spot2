@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:spot2/core/presentation/components/text_input.dart';
+import 'package:spot2/features/auth/google_auth.dart';
 
 import '../../features/auth/apple_auth.dart';
 import '/features/auth/vk_auth.dart';
@@ -44,9 +45,13 @@ class _SplashScreenState extends State<SplashScreen> {
                 onPressed: vkAuth,
                 child: Text('vkAuth'),
               ),
-               ElevatedButton(
+              const ElevatedButton(
                 onPressed: authApple,
-                child: Text('vkAuth'),
+                child: Text('authApple'),
+              ),
+              const ElevatedButton(
+                onPressed: authGoogle,
+                child: Text('authGoogle'),
               ),
             ],
           ),
