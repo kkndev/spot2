@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "296887782739-n9tn3b2j9ffr6i2p7pal7uqgk6lbj2nv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kkndev.spot2",
+            "certificate_hash": "7f0f69c82d28601d897d644d2db1f9f76f403d1a"
+          }
+        },
+        {
           "client_id": "296887782739-mikqdt87unpnh3616nmegsueub4ceaek.apps.googleusercontent.com",
           "client_type": 3
         }
