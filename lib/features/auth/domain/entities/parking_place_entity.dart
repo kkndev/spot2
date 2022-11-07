@@ -7,7 +7,7 @@ class ParkingPlaceEntity extends Equatable {
   final int cameraId;
   final double latitude;
   final double longitude;
-  final int angle;
+  final double angle;
   final String status;
 
   const ParkingPlaceEntity({
