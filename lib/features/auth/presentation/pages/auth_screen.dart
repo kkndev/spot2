@@ -81,22 +81,6 @@ class AuthPage extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
-              BlocBuilder<AuthBloc, AuthState>(builder: (_, state) {
-                return state.requestStatus.when(
-                  loading: () => const CircularProgressIndicator(),
-                  success: (data) => Text(data),
-                  failure: (error) => Text(error.toString()),
-                  init: () => const SizedBox(),
-                );
-              }),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text('authApple'),
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text('authGoogle'),
-              ),
             ],
           ),
         ),

@@ -1,5 +1,7 @@
 import 'package:dartz/dartz.dart';
+import 'package:spot2/features/auth/domain/entities/parking_place_entity.dart';
 import 'package:spot2/features/auth/domain/entities/user_tokens.dart';
+import 'package:spot2/features/map/domain/entities/parking_entity.dart';
 
 import '../../domain/repositories/auth_repository.dart';
 import '../datasources/auth_remote_data_source.dart';
@@ -52,6 +54,27 @@ class AuthRepositoryImpl implements AuthRepository {
       String phone, String code) async {
     try {
       final result = await remoteDataSource.sendCodeFromPhone(phone, code);
+      return Right(result);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<ParkingEntity>>> getParkingItems(
+      String code) async {
+    try {
+      final result = await remoteDataSource.getParkingItems(code);
+      return Right(result);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+  @override
+  Future<Either<Failure, List<ParkingPlaceEntity>>> getParkingPlaces(
+      String code, int id) async {
+    try {
+      final result = await remoteDataSource.getParkingPlaces(code, id);
       return Right(result);
     } on ServerException {
       return Left(ServerFailure());

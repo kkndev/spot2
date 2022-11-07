@@ -22,6 +22,10 @@ mixin _$AuthState {
   String get userMasterToken => throw _privateConstructorUsedError;
   String get userMasterRefreshToken => throw _privateConstructorUsedError;
   String get userSpotToken => throw _privateConstructorUsedError;
+  List<ParkingEntity> get parkingEntityList =>
+      throw _privateConstructorUsedError;
+  List<ParkingPlaceEntity> get parkingPlaceEntityList =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AuthStateCopyWith<AuthState> get copyWith =>
@@ -39,7 +43,9 @@ abstract class $AuthStateCopyWith<$Res> {
       String phoneOrEmail,
       String userMasterToken,
       String userMasterRefreshToken,
-      String userSpotToken});
+      String userSpotToken,
+      List<ParkingEntity> parkingEntityList,
+      List<ParkingPlaceEntity> parkingPlaceEntityList});
 
   $RequestStatusCopyWith<String, $Res> get requestStatus;
 }
@@ -63,6 +69,8 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
     Object? userMasterToken = null,
     Object? userMasterRefreshToken = null,
     Object? userSpotToken = null,
+    Object? parkingEntityList = null,
+    Object? parkingPlaceEntityList = null,
   }) {
     return _then(_value.copyWith(
       requestStatus: null == requestStatus
@@ -89,6 +97,14 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
           ? _value.userSpotToken
           : userSpotToken // ignore: cast_nullable_to_non_nullable
               as String,
+      parkingEntityList: null == parkingEntityList
+          ? _value.parkingEntityList
+          : parkingEntityList // ignore: cast_nullable_to_non_nullable
+              as List<ParkingEntity>,
+      parkingPlaceEntityList: null == parkingPlaceEntityList
+          ? _value.parkingPlaceEntityList
+          : parkingPlaceEntityList // ignore: cast_nullable_to_non_nullable
+              as List<ParkingPlaceEntity>,
     ) as $Val);
   }
 
@@ -114,7 +130,9 @@ abstract class _$$_AuthStateCopyWith<$Res> implements $AuthStateCopyWith<$Res> {
       String phoneOrEmail,
       String userMasterToken,
       String userMasterRefreshToken,
-      String userSpotToken});
+      String userSpotToken,
+      List<ParkingEntity> parkingEntityList,
+      List<ParkingPlaceEntity> parkingPlaceEntityList});
 
   @override
   $RequestStatusCopyWith<String, $Res> get requestStatus;
@@ -137,6 +155,8 @@ class __$$_AuthStateCopyWithImpl<$Res>
     Object? userMasterToken = null,
     Object? userMasterRefreshToken = null,
     Object? userSpotToken = null,
+    Object? parkingEntityList = null,
+    Object? parkingPlaceEntityList = null,
   }) {
     return _then(_$_AuthState(
       null == requestStatus
@@ -163,6 +183,14 @@ class __$$_AuthStateCopyWithImpl<$Res>
           ? _value.userSpotToken
           : userSpotToken // ignore: cast_nullable_to_non_nullable
               as String,
+      null == parkingEntityList
+          ? _value._parkingEntityList
+          : parkingEntityList // ignore: cast_nullable_to_non_nullable
+              as List<ParkingEntity>,
+      null == parkingPlaceEntityList
+          ? _value._parkingPlaceEntityList
+          : parkingPlaceEntityList // ignore: cast_nullable_to_non_nullable
+              as List<ParkingPlaceEntity>,
     ));
   }
 }
@@ -176,7 +204,11 @@ class _$_AuthState implements _AuthState {
       this.phoneOrEmail = '',
       this.userMasterToken = '',
       this.userMasterRefreshToken = '',
-      this.userSpotToken = '']);
+      this.userSpotToken = '',
+      final List<ParkingEntity> parkingEntityList = const [],
+      final List<ParkingPlaceEntity> parkingPlaceEntityList = const []])
+      : _parkingEntityList = parkingEntityList,
+        _parkingPlaceEntityList = parkingPlaceEntityList;
 
   @override
   @JsonKey()
@@ -196,10 +228,25 @@ class _$_AuthState implements _AuthState {
   @override
   @JsonKey()
   final String userSpotToken;
+  final List<ParkingEntity> _parkingEntityList;
+  @override
+  @JsonKey()
+  List<ParkingEntity> get parkingEntityList {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_parkingEntityList);
+  }
+
+  final List<ParkingPlaceEntity> _parkingPlaceEntityList;
+  @override
+  @JsonKey()
+  List<ParkingPlaceEntity> get parkingPlaceEntityList {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_parkingPlaceEntityList);
+  }
 
   @override
   String toString() {
-    return 'AuthState(requestStatus: $requestStatus, result: $result, phoneOrEmail: $phoneOrEmail, userMasterToken: $userMasterToken, userMasterRefreshToken: $userMasterRefreshToken, userSpotToken: $userSpotToken)';
+    return 'AuthState(requestStatus: $requestStatus, result: $result, phoneOrEmail: $phoneOrEmail, userMasterToken: $userMasterToken, userMasterRefreshToken: $userMasterRefreshToken, userSpotToken: $userSpotToken, parkingEntityList: $parkingEntityList, parkingPlaceEntityList: $parkingPlaceEntityList)';
   }
 
   @override
@@ -217,12 +264,24 @@ class _$_AuthState implements _AuthState {
             (identical(other.userMasterRefreshToken, userMasterRefreshToken) ||
                 other.userMasterRefreshToken == userMasterRefreshToken) &&
             (identical(other.userSpotToken, userSpotToken) ||
-                other.userSpotToken == userSpotToken));
+                other.userSpotToken == userSpotToken) &&
+            const DeepCollectionEquality()
+                .equals(other._parkingEntityList, _parkingEntityList) &&
+            const DeepCollectionEquality().equals(
+                other._parkingPlaceEntityList, _parkingPlaceEntityList));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, requestStatus, result,
-      phoneOrEmail, userMasterToken, userMasterRefreshToken, userSpotToken);
+  int get hashCode => Object.hash(
+      runtimeType,
+      requestStatus,
+      result,
+      phoneOrEmail,
+      userMasterToken,
+      userMasterRefreshToken,
+      userSpotToken,
+      const DeepCollectionEquality().hash(_parkingEntityList),
+      const DeepCollectionEquality().hash(_parkingPlaceEntityList));
 
   @JsonKey(ignore: true)
   @override
@@ -238,7 +297,9 @@ abstract class _AuthState implements AuthState {
       final String phoneOrEmail,
       final String userMasterToken,
       final String userMasterRefreshToken,
-      final String userSpotToken]) = _$_AuthState;
+      final String userSpotToken,
+      final List<ParkingEntity> parkingEntityList,
+      final List<ParkingPlaceEntity> parkingPlaceEntityList]) = _$_AuthState;
 
   @override
   RequestStatus<String> get requestStatus;
@@ -252,6 +313,10 @@ abstract class _AuthState implements AuthState {
   String get userMasterRefreshToken;
   @override
   String get userSpotToken;
+  @override
+  List<ParkingEntity> get parkingEntityList;
+  @override
+  List<ParkingPlaceEntity> get parkingPlaceEntityList;
   @override
   @JsonKey(ignore: true)
   _$$_AuthStateCopyWith<_$_AuthState> get copyWith =>

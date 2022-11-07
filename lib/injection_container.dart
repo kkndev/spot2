@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spot2/features/auth/data/repositories/auth_repository_impl.dart';
+import 'package:spot2/features/auth/domain/usecases/get_parking_items.dart';
+import 'package:spot2/features/auth/domain/usecases/get_parking_places.dart';
 import 'package:spot2/features/auth/domain/usecases/send_code_from_email.dart';
 import 'package:spot2/features/auth/domain/usecases/send_code_from_phone.dart';
 
@@ -36,6 +38,8 @@ Future<void> init() async {
       getCodeByPhone: sl(),
       sendCodeFromEmail: sl(),
       sendCodeFromPhone: sl(),
+      getParkingItems: sl(),
+      getParkingPlaces: sl(),
     ),
   );
 
@@ -46,6 +50,8 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetCodeByPhone(sl()));
   sl.registerLazySingleton(() => SendCodeFromEmail(sl()));
   sl.registerLazySingleton(() => SendCodeFromPhone(sl()));
+  sl.registerLazySingleton(() => GetParkingItems(sl()));
+  sl.registerLazySingleton(() => GetParkingPlaces(sl()));
 
   // Repository
   sl.registerLazySingleton<PersonRepository>(

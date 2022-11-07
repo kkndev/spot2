@@ -43,7 +43,7 @@ class _EnterNamePageState extends State<EnterNamePage> {
                     ),
                     PrimaryButton(
                       label: 'войти',
-                      onTap: () => context.router.pushNamed('sendCode'),
+                      onTap: () => context.router.pushNamed('map'),
                     ),
                     Text(context.watch<AuthBloc>().state.userMasterToken),
                     Text(

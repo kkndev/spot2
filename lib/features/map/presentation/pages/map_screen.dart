@@ -1,9 +1,8 @@
-import 'dart:convert';
-import 'dart:developer';
+import 'dart:math';
 import 'package:dgis_flutter/dgis_flutter.dart';
 import 'package:flutter/material.dart';
-
-import '/helpers/image_util.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spot2/features/auth/presentation/bloc/auth/auth.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({Key? key}) : super(key: key);
@@ -25,44 +24,67 @@ class _MapPageState extends State<MapPage> {
     super.initState();
   }
 
-  void updateIcons(context) async {
-    String data =
-        await DefaultAssetBundle.of(context).loadString("assets/data.json");
-    final jsonResult = jsonDecode(data); //latest Dart
-    var items =
-        jsonResult['action_result']['data']['parking_places'] as List<dynamic>;
+  openPlaces(parkingPlaceEntityList) async {
     List<GisMapMarker> items2 = [];
-    for (var element in items) {
+    for (var element in parkingPlaceEntityList) {
       items2.add(
         GisMapMarker(
-          latitude: double.parse(element['longitude']) + 0.00002443,
-          longitude: double.parse(element['latitude']) - 0.00006470,
-          angle: double.parse(element['angle']),
+          // latitude: element.longitude + 0.00002443,
+          latitude: element.longitude,
+          longitude: element.latitude,
+          // longitude: element.latitude - 0.00006470,
+          angle: element.angle,
           zIndex: 0,
-          id: element['id'].toString(),
-          status: element['status'],
+          id: element.id.toString(),
+          status: element.status,
         ),
       );
     }
-    print(items);
-
-    await controller.updateMarkers(items2);
+    print(items2[0].angle);
+    await controller.setCameraPosition(
+      latitude: parkingPlaceEntityList[4].longitude,
+      longitude: parkingPlaceEntityList[4].latitude,
+      zoom: 19,
+      duration: 300,
+    );
+    controller.updateMarkers(items2);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: ButtonMapWidget(
-          list: list,
-          controller: controller,
-          child: FutureBuilder<List<GisMapMarker>>(
-            future: icons,
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) return const SizedBox();
-              list = snapshot.data!;
+      body: BlocConsumer<AuthBloc, AuthState>(listenWhen: (prev, next) {
+        return prev.parkingPlaceEntityList.length !=
+            next.parkingPlaceEntityList.length;
+      }, listener: (_, state) {
+        openPlaces(state.parkingPlaceEntityList);
+      }, builder: (_, state) {
+        return SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: ButtonMapWidget(
+            list: list,
+            controller: controller,
+            child: BlocConsumer<AuthBloc, AuthState>(listenWhen: (prev, next) {
+              return prev.phoneOrEmail == next.phoneOrEmail;
+            }, listener: (_, state) {
+              List<GisMapMarker> items2 = [];
+              for (var element in state.parkingEntityList) {
+                items2.add(
+                  GisMapMarker(
+                    // latitude: element.latitude + 0.00002443,
+                    latitude: element.latitude,
+                    longitude: element.longitude,
+                    // longitude: element.longitude - 0.00006470,
+                    angle: 0,
+                    zIndex: 0,
+                    id: element.id.toString(),
+                    status: 'status',
+                  ),
+                );
+              }
+              controller.updateMarkers(items2);
+            }, builder: (_, state) {
               return GisMap(
                 directoryKey: 'rubyqf9316',
                 mapKey: 'b7272230-6bc3-47e9-b24b-0eba73b12fe1',
@@ -71,26 +93,21 @@ class _MapPageState extends State<MapPage> {
                 onTapMarker: (marker) async {
                   // ignore: avoid_print
                   print(marker);
-                  await controller.setCameraPosition(
-                    latitude: marker.latitude,
-                    longitude: marker.longitude,
-                    zoom: 19,
-                    duration: 300,
-                  );
-                  updateIcons(context);
+                  context.read<AuthBloc>().add(GetParkingPlacesEvent(
+                      code: 'code', id: int.parse(marker.id)));
                 },
                 startCameraPosition: const GisCameraPosition(
-                  latitude: 52.29778,
-                  longitude: 104.29639,
+                  latitude: 56.455114546767,
+                  longitude: 84.985119293168,
                   bearing: 85.0,
                   tilt: 25.0,
                   zoom: 14.0,
                 ),
               );
-            },
+            }),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }
@@ -107,77 +124,26 @@ class ButtonMapWidget extends StatelessWidget {
     required this.list,
   }) : super(key: key);
 
-  void updateIcons(context) async {
-    String data =
-        await DefaultAssetBundle.of(context).loadString("assets/data.json");
-    final jsonResult = jsonDecode(data); //latest Dart
-    var items =
-        jsonResult['action_result']['data']['parking_places'] as List<dynamic>;
-    List<GisMapMarker> items2 = [];
-    for (var element in items) {
-      items2.add(
-        GisMapMarker(
-          latitude: double.parse(element['longitude']) + 0.00002443,
-          longitude: double.parse(element['latitude']) - 0.00006470,
-          angle: double.parse(element['angle']),
-          zIndex: 0,
-          id: element['id'].toString(),
-          status: element['status'],
-        ),
-      );
-    }
-    print(items);
-
-    await controller.updateMarkers(items2);
-  }
-
-  void updateIcons2(context) async {
-    String data =
-        await DefaultAssetBundle.of(context).loadString("assets/data2.json");
-    final jsonResult = jsonDecode(data); //latest Dart
-    var items = jsonResult['action_result']['data']['items'] as List<dynamic>;
-    List<GisMapMarker> items2 = [];
-    for (var element in items) {
-      items2.add(
-        GisMapMarker(
-          latitude: double.parse(element['longitude']) + 0.00002443,
-          longitude: double.parse(element['latitude']) - 0.00006470,
-          angle: 0,
-          zIndex: 0,
-          id: element['id'].toString(),
-          status: 'status',
-        ),
-      );
-    }
-    print(items);
-
-    await controller.updateMarkers(items2);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         child,
         Align(
-            alignment: Alignment.bottomCenter,
+            alignment: Alignment.centerRight,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 FloatingActionButton(
                   child: const Icon(Icons.gps_fixed),
                   onPressed: () async {
-                    final status = await controller.setCameraPosition(
-                        latitude: 56.455114546767, longitude: 84.985119293168);
-                    log(status);
+                    context
+                        .read<AuthBloc>()
+                        .add(GetParkingItemsEvent(code: 'code'));
+                    context.read<AuthBloc>().add(UpdatePhoneOrEmail(
+                        newPhoneOrEmail: Random().toString()));
                   },
                 ),
-                FloatingActionButton(
-                    child: const Icon(Icons.add),
-                    onPressed: () => updateIcons(context)),
-                FloatingActionButton(
-                    child: const Icon(Icons.add),
-                    onPressed: () => updateIcons2(context)),
               ],
             )),
       ],

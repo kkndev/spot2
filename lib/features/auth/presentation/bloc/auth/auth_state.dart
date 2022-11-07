@@ -1,4 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:spot2/features/auth/domain/entities/parking_place_entity.dart';
+import 'package:spot2/features/map/domain/entities/parking_entity.dart';
 
 import '/core/data/dto/request_status/request_status.dart';
 
@@ -13,6 +15,7 @@ class AuthState with _$AuthState {
     @Default('') String userMasterToken,
     @Default('') String userMasterRefreshToken,
     @Default('') String userSpotToken,
-    @Default('') List<Parking> userSpotToken,
+    @Default([]) List<ParkingEntity> parkingEntityList,
+    @Default([]) List<ParkingPlaceEntity> parkingPlaceEntityList,
   ]) = _AuthState;
 }

@@ -47,3 +47,9 @@ class GetParkingItemsEvent extends AuthEvent {
   GetParkingItemsEvent({required this.code});
   final String code;
 }
+
+class GetParkingPlacesEvent extends AuthEvent {
+  GetParkingPlacesEvent({required this.code, required this.id});
+  final String code;
+  final int id;
+}

@@ -1,4 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spot2/features/auth/domain/usecases/get_parking_items.dart';
+import 'package:spot2/features/auth/domain/usecases/get_parking_places.dart';
 import 'package:spot2/features/auth/domain/usecases/send_code_from_email.dart';
 import 'package:spot2/features/auth/domain/usecases/send_code_from_phone.dart';
 
@@ -13,12 +15,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final GetCodeByPhone getCodeByPhone;
   final SendCodeFromEmail sendCodeFromEmail;
   final SendCodeFromPhone sendCodeFromPhone;
+  final GetParkingItems getParkingItems;
+  final GetParkingPlaces getParkingPlaces;
 
   AuthBloc({
     required this.getCodeByEmail,
     required this.getCodeByPhone,
     required this.sendCodeFromEmail,
     required this.sendCodeFromPhone,
+    required this.getParkingItems,
+    required this.getParkingPlaces,
   }) : super(AuthState()) {
     on<InitAuth>((event, emit) {});
     on<Update>((event, emit) {
@@ -124,6 +130,52 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             userMasterToken: result.userMasterToken,
             userMasterRefreshToken: result.userMasterRefreshToken,
             userSpotToken: result.userSpotToken,
+          ),
+        ),
+      );
+    });
+    on<GetParkingItemsEvent>((event, emit) async {
+      emit(
+        state.copyWith(
+          requestStatus: const RequestStatus.loading(),
+        ),
+      );
+      var result = await getParkingItems(GetParkingItemsParams(
+        code: state.userSpotToken,
+      ));
+      result.fold(
+        (error) => emit(
+          state.copyWith(
+            requestStatus: RequestStatus.failure(error: error),
+          ),
+        ),
+        (result) => emit(
+          state.copyWith(
+            requestStatus: RequestStatus.success(data: 'result'),
+            parkingEntityList: result,
+          ),
+        ),
+      );
+    });
+    on<GetParkingPlacesEvent>((event, emit) async {
+      emit(
+        state.copyWith(
+          requestStatus: const RequestStatus.loading(),
+        ),
+      );
+      var result = await getParkingPlaces(GetParkingPlacesParams(
+        code: state.userSpotToken, id: event.id
+      ));
+      result.fold(
+        (error) => emit(
+          state.copyWith(
+            requestStatus: RequestStatus.failure(error: error),
+          ),
+        ),
+        (result) => emit(
+          state.copyWith(
+            requestStatus: RequestStatus.success(data: 'result'),
+            parkingPlaceEntityList: result,
           ),
         ),
       );
