@@ -40,6 +40,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       emit(
         state.copyWith(
           activatePromoCodeRequestStatus: const RequestStatus.loading(),
+          activatePromoCodeResult: '',
         ),
       );
       var result = await activatePromoCodeUsecase(
