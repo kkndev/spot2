@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:spot2/features/auth/data/datasources/auth_remote_data_source.dart';
 
+import 'features/user/domain/usecases/activate_promo_code_usecase.dart';
 import 'features/auth/data/repositories/auth_repository_impl.dart';
 import 'features/auth/domain/usecases/get_parking_items.dart';
 import 'features/auth/domain/usecases/get_parking_places.dart';
@@ -47,6 +49,7 @@ Future<void> init() async {
   sl.registerFactory(
     () => UserBloc(
       getUserUsecase: sl(),
+      activatePromoCodeUsecase: sl(),
     ),
   );
 
@@ -60,6 +63,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetParkingItems(sl()));
   sl.registerLazySingleton(() => GetParkingPlaces(sl()));
   sl.registerLazySingleton(() => GetUserUsecase(sl()));
+  sl.registerLazySingleton(() => ActivatePromoCodeUsecase(sl()));
 
   // Repository
   sl.registerLazySingleton<UserRepository>(
@@ -74,6 +78,11 @@ Future<void> init() async {
     ),
   );
 
+  sl.registerLazySingleton<AuthRemoteDataSource>(
+    () => AuthRemoteDataSourceImpl(
+      client: sl(),
+    ),
+  );
   sl.registerLazySingleton<PersonRemoteDataSource>(
     () => PersonRemoteDataSourceImpl(
       client: sl(),

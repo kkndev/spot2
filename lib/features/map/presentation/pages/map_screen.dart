@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:auto_route/auto_route.dart';
 import 'package:dgis_flutter/dgis_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -143,6 +144,10 @@ class ButtonMapWidget extends StatelessWidget {
                     context.read<AuthBloc>().add(UpdatePhoneOrEmail(
                         newPhoneOrEmail: Random().toString()));
                   },
+                ),
+                FloatingActionButton(
+                  child: const Icon(Icons.menu),
+                  onPressed: () => context.router.pushNamed('menu'),
                 ),
               ],
             )),

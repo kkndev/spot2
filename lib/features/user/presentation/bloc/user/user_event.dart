@@ -11,3 +11,7 @@ class ActivatePromoCodeEvent extends UserEvent {
   ActivatePromoCodeEvent({required this.promoCode});
   final String promoCode;
 }
+
+class ClearPromoCodeEvent extends UserEvent {
+  ClearPromoCodeEvent();
+}

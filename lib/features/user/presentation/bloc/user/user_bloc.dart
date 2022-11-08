@@ -58,5 +58,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         ),
       );
     });
+    on<ClearPromoCodeEvent>((event, emit) async {
+      emit(
+        state.copyWith(
+          activatePromoCodeResult: '',
+        ),
+      );
+    });
   }
 }

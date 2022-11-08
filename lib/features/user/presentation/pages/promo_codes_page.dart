@@ -1,6 +1,7 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '/features/user/presentation/bloc/user/user.dart';
 import '/core/presentation/components/components.dart';
 
 class PromoCodesPage extends StatefulWidget {
@@ -11,12 +12,41 @@ class PromoCodesPage extends StatefulWidget {
 }
 
 class _PromoCodesPageState extends State<PromoCodesPage> {
-  late final TextEditingController promoCodeController;
+  final TextEditingController promoCodeController = TextEditingController();
+  bool isDisabled = true;
 
   @override
   void initState() {
-    promoCodeController = TextEditingController();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    promoCodeController.dispose();
+    super.dispose();
+  }
+
+  onChanged(String newText) {
+    print(newText);
+    context.read<UserBloc>().add(ClearPromoCodeEvent());
+    if (newText == '') {
+      setState(() {
+        isDisabled = true;
+      });
+    } else {
+      setState(() {
+        isDisabled = false;
+      });
+    }
+  }
+
+  onClear() {
+    promoCodeController.clear();
+    setState(() {
+      isDisabled = true;
+    });
+    context.read<UserBloc>().add(ClearPromoCodeEvent());
+
   }
 
   @override
@@ -34,15 +64,26 @@ class _PromoCodesPageState extends State<PromoCodesPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Column(
                   children: [
-                    TextInput(controller: promoCodeController),
+                    TextInput(
+                      onClear: onClear,
+                      onChanged: onChanged,
+                      controller: promoCodeController,
+                      errorText: context
+                          .watch<UserBloc>()
+                          .state
+                          .activatePromoCodeResult,
+                    ),
                     const SizedBox(
                       height: 36,
                     ),
                     PrimaryButton(
-                      // isDisabled: promoCodeController.value.text == '',
+                      isDisabled: isDisabled,
                       label: 'активировать',
-                      // onTap: () => context.router.pushNamed('getCode'),
-                      onTap: () => context.router.pushNamed('menu'),
+                      onTap: () => context.read<UserBloc>().add(
+                            ActivatePromoCodeEvent(
+                                promoCode: promoCodeController.text),
+                          ),
+                      // onTap: () => context.router.pushNamed('menu'),
                     ),
                   ],
                 ),

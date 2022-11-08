@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rive/rive.dart';
 
 import '/extensions/app_colors.dart';
@@ -9,7 +8,6 @@ import '/features/auth/presentation/widgets/vk_icon_button.dart';
 import '../widgets/google_icon_button.dart';
 import '/core/presentation/components/components.dart';
 import '/extensions/app_text_styles.dart';
-import '/features/auth/presentation/bloc/auth/auth.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({Key? key}) : super(key: key);
@@ -41,8 +39,8 @@ class AuthPage extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: PrimaryButton(
                   label: 'Вход и регистрация',
-                  // onTap: () => context.router.pushNamed('getCode'),
-                  onTap: () => context.router.pushNamed('menu'),
+                  onTap: () => context.router.pushNamed('getCode'),
+                  // onTap: () => context.router.pushNamed('menu'),
                 ),
               ),
               Padding(

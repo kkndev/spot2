@@ -25,10 +25,8 @@ class _PrimaryButtonState extends State<PrimaryButton>
   late Animation _animationColorDisable;
   late AnimationController _controller;
   late AnimationController _controllerDisable;
-  late bool isDisabled;
   @override
   void initState() {
-    isDisabled = widget.isDisabled;
     super.initState();
   }
 
@@ -63,6 +61,9 @@ class _PrimaryButtonState extends State<PrimaryButton>
       ..addListener(() {
         setState(() {});
       });
+    if (widget.isDisabled) {
+      _controllerDisable.forward();
+    }
     super.didChangeDependencies();
   }
 
@@ -102,8 +103,7 @@ class _PrimaryButtonState extends State<PrimaryButton>
             ),
           ],
           borderRadius: const BorderRadius.all(Radius.circular(8)),
-          color:
-              isDisabled ? _animationColorDisable.value : _animationColor.value,
+          color: _animationColorDisable.value,
         ),
         child: Text(
           widget.label.toUpperCase(),

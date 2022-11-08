@@ -22,4 +22,14 @@ class UserRepositoryImpl implements UserRepository {
       return Left(ServerFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, String>>activatePromoCode (String promoCode) async {
+    try {
+      final result = await remoteDataSource.activatePromoCode(promoCode);
+      return Right(result);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
 }
