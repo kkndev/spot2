@@ -59,6 +59,7 @@ dependencies:
   dgis_flutter:
 #    git: https://github.com/munificent/kittens.git
     path: ./2gis
+  url_launcher: ^6.1.6
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,26 +1,28 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:spot2/features/auth/data/repositories/auth_repository_impl.dart';
-import 'package:spot2/features/auth/domain/usecases/get_parking_items.dart';
-import 'package:spot2/features/auth/domain/usecases/get_parking_places.dart';
-import 'package:spot2/features/auth/domain/usecases/send_code_from_email.dart';
-import 'package:spot2/features/auth/domain/usecases/send_code_from_phone.dart';
 
+import 'features/auth/data/repositories/auth_repository_impl.dart';
+import 'features/auth/domain/usecases/get_parking_items.dart';
+import 'features/auth/domain/usecases/get_parking_places.dart';
+import 'features/auth/domain/usecases/send_code_from_email.dart';
+import 'features/auth/domain/usecases/send_code_from_phone.dart';
+import 'features/user/data/datasources/user_remote_data_source.dart';
+import 'features/user/data/repositories/user_repository_impl.dart';
+import 'features/user/domain/usecases/get_user_usecase.dart';
 import 'core/platform/network_info.dart';
-import 'features/auth/data/datasources/auth_remote_data_source.dart';
 import 'features/auth/domain/repositories/auth_repository.dart';
 import 'features/auth/domain/usecases/get_code_by_email.dart';
 import 'features/auth/domain/usecases/get_code_by_phone.dart';
 import 'features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'features/characters/data/datasources/person_local_data_source.dart';
 import 'features/characters/data/datasources/person_remote_data_source.dart';
-import 'features/characters/domain/repositories/person_repository.dart';
-import 'features/characters/data/repositories/person_repository_impl.dart';
 import 'features/characters/domain/usecases/get_all_persons.dart';
 import 'features/characters/domain/usecases/search_person.dart';
 import 'features/characters/presentation/bloc/person_list_cubit/person_list_cubit.dart';
 import 'features/characters/presentation/bloc/search_bloc/search_bloc.dart';
+import 'features/user/domain/repositories/user_repository.dart';
+import 'features/user/presentation/bloc/user/user_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -42,6 +44,11 @@ Future<void> init() async {
       getParkingPlaces: sl(),
     ),
   );
+  sl.registerFactory(
+    () => UserBloc(
+      getUserUsecase: sl(),
+    ),
+  );
 
   // UseCases
   sl.registerLazySingleton(() => GetAllPersons(sl()));
@@ -52,13 +59,12 @@ Future<void> init() async {
   sl.registerLazySingleton(() => SendCodeFromPhone(sl()));
   sl.registerLazySingleton(() => GetParkingItems(sl()));
   sl.registerLazySingleton(() => GetParkingPlaces(sl()));
+  sl.registerLazySingleton(() => GetUserUsecase(sl()));
 
   // Repository
-  sl.registerLazySingleton<PersonRepository>(
-    () => PersonRepositoryImpl(
+  sl.registerLazySingleton<UserRepository>(
+    () => UserRepositoryImpl(
       remoteDataSource: sl(),
-      localDataSource: sl(),
-      networkInfo: sl(),
     ),
   );
   sl.registerLazySingleton<AuthRepository>(
@@ -74,8 +80,8 @@ Future<void> init() async {
     ),
   );
 
-  sl.registerLazySingleton<AuthRemoteDataSource>(
-    () => AuthRemoteDataSourceImpl(
+  sl.registerLazySingleton<UserRemoteDataSource>(
+    () => UserRemoteDataSourceImpl(
       client: sl(),
     ),
   );

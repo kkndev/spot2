@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '/core/presentation/components/header.dart';
-import '/core/presentation/components/text_input.dart';
 import '/extensions/app_colors.dart';
 import '/core/presentation/components/components.dart';
 import '/extensions/app_text_styles.dart';

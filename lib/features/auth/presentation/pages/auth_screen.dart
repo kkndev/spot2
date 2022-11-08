@@ -41,7 +41,8 @@ class AuthPage extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: PrimaryButton(
                   label: 'Вход и регистрация',
-                  onTap: () => context.router.pushNamed('getCode'),
+                  // onTap: () => context.router.pushNamed('getCode'),
+                  onTap: () => context.router.pushNamed('menu'),
                 ),
               ),
               Padding(

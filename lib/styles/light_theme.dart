@@ -59,7 +59,8 @@ ThemeData lightTheme = ThemeData(
         color: AppColorsPalette.textPrimary,
         fontSize: 16,
         height: 1.25,
-        fontWeight: FontWeight.w500,
+        letterSpacing: 0.15,
+        fontWeight: FontWeight.w400,
         fontFamily: 'Ubuntu',
       ),
       subtitle2: TextStyle(
