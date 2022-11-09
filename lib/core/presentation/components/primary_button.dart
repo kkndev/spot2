@@ -99,7 +99,7 @@ class _PrimaryButtonState extends State<PrimaryButton>
             BoxShadow(
               color: Color.fromRGBO(102, 109, 142, 0.26),
               blurRadius: 16,
-              offset: Offset(0, 8), // changes position of shadow
+              offset: Offset(0, 8),
             ),
           ],
           borderRadius: const BorderRadius.all(Radius.circular(8)),

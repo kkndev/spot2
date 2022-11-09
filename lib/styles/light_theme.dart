@@ -96,6 +96,7 @@ ThemeData lightTheme = ThemeData(
         color: AppColorsPalette.textPrimary,
         fontSize: 12,
         height: 1.33,
+        letterSpacing: 0.1,
         fontWeight: FontWeight.w400,
         fontFamily: 'Montserrat',
       ),

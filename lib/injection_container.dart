@@ -1,8 +1,8 @@
-import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:spot2/features/auth/data/datasources/auth_remote_data_source.dart';
 
+import '/core/data/data_source/dio_client.dart';
+import '/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'features/user/domain/usecases/activate_promo_code_usecase.dart';
 import 'features/auth/data/repositories/auth_repository_impl.dart';
 import 'features/auth/domain/usecases/get_parking_items.dart';
@@ -107,6 +107,6 @@ Future<void> init() async {
   // External
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPreferences);
-  sl.registerLazySingleton(() => Dio());
+  sl.registerLazySingleton(() => dio);
   // sl.registerLazySingleton(() => InternetConnectionChecker());
 }
