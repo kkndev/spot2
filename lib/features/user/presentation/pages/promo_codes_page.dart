@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:spot2/core/presentation/components/error_toast.dart';
 
-import '/consts/app_images.dart';
-import '/extensions/extensions.dart';
 import '/features/user/presentation/bloc/user/user.dart';
 import '/core/presentation/components/components.dart';
 
@@ -41,44 +39,10 @@ class _PromoCodesPageState extends State<PromoCodesPage> {
     promoCodeController.dispose();
   }
 
-  _showToast() {
-    var textStyles = Theme.of(context).extension<AppTextStyles>();
-    var appColors = Theme.of(context).extension<AppColors>();
-    Widget toast = GestureDetector(
-      onTap: ()=>fToast.removeCustomToast(),
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.0),
-          color: appColors?.statusError,
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SvgPicture.asset(
-              AppImages.alertCheck,
-              color: appColors?.textPrimaryInverse,
-              width: 16,
-              height: 16,
-            ),
-            const SizedBox(
-              width: 8.0,
-            ),
-            Expanded(
-              child: Text(
-                'Вам стали доступны парковки',
-                style: textStyles?.caption
-                    .copyWith(color: appColors?.textPrimaryInverse, height: 1.5),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-
+  _showToast(String text) {
     fToast.showToast(
-        child: toast,
-        toastDuration: const Duration(seconds: 30),
+        child: ErrorToast(text: text, fToast: fToast),
+        toastDuration: const Duration(seconds: 5),
         positionedToastBuilder: (context, child) {
           return Positioned(
             bottom: 24.0,
@@ -90,7 +54,6 @@ class _PromoCodesPageState extends State<PromoCodesPage> {
   }
 
   onChanged(String newText) {
-    print(newText);
     context.read<UserBloc>().add(ClearPromoCodeEvent());
     if (newText == '') {
       setState(() {
@@ -126,15 +89,13 @@ class _PromoCodesPageState extends State<PromoCodesPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: BlocConsumer<UserBloc, UserState>(
                   listenWhen: (prevState, nextState) {
-                    print(prevState.activatePromoCodeResult);
-                    print(nextState.activatePromoCodeResult);
                     return prevState.activatePromoCodeResult !=
                         nextState.activatePromoCodeResult;
                   },
                   listener: (context, state) {
                     if (state.activatePromoCodeResult ==
                         'Промокод недействителен') {
-                      _showToast();
+                      _showToast('Промокод недействителен');
                     }
                   },
                   builder: (context, state) {
@@ -144,22 +105,21 @@ class _PromoCodesPageState extends State<PromoCodesPage> {
                           onClear: onClear,
                           onChanged: onChanged,
                           controller: promoCodeController,
-                          errorText:state.activatePromoCodeResult,
+                          errorText: state.activatePromoCodeResult,
                         ),
                         const SizedBox(
                           height: 36,
-                        ),PrimaryButton(
-                              isDisabled: isDisabled,
-                              label: 'активировать',
-                              onTap: () {
-                                context.read<UserBloc>().add(
-                                  ActivatePromoCodeEvent(
-                                      promoCode: promoCodeController.text),
-                                );
-                                FocusScope.of(context).unfocus();
-                              }
-                            // onTap: () => context.router.pushNamed('menu'),
-                          ),
+                        ),
+                        PrimaryButton(
+                            isDisabled: isDisabled,
+                            label: 'активировать',
+                            onTap: () {
+                              context.read<UserBloc>().add(
+                                    ActivatePromoCodeEvent(
+                                        promoCode: promoCodeController.text),
+                                  );
+                              FocusScope.of(context).unfocus();
+                            }),
                       ],
                     );
                   },

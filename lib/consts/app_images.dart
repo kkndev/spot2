@@ -9,6 +9,9 @@ class AppImages {
   static const placeUnavailable = 'assets/images/svg/place_unavailable.svg';
   static const placeAvailable = 'assets/images/svg/place_available.svg';
   static const placeError = 'assets/images/svg/place_error.svg';
+  static const placeUnavailablePng = 'assets/images/png/place_unavailable.png';
+  static const placeAvailablePng = 'assets/images/png/place_available.png';
+  static const placeErrorPng = 'assets/images/png/place_error.png';
   static const userCar = 'assets/images/svg/user_car.svg';
   // bottom tab icons
   static const parkingTab = 'assets/images/icons/parking_tab.svg';

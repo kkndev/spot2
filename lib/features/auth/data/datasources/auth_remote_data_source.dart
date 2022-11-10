@@ -149,7 +149,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
             (e) => ParkingEntity(
               id: e['id'],
               address: e['address'],
-              favoriteName: e['favorite_name']??'',
+              favoriteName: e['favorite_name'] ?? '',
               freePlacesCount: e['free_places_count'],
               occupiedPlacesCount: e['occupied_places_count'],
               unknownPlacesCount: e['unknown_places_count'],
@@ -167,8 +167,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
   @override
   Future<List<ParkingPlaceEntity>> getParkingPlaces(String code, int id) async {
+    var box = await Hive.openBox('tokens');
     client.options.headers = {
-      'Authorization': '$code',
+      'Authorization': box.get('userSpotToken'),
       'Content-Type': 'application/json',
     };
     final response =
@@ -181,7 +182,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     });
     if (response.statusCode == 200) {
       final persons = response.data as Map<String, dynamic>;
-      var data = persons['action_result']['data']['parking_places'] as List<dynamic>;
+      var data =
+          persons['action_result']['data']['parking_places'] as List<dynamic>;
 
       return data
           .map(
