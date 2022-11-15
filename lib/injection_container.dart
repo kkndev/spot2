@@ -1,8 +1,17 @@
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:spot2/features/favorite_parking/data/data_source/favorite_parking_remote_data_source_interface.dart';
+import 'package:spot2/features/favorite_parking/data/data_source/favorite_parking_remote_data_source_mock.dart';
+import 'package:spot2/features/favorite_parking/data/repository/favorite_parking_repository_impl.dart';
+import 'package:spot2/features/favorite_parking/domain/repository/favorite_parking_repository.dart';
+import 'package:spot2/features/favorite_parking/presentation/bloc/favorite_parking/favorite_parking.dart';
 
 import '/core/data/data_source/dio_client.dart';
 import '/features/auth/data/datasources/auth_remote_data_source.dart';
+import 'features/favorite_parking/domain/usecase/create_favorite_parking_usecase.dart';
+import 'features/favorite_parking/domain/usecase/delete_favorite_parking_usecase.dart';
+import 'features/favorite_parking/domain/usecase/get_favorite_parking_usecase.dart';
+import 'features/favorite_parking/domain/usecase/update_favorite_parking_usecase.dart';
 import 'features/user/domain/usecases/activate_promo_code_usecase.dart';
 import 'features/auth/data/repositories/auth_repository_impl.dart';
 import 'features/auth/domain/usecases/get_parking_items.dart';
@@ -94,6 +103,31 @@ Future<void> init() async {
       client: sl(),
     ),
   );
+
+  // FavoriteParking feature ---------------------------------------------------
+  sl.registerFactory(
+    () => FavoriteParkingBloc(
+      getFavoriteParkingUsecase: sl(),
+      createFavoriteParkingUsecase: sl(),
+      updateFavoriteParkingUsecase: sl(),
+      deleteFavoriteParkingUsecase: sl(),
+    ),
+  );
+  sl.registerLazySingleton(() => GetFavoriteParkingUsecase(sl()));
+  sl.registerLazySingleton(() => CreateFavoriteParkingUsecase(sl()));
+  sl.registerLazySingleton(() => UpdateFavoriteParkingUsecase(sl()));
+  sl.registerLazySingleton(() => DeleteFavoriteParkingUsecase(sl()));
+  sl.registerLazySingleton<FavoriteParkingRepository>(
+    () => FavoriteParkingRepositoryImpl(
+      remoteDataSource: sl(),
+    ),
+  );
+  sl.registerLazySingleton<FavoriteParkingDataSource>(
+    () => FavoriteParkingDataSourceMock(
+      client: sl(),
+    ),
+  );
+  //----------------------------------------------------------------------------
 
   sl.registerLazySingleton<PersonLocalDataSource>(
     () => PersonLocalDataSourceImpl(sharedPreferences: sl()),
