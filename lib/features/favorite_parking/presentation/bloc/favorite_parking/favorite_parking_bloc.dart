@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/data/dto/request_status/request_status.dart';
+import '../../../domain/entity/request_status/request_status.dart';
 import '../../../domain/usecase/create_favorite_parking_usecase.dart';
 import '../../../domain/usecase/delete_favorite_parking_usecase.dart';
 import '../../../domain/usecase/get_favorite_parking_usecase.dart';

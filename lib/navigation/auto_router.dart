@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 
 import '../features/favorite_parking/presentation/pages/favorite_parkings_page.dart';
+import '../features/free_parking/presentation/pages/free_parkings_page.dart';
 import '/features/user/presentation/pages/information_page.dart';
 import '/features/user/presentation/pages/profile_page.dart';
 import '/features/user/presentation/pages/promo_codes_page.dart';
@@ -37,8 +38,8 @@ class EmptyRouterPage extends AutoRouter {
         AutoRoute(path: 'subscription', page: SubscriptionPage),
         AutoRoute(path: 'promoCodes', page: PromoCodesPage),
         AutoRoute(path: 'information', page: InformationPage),
-        AutoRoute(
-            path: 'favoriteParking', page: FavoriteParkingPage, initial: true),
+        AutoRoute(path: 'favoriteParking', page: FavoriteParkingPage),
+        AutoRoute(path: 'freeParking', page: FreeParkingPage, initial: true),
         // CustomRoute(
         //   durationInMilliseconds: 0,
         //   reverseDurationInMilliseconds: 0,

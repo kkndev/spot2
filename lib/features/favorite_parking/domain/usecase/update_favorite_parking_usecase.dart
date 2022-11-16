@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../../core/data/dto/error/failure.dart';
-import '../../../../core/domain/usecase/usecase.dart';
+import '../entity/failure.dart';
 import '../entity/favorite_parking_entity/favorite_parking_entity.dart';
 import '../repository/favorite_parking_repository.dart';
+import 'usecase.dart';
 
 class UpdateFavoriteParkingUsecase
     extends UseCase<List<FavoriteParkingEntity>, UpdateFavoriteParkingParams> {

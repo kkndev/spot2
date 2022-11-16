@@ -12,6 +12,15 @@ import 'features/favorite_parking/domain/usecase/create_favorite_parking_usecase
 import 'features/favorite_parking/domain/usecase/delete_favorite_parking_usecase.dart';
 import 'features/favorite_parking/domain/usecase/get_favorite_parking_usecase.dart';
 import 'features/favorite_parking/domain/usecase/update_favorite_parking_usecase.dart';
+import 'features/free_parking/data/data_source/free_parking_remote_data_source_interface.dart';
+import 'features/free_parking/data/data_source/free_parking_remote_data_source_mock.dart';
+import 'features/free_parking/data/repository/free_parking_repository_impl.dart';
+import 'features/free_parking/domain/repository/free_parking_repository.dart';
+import 'features/free_parking/domain/usecase/create_free_parking_usecase.dart';
+import 'features/free_parking/domain/usecase/delete_free_parking_usecase.dart';
+import 'features/free_parking/domain/usecase/get_free_parking_usecase.dart';
+import 'features/free_parking/domain/usecase/update_free_parking_usecase.dart';
+import 'features/free_parking/presentation/bloc/free_parking/free_parking_bloc.dart';
 import 'features/user/domain/usecases/activate_promo_code_usecase.dart';
 import 'features/auth/data/repositories/auth_repository_impl.dart';
 import 'features/auth/domain/usecases/get_parking_items.dart';
@@ -124,6 +133,33 @@ Future<void> init() async {
   );
   sl.registerLazySingleton<FavoriteParkingDataSource>(
     () => FavoriteParkingDataSourceMock(
+      // () => FavoriteParkingDataSourceImpl(
+      client: sl(),
+    ),
+  );
+  //----------------------------------------------------------------------------
+
+  // FreeParking feature ---------------------------------------------------
+  sl.registerFactory(
+    () => FreeParkingBloc(
+      getFreeParkingUsecase: sl(),
+      createFreeParkingUsecase: sl(),
+      updateFreeParkingUsecase: sl(),
+      deleteFreeParkingUsecase: sl(),
+    ),
+  );
+  sl.registerLazySingleton(() => GetFreeParkingUsecase(sl()));
+  sl.registerLazySingleton(() => CreateFreeParkingUsecase(sl()));
+  sl.registerLazySingleton(() => UpdateFreeParkingUsecase(sl()));
+  sl.registerLazySingleton(() => DeleteFreeParkingUsecase(sl()));
+  sl.registerLazySingleton<FreeParkingRepository>(
+    () => FreeParkingRepositoryImpl(
+      remoteDataSource: sl(),
+    ),
+  );
+  sl.registerLazySingleton<FreeParkingDataSource>(
+    () => FreeParkingDataSourceMock(
+      // () => FreeParkingDataSourceImpl(
       client: sl(),
     ),
   );
@@ -141,6 +177,7 @@ Future<void> init() async {
   // External
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPreferences);
+  // sl.registerLazySingleton(() => Dio());
   sl.registerLazySingleton(() => dio);
   // sl.registerLazySingleton(() => InternetConnectionChecker());
 }

@@ -35,6 +35,7 @@ class AppImages {
   static const plus = 'assets/images/icons/plus.svg';
   static const route = 'assets/images/icons/route.svg';
   static const search = 'assets/images/icons/search.svg';
+  static const roll = 'assets/images/icons/roll.svg';
   //
   static const alertCheck = 'assets/images/icons/alert_check.svg';
   static const alertError = 'assets/images/icons/alert_error.svg';

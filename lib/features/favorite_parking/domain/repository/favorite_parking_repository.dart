@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/data/dto/error/failure.dart';
+import '../entity/failure.dart';
 import '../entity/favorite_parking_entity/favorite_parking_entity.dart';
 
 abstract class FavoriteParkingRepository {

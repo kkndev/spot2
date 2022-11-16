@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/data/dto/error/exception.dart';
-import '../../../../core/data/dto/error/failure.dart';
+import '../../domain/entity/failure.dart';
 import '../../domain/entity/favorite_parking_entity/favorite_parking_entity.dart';
 import '../../domain/repository/favorite_parking_repository.dart';
 import '../data_source/favorite_parking_remote_data_source_interface.dart';
+import '../models/exception.dart';
 
 class FavoriteParkingRepositoryImpl implements FavoriteParkingRepository {
   final FavoriteParkingDataSource remoteDataSource;
@@ -26,10 +26,13 @@ class FavoriteParkingRepositoryImpl implements FavoriteParkingRepository {
                 parkingId: parking.parkingId,
                 userUid: parking.userUid,
                 isFree: parking.isFree,
+                name: parking.name,
               ))
           .toList());
+    } on UserException catch (e) {
+      return Left(UserFailure(code: e.code, message: e.message));
     } on ServerException {
-      return Left(ServerFailure());
+      return Left(ServerFailure(code: 500, message: 'Server Error'));
     }
   }
 
@@ -51,6 +54,7 @@ class FavoriteParkingRepositoryImpl implements FavoriteParkingRepository {
                 parkingId: parking.parkingId,
                 userUid: parking.userUid,
                 isFree: parking.isFree,
+                name: parking.name,
               ))
           .toList());
     } on ServerException {
@@ -74,6 +78,7 @@ class FavoriteParkingRepositoryImpl implements FavoriteParkingRepository {
                 parkingId: parking.parkingId,
                 userUid: parking.userUid,
                 isFree: parking.isFree,
+                name: parking.name,
               ))
           .toList());
     } on ServerException {

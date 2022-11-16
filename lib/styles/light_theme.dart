@@ -97,7 +97,7 @@ ThemeData lightTheme = ThemeData(
         fontSize: 12,
         height: 1.33,
         letterSpacing: 0.1,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w500,
         fontFamily: 'Montserrat',
       ),
       overline: TextStyle(

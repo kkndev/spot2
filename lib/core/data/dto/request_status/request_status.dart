@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../error/failure.dart';
-import '/core/data/dto/error/error_api.dart';
 
 part 'request_status.freezed.dart';
 

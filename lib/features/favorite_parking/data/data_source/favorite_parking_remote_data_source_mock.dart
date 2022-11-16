@@ -10,7 +10,7 @@ class FavoriteParkingDataSourceMock implements FavoriteParkingDataSource {
 
   @override
   Future<List<FavoriteParkingModel>> getItems({required String userUid}) async {
-    Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
     final Map<String, dynamic> jsonMap = {
       "action_result": {
         "data": {
@@ -30,6 +30,23 @@ class FavoriteParkingDataSourceMock implements FavoriteParkingDataSource {
               "name": "выбранное пользователем название",
               "created_at": "2021-12-14T05:32:50.000000Z",
               "updated_at": "2021-12-14T05:32:50.000000Z"
+            },
+            {
+              "id": 3,
+              "user_uid": "eb41a446-1b72-444b-aff2-c7e11a66b44a",
+              "parking_id": 2,
+              "name": "выбранное пользователем",
+              "created_at": "2021-12-14T05:32:50.000000Z",
+              "updated_at": "2021-12-14T05:32:50.000000Z"
+            },
+            {
+              "id": 5,
+              "user_uid":
+                  "eb41a446-1b72-444b-aff2-c7e11a66b44a-c7e11a66b44a-c7e11a66b44a",
+              "parking_id": 2,
+              "name": "выбранное пользователем название название название",
+              "created_at": "2021-12-14T05:32:50.000000Z",
+              "updated_at": "2021-12-14T05:32:50.000000Z"
             }
           ]
         }
@@ -45,7 +62,7 @@ class FavoriteParkingDataSourceMock implements FavoriteParkingDataSource {
       {required String userUid,
       required int parkingId,
       required String name}) async {
-    Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
     final Map<String, dynamic> jsonMap = {
       "action_result": {
         "data": {
@@ -72,7 +89,7 @@ class FavoriteParkingDataSourceMock implements FavoriteParkingDataSource {
     required int id,
     required String name,
   }) async {
-    Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
     final Map<String, dynamic> jsonMap = {
       "action_result": {
         "data": {
@@ -98,7 +115,7 @@ class FavoriteParkingDataSourceMock implements FavoriteParkingDataSource {
   Future<String> delete({
     required int id,
   }) async {
-    Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
     final Map<String, dynamic> jsonMap = {
       "action_result": {
         "data": {"message": "Entity deleted!"}
