@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spot2/features/favorite_parking/presentation/bloc/favorite_parking/favorite_parking.dart';
 
 import '../../features/free_parking/presentation/bloc/free_parking/free_parking_bloc.dart';
+import '../../features/parking/presentation/bloc/parking/parking_bloc.dart';
 import '/features/auth/presentation/bloc/auth/auth.dart';
 import '/features/user/presentation/bloc/user/user.dart';
 import '/features/characters/presentation/bloc/search_bloc/search_bloc.dart';
@@ -32,6 +33,7 @@ class RootScreen extends StatelessWidget implements AutoRouteWrapper {
             create: (context) => sl<FavoriteParkingBloc>()),
         BlocProvider<FreeParkingBloc>(
             create: (context) => sl<FreeParkingBloc>()),
+        BlocProvider<ParkingBloc>(create: (context) => sl<ParkingBloc>()),
       ],
       child: this,
     );

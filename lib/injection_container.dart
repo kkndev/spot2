@@ -21,6 +21,15 @@ import 'features/free_parking/domain/usecase/delete_free_parking_usecase.dart';
 import 'features/free_parking/domain/usecase/get_free_parking_usecase.dart';
 import 'features/free_parking/domain/usecase/update_free_parking_usecase.dart';
 import 'features/free_parking/presentation/bloc/free_parking/free_parking_bloc.dart';
+import 'features/parking/data/data_source/parking_remote_data_source_interface.dart';
+import 'features/parking/data/data_source/parking_remote_data_source_mock.dart';
+import 'features/parking/data/repository/parking_repository_impl.dart';
+import 'features/parking/domain/repository/parking_repository.dart';
+import 'features/parking/domain/usecase/create_parking_usecase.dart';
+import 'features/parking/domain/usecase/delete_parking_usecase.dart';
+import 'features/parking/domain/usecase/get_parking_usecase.dart';
+import 'features/parking/domain/usecase/update_parking_usecase.dart';
+import 'features/parking/presentation/bloc/parking/parking_bloc.dart';
 import 'features/user/domain/usecases/activate_promo_code_usecase.dart';
 import 'features/auth/data/repositories/auth_repository_impl.dart';
 import 'features/auth/domain/usecases/get_parking_items.dart';
@@ -112,6 +121,32 @@ Future<void> init() async {
       client: sl(),
     ),
   );
+
+  // Parking feature ---------------------------------------------------
+  sl.registerFactory(
+    () => ParkingBloc(
+      getParkingUsecase: sl(),
+      createParkingUsecase: sl(),
+      updateParkingUsecase: sl(),
+      deleteParkingUsecase: sl(),
+    ),
+  );
+  sl.registerLazySingleton(() => GetParkingUsecase(sl()));
+  sl.registerLazySingleton(() => CreateParkingUsecase(sl()));
+  sl.registerLazySingleton(() => UpdateParkingUsecase(sl()));
+  sl.registerLazySingleton(() => DeleteParkingUsecase(sl()));
+  sl.registerLazySingleton<ParkingRepository>(
+    () => ParkingRepositoryImpl(
+      remoteDataSource: sl(),
+    ),
+  );
+  sl.registerLazySingleton<ParkingDataSource>(
+    () => ParkingDataSourceMock(
+      // () => ParkingDataSourceImpl(
+      client: sl(),
+    ),
+  );
+  //----------------------------------------------------------------------------
 
   // FavoriteParking feature ---------------------------------------------------
   sl.registerFactory(
