@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive/hive.dart';
 
 var options = BaseOptions(
-    baseUrl: 'https://tt-test.nk-soft.com',
+    baseUrl: dotenv.env['BASE_API_URL'] ?? '',
     connectTimeout: 5000,
     receiveTimeout: 5000,
     headers: {
-      // 'Authorization': 'Bearer 9b09e8f78f16a04107546336be9bab6e',
       'Content-Type': 'application/json',
     });
 
@@ -14,83 +14,148 @@ Dio dio = Dio(options)
   ..interceptors.add(
     QueuedInterceptorsWrapper(
       onRequest: (options, handler) {
-        // Do something before request is sent
-        return handler.next(options); //continue
-        // If you want to resolve the request with some custom data，
-        // you can resolve a `Response` object eg: `handler.resolve(response)`.
-        // If you want to reject the request with a error message,
-        // you can reject a `DioError` object eg: `handler.reject(dioError)`
+        return handler.next(options);
       },
       onResponse: (response, handler) {
-        print('response');
-
-        // Do something with response data
-        return handler.next(response); // continue
-        // If you want to reject the request with a error message,
-        // you can reject a `DioError` object eg: `handler.reject(dioError)`
+        return handler.next(response);
       },
       onError: (DioError e, handler) async {
-        var BASE_API_URL = 'https://api.spot-parking-develop.sputnikfund.ru';
-
+        var BASE_API_URL = dotenv.env['BASE_API_URL'] ?? '';
+        var box = await Hive.openBox('tokens');
+        final requestOptions123 = e.requestOptions;
         if (e.response?.statusCode == 401) {
-          var box = await Hive.openBox('tokens');
-          var userMasterToken = box.get('userMasterToken');
+          final serviceName = e.response?.data['action']['service_name'];
           if (e.requestOptions.uri.path != '/auth/User/loginToService') {
             try {
-              Dio dio = Dio(options)..options.headers = {
-                'Authorization': false,
-                'Content-Type': 'application/json',
+              var response = await Dio(options).post(
+                '$BASE_API_URL/auth/User/loginToService',
+                data: {
+                  "token": box.get('masterToken'),
+                  "service_name": serviceName,
+                },
+                options: Options(
+                  headers: {
+                    "Authorization": null,
+                  },
+                ),
+              );
+              if (response.statusCode == 200) {
+                final jsonMap = response.data as Map<String, dynamic>;
+                final serviceMasterToken = jsonMap['action_result']['data'];
+                box.put('${serviceName}MasterToken', serviceMasterToken);
+                var headers2 = e.requestOptions.headers;
+                headers2["Authorization"] = serviceMasterToken;
+                final opts =
+                    Options(method: e.requestOptions.method, headers: headers2);
+                final cloneReq = await dio.request(
+                  e.requestOptions.path,
+                  options: opts,
+                  data: e.requestOptions.data,
+                  queryParameters: e.requestOptions.queryParameters,
+                );
+                return handler.resolve(cloneReq);
               }
-                ..interceptors.add(
-                  QueuedInterceptorsWrapper(
-                    onError: (DioError e, handler) async {
-                      if (e.response?.statusCode == 401) {
-                        var userMasterRefreshToken =
-                            box.get('userMasterRefreshToken');
-                        try {
-                          Dio dio = Dio(options)..options.headers = {
-                            'Authorization': false,
-                            'Content-Type': 'application/json',
-                          };
-
-                          var response = await dio.post(
-                            '$BASE_API_URL/auth/User/login',
-                            data: {
-                              "token": userMasterRefreshToken,
-                              "service_name": "auth"
-                            },
-                          );
-                          print(response.data);
-                        } on DioError catch (e) {
-                          if (e.response?.statusCode == 401) {
-                            print(e.requestOptions.uri.path);
-
-                            print(e.response?.data['action_error']);
-                            print(userMasterRefreshToken);
-                          }
-                        }
-                      }
-
-                      return handler.next(e); //continue
+              return handler.next(e);
+            } on DioError catch (_) {
+              try {
+                var response2 = await dio.post(
+                  '$BASE_API_URL/auth/User/refreshUserMasterToken',
+                  data: {
+                    "token": box.get('masterRefreshToken'),
+                  },
+                  options: Options(
+                    headers: {
+                      "Authorization": null,
                     },
                   ),
                 );
+                if (response2.statusCode == 200) {
+                  final jsonMap = response2.data as Map<String, dynamic>;
+                  final masterToken =
+                      jsonMap['action_result']['data']['user_master_token'];
+                  final masterRefreshToken = jsonMap['action_result']['data']
+                      ['user_master_refresh_token'];
+                  box.put('masterToken', masterToken);
+                  box.put('masterRefreshToken', masterRefreshToken);
+                  var response = await Dio(options).post(
+                    '$BASE_API_URL/auth/User/loginToService',
+                    data: {
+                      "token": masterToken,
+                      "service_name": serviceName,
+                    },
+                    options: Options(
+                      headers: {
+                        "Authorization": null,
+                      },
+                    ),
+                  );
+                  if (response.statusCode == 200) {
+                    final jsonMap = response.data as Map<String, dynamic>;
+                    final serviceMasterToken = jsonMap['action_result']['data'];
+
+                    box.put('${serviceName}MasterToken', serviceMasterToken);
+                    var headers2 = requestOptions123.headers;
+                    headers2["Authorization"] = serviceMasterToken;
+                    final opts = Options(
+                        method: requestOptions123.method, headers: headers2);
+                    final cloneReq = await dio.request(
+                      requestOptions123.path,
+                      options: opts,
+                      data: requestOptions123.data,
+                      queryParameters: requestOptions123.queryParameters,
+                    );
+
+                    return handler.resolve(cloneReq);
+                  }
+                }
+              } on DioError catch (e) {
+                return handler.next(e); //continue
+              }
+              // return handler.next(e);
+            }
+          } else {
+            try {
               var response = await dio.post(
-                '$BASE_API_URL/auth/User/loginToService',
-                data: {"token": userMasterToken, "service_name": "spot"},
+                '$BASE_API_URL/auth/User/refreshUserMasterToken',
+                data: {
+                  "token": box.get('masterRefreshToken'),
+                },
+                options: Options(
+                  headers: {
+                    "Authorization": null,
+                  },
+                ),
               );
-              print(response.data);
+              if (response.statusCode == 200) {
+                final jsonMap = response.data as Map<String, dynamic>;
+                final masterToken =
+                    jsonMap['action_result']['data']['user_master_token'];
+                final masterRefreshToken = jsonMap['action_result']['data']
+                    ['user_master_refresh_token'];
+                box.put('masterToken', masterToken);
+                box.put('masterRefreshToken', masterRefreshToken);
+                Map<String, dynamic> data2 = e.requestOptions.data;
+                data2['token'] = masterToken;
+                final opts = Options(
+                  method: e.requestOptions.method,
+                  headers: {
+                    "Authorization": null,
+                  },
+                );
+                final cloneReq = await dio.request(
+                  e.requestOptions.path,
+                  options: opts,
+                  data: data2,
+                  queryParameters: e.requestOptions.queryParameters,
+                );
+                return handler.resolve(cloneReq);
+              }
             } on DioError catch (e) {
-              print(e.response);
+              return handler.next(e); //continue
             }
           }
-          // print(e.requestOptions.uri.path);
         }
-        print('error');
-        // Do something with response error
         return handler.next(e); //continue
-        // If you want to resolve the request with some custom data，
-        // you can resolve a `Response` object eg: `handler.resolve(response)`.
       },
     ),
   );

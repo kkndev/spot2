@@ -16,7 +16,8 @@ class FreeParkingDataSourceImpl implements FreeParkingDataSource {
   @override
   Future<List<FreeParkingModel>> getItems({required int userId}) async {
     var box = await Hive.openBox('tokens');
-    var spotToken = box.get('userSpotToken');
+    var spotToken = box.get('spotMasterToken');
+    print(spotToken);
     client.options.headers = {
       'Authorization': '$spotToken',
       'Content-Type': 'application/json',
@@ -31,7 +32,7 @@ class FreeParkingDataSourceImpl implements FreeParkingDataSource {
           ]
         },
       );
-
+      print(response);
       if (response.statusCode == 200) {
         final jsonMap = response.data as Map<String, dynamic>;
         return (jsonMap['action_result']['data']['items'] as List)
