@@ -45,9 +45,11 @@ Dio dio = Dio(options)
                 box.put('${serviceName}MasterToken', serviceMasterToken);
                 var headers2 = e.requestOptions.headers;
                 headers2["Authorization"] = serviceMasterToken;
-                final opts =
-                    Options(method: e.requestOptions.method, headers: headers2);
-                final cloneReq = await dio.request(
+                final opts = Options(
+                  method: e.requestOptions.method,
+                  headers: headers2,
+                );
+                final cloneReq = await Dio(options).request(
                   e.requestOptions.path,
                   options: opts,
                   data: e.requestOptions.data,
@@ -55,7 +57,6 @@ Dio dio = Dio(options)
                 );
                 return handler.resolve(cloneReq);
               }
-              return handler.next(e);
             } on DioError catch (_) {
               try {
                 var response2 = await dio.post(
@@ -77,7 +78,7 @@ Dio dio = Dio(options)
                       ['user_master_refresh_token'];
                   box.put('masterToken', masterToken);
                   box.put('masterRefreshToken', masterRefreshToken);
-                  var response = await Dio(options).post(
+                  var response = await dio.post(
                     '$BASE_API_URL/auth/User/loginToService',
                     data: {
                       "token": masterToken,
@@ -98,7 +99,7 @@ Dio dio = Dio(options)
                     headers2["Authorization"] = serviceMasterToken;
                     final opts = Options(
                         method: requestOptions123.method, headers: headers2);
-                    final cloneReq = await dio.request(
+                    final cloneReq = await Dio(options).request(
                       requestOptions123.path,
                       options: opts,
                       data: requestOptions123.data,
@@ -109,9 +110,8 @@ Dio dio = Dio(options)
                   }
                 }
               } on DioError catch (e) {
-                return handler.next(e); //continue
+                return handler.next(e);
               }
-              // return handler.next(e);
             }
           } else {
             try {
@@ -151,11 +151,11 @@ Dio dio = Dio(options)
                 return handler.resolve(cloneReq);
               }
             } on DioError catch (e) {
-              return handler.next(e); //continue
+              return handler.next(e);
             }
           }
         }
-        return handler.next(e); //continue
+        return handler.next(e);
       },
     ),
   );
