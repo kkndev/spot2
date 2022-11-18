@@ -10,14 +10,7 @@ abstract class ParkingRepository {
   Future<Either<Failure, ParkingEntity>> getItem({
     required int id,
   });
-  Future<Either<Failure, List<ParkingEntity>>> create({
-    required int userId,
-    required int parkingId,
-  });
-  Future<Either<Failure, List<ParkingEntity>>> update({
-    required int id,
-  });
-  Future<Either<Failure, String>> delete({
-    required int id,
+  Future<Either<Failure, List<ParkingEntity>>> getItemsByAddress({
+    required String searchValue,
   });
 }

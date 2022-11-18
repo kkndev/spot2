@@ -7,16 +7,7 @@ class GetParkingEvent extends ParkingEvent {
   final int id;
 }
 
-class DeleteParkingEvent extends ParkingEvent {
-  DeleteParkingEvent({required this.id});
-  final int id;
-}
-
-class CreateParkingEvent extends ParkingEvent {
-  CreateParkingEvent({
-    required this.userId,
-    required this.parkingId,
-  });
-  final int userId;
-  final int parkingId;
+class GetParkingByAddressEvent extends ParkingEvent {
+  GetParkingByAddressEvent({required this.searchValue});
+  final String searchValue;
 }

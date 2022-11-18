@@ -147,7 +147,7 @@ class AppRouter extends _i17.RootStackRouter {
               '#redirect',
               path: '',
               parent: RootScreenRoute.name,
-              redirectTo: 'auth2',
+              redirectTo: 'menu',
               fullMatch: true,
             ),
             _i17.RouteConfig(

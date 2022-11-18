@@ -1,9 +1,15 @@
 import 'package:dartz/dartz.dart';
 
-import '/features/user/domain/entities/entities.dart';
-import '/core/data/dto/error/failure.dart';
+import '../entity/entities.dart';
 
 abstract class UserRepository {
-  Future<Either<Failure, UserEntity>> getUser(String id);
-  Future<Either<Failure, String>> activatePromoCode(String promoCode);
+  Future<Either<Failure, String>> activatePromoCode(
+      {required String promoCode});
+  Future<Either<Failure, UserInfoEntity>> whoami();
+  Future<Either<Failure, UserEntity>> getUser({required int id});
+  Future<Either<Failure, UserEntity>> updateUser({
+    required String name,
+    required String deviceToken,
+  });
+  Future<Either<Failure, String>> getMinAppVersion();
 }

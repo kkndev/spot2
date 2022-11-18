@@ -32,6 +32,30 @@ class ParkingDataSourceMock implements ParkingDataSource {
   }
 
   @override
+  Future<List<ParkingModel>> getItemsByAddress(
+      {required String searchValue}) async {
+    await Future.delayed(const Duration(seconds: 3));
+    final Map<String, dynamic> jsonMap = {
+      "action_result": {
+        "data": {
+          "items": [
+            {
+              "id": 1,
+              "user_id": 609,
+              "parking_id": 1,
+              "created_at": "2021-12-14T05:32:28.000000Z",
+              "updated_at": "2021-12-14T05:32:28.000000Z"
+            },
+          ]
+        }
+      }
+    };
+    return (jsonMap['action_result']['data']['items'] as List)
+        .map((parking) => ParkingModel.fromJson(parking))
+        .toList();
+  }
+
+  @override
   Future<ParkingModel> getItem({required int id}) async {
     await Future.delayed(const Duration(seconds: 3));
     final Map<String, dynamic> jsonMap = {
@@ -71,69 +95,5 @@ class ParkingDataSourceMock implements ParkingDataSource {
       "action_error": null
     };
     return ParkingModel.fromJson(jsonMap['action_result']['data']);
-  }
-
-  @override
-  Future<List<ParkingModel>> create({
-    required int userId,
-    required int parkingId,
-  }) async {
-    await Future.delayed(const Duration(seconds: 3));
-    final Map<String, dynamic> jsonMap = {
-      "action_result": {
-        "data": {
-          "items": [
-            {
-              "id": 1,
-              "user_id": userId,
-              "parking_id": parkingId,
-              "created_at": "2021-12-14T05:32:28.000000Z",
-              "updated_at": "2021-12-14T05:32:28.000000Z"
-            },
-          ]
-        }
-      }
-    };
-    return (jsonMap['action_result']!['data']!['items'] as List)
-        .map((parking) => ParkingModel.fromJson(parking))
-        .toList();
-  }
-
-  @override
-  Future<List<ParkingModel>> update({
-    required int id,
-  }) async {
-    await Future.delayed(const Duration(seconds: 3));
-    final Map<String, dynamic> jsonMap = {
-      "action_result": {
-        "data": {
-          "items": [
-            {
-              "id": id,
-              "user_id": 609,
-              "parking_id": 1,
-              "created_at": "2021-12-14T05:32:28.000000Z",
-              "updated_at": "2021-12-14T05:32:28.000000Z"
-            },
-          ]
-        }
-      }
-    };
-    return (jsonMap['action_result']['data']['items'] as List)
-        .map((parking) => ParkingModel.fromJson(parking))
-        .toList();
-  }
-
-  @override
-  Future<String> delete({
-    required int id,
-  }) async {
-    await Future.delayed(const Duration(seconds: 3));
-    final Map<String, dynamic> jsonMap = {
-      "action_result": {
-        "data": {"message": "Entity deleted!"}
-      }
-    };
-    return jsonMap['action_result']['data']['message'];
   }
 }

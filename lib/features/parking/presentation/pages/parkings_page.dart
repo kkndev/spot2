@@ -49,44 +49,6 @@ class _ParkingPageState extends State<ParkingPage> {
                     },
                     init: () => const SizedBox(),
                   ),
-                  Divider(),
-                  state.deleteParkingRequestStatus.when(
-                    loading: () => const CircularProgressIndicator(),
-                    success: (data) => Text(data),
-                    failure: (error) {
-                      if (error is UserFailure) {
-                        return Text(error.message);
-                      } else if (error is ServerFailure) {
-                        return Text(error.message);
-                      } else {
-                        return const Text('error.message');
-                      }
-                    },
-                    init: () => const SizedBox(),
-                  ),
-                  Divider(),
-                  state.createParkingRequestStatus.when(
-                    loading: () => const CircularProgressIndicator(),
-                    success: (data) => Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: data.map((e) {
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 16),
-                          child: HomeListItem(parking: e),
-                        );
-                      }).toList(),
-                    ),
-                    failure: (error) {
-                      if (error is UserFailure) {
-                        return Text(error.message);
-                      } else if (error is ServerFailure) {
-                        return Text(error.message);
-                      } else {
-                        return const Text('error.message');
-                      }
-                    },
-                    init: () => const SizedBox(),
-                  ),
                 ],
               ),
             );

@@ -35,7 +35,7 @@ class EmptyRouterPage extends AutoRouter {
         AutoRoute(path: 'sendCode', page: SendCodePage),
         AutoRoute(path: 'enterName', page: EnterNamePage),
         AutoRoute(path: 'map', page: MapPage),
-        AutoRoute(path: 'menu', page: MenuPage),
+        AutoRoute(path: 'menu', page: MenuPage, initial: true),
         AutoRoute(path: 'profile', page: ProfilePage),
         AutoRoute(path: 'subscription', page: SubscriptionPage),
         AutoRoute(path: 'promoCodes', page: PromoCodesPage),

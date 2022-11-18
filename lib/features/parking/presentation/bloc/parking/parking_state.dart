@@ -11,9 +11,7 @@ class ParkingState with _$ParkingState {
     @Default(RequestStatus.init())
         RequestStatus<ParkingEntity> getParkingRequestStatus,
     @Default(RequestStatus.init())
-        RequestStatus<String> deleteParkingRequestStatus,
-    @Default(RequestStatus.init())
-        RequestStatus<List<ParkingEntity>> createParkingRequestStatus,
-    @Default([]) List<ParkingEntity> freeParkingList,
+        RequestStatus<List<ParkingEntity>> getParkingByAddressRequestStatus,
+    @Default([]) List<ParkingEntity> searchedParkingList,
   ]) = _ParkingState;
 }

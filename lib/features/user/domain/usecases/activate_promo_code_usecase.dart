@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
-import '/features/user/domain/repositories/user_repository.dart';
-import '/core/data/dto/error/failure.dart';
-import '/core/domain/usecase/usecase.dart';
+import '../entity/failure.dart';
+import '../repositories/user_repository.dart';
+import 'usecase.dart';
 
 class ActivatePromoCodeUsecase
     extends UseCase<String, ActivatePromoCodeParams> {
@@ -13,7 +13,7 @@ class ActivatePromoCodeUsecase
 
   @override
   Future<Either<Failure, String>> call(ActivatePromoCodeParams params) async {
-    return await userRepository.activatePromoCode(params.promoCode);
+    return await userRepository.activatePromoCode(promoCode: params.promoCode);
   }
 }
 

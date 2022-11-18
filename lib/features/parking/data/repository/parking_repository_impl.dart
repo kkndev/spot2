@@ -68,70 +68,32 @@ class ParkingRepositoryImpl implements ParkingRepository {
   }
 
   @override
-  Future<Either<Failure, List<ParkingEntity>>> create({
-    required int userId,
-    required int parkingId,
+  Future<Either<Failure, List<ParkingEntity>>> getItemsByAddress({
+    required String searchValue,
   }) async {
     try {
-      final result = await remoteDataSource.create(
-        userId: userId,
-        parkingId: parkingId,
+      final result = await remoteDataSource.getItemsByAddress(
+        searchValue: searchValue,
       );
       return Right(result
-          .map((parking) => ParkingEntity(
-                id: parking.id,
-                parkingUid: parking.parkingUid,
-                address: parking.address,
-                latitude: double.parse(parking.latitude),
-                longitude: double.parse(parking.longitude),
-                freePlacesCount: parking.freePlacesCount,
-                occupiedPlacesCount: parking.occupiedPlacesCount,
-                unknownPlacesCount: parking.unknownPlacesCount,
-                favoriteName: parking.favoriteName,
-              ))
+          .map(
+            (parking) => ParkingEntity(
+              id: parking.id,
+              parkingUid: parking.parkingUid,
+              address: parking.address,
+              latitude: double.parse(parking.latitude),
+              longitude: double.parse(parking.longitude),
+              freePlacesCount: parking.freePlacesCount,
+              occupiedPlacesCount: parking.occupiedPlacesCount,
+              unknownPlacesCount: parking.unknownPlacesCount,
+              favoriteName: parking.favoriteName,
+            ),
+          )
           .toList());
+    } on UserException catch (e) {
+      return Left(UserFailure(code: e.code, message: e.message));
     } on ServerException {
-      return Left(ServerFailure());
-    }
-  }
-
-  @override
-  Future<Either<Failure, List<ParkingEntity>>> update({
-    required int id,
-  }) async {
-    try {
-      final result = await remoteDataSource.update(
-        id: id,
-      );
-      return Right(result
-          .map((parking) => ParkingEntity(
-                id: parking.id,
-                parkingUid: parking.parkingUid,
-                address: parking.address,
-                latitude: double.parse(parking.latitude),
-                longitude: double.parse(parking.longitude),
-                freePlacesCount: parking.freePlacesCount,
-                occupiedPlacesCount: parking.occupiedPlacesCount,
-                unknownPlacesCount: parking.unknownPlacesCount,
-                favoriteName: parking.favoriteName,
-              ))
-          .toList());
-    } on ServerException {
-      return Left(ServerFailure());
-    }
-  }
-
-  @override
-  Future<Either<Failure, String>> delete({
-    required int id,
-  }) async {
-    try {
-      final result = await remoteDataSource.delete(
-        id: id,
-      );
-      return Right(result);
-    } on ServerException {
-      return Left(ServerFailure());
+      return Left(ServerFailure(code: 500, message: 'Server Error'));
     }
   }
 }

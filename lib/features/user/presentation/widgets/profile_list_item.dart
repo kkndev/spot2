@@ -2,20 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:math';
 
-import '/consts/app_images.dart';
-import '/extensions/extensions.dart';
+import '../../../../consts/app_images.dart';
+import '../../../../extensions/extensions.dart';
+import '../../domain/entity/entities.dart';
 
 class ProfileListItem extends StatelessWidget {
   const ProfileListItem({
     Key? key,
     required this.onTap,
-    required this.name,
-    required this.telephone,
+    required this.user,
   }) : super(key: key);
 
   final void Function() onTap;
-  final String name;
-  final String telephone;
+  final UserEntity user;
 
   @override
   Widget build(BuildContext context) {
@@ -40,14 +39,14 @@ class ProfileListItem extends StatelessWidget {
                 Column(
                   children: [
                     Text(
-                      name,
+                      user.name,
                       style: textStyles?.subtitle1,
                     ),
                     const SizedBox(
                       height: 4,
                     ),
                     Text(
-                      telephone,
+                      user.surname,
                       style: textStyles?.caption,
                     ),
                   ],

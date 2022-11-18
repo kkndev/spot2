@@ -51,7 +51,8 @@ class ParkingDataSourceImpl implements ParkingDataSource {
   }
 
   @override
-  Future<ParkingModel> getItem({required int id}) async {
+  Future<List<ParkingModel>> getItemsByAddress(
+      {required String searchValue}) async {
     var box = await Hive.openBox('tokens');
     var spotToken = box.get('userSpotToken');
     client.options.headers = {
@@ -61,82 +62,11 @@ class ParkingDataSourceImpl implements ParkingDataSource {
 
     try {
       final response = await client.post(
-        '$BASE_API_URL/spot/Parking/getItems',
-        data: {"id": id},
-      );
-
-      if (response.statusCode == 200) {
-        final jsonMap = response.data as Map<String, dynamic>;
-        return ParkingModel.fromJson(jsonMap['action_result']['data']);
-      }
-    } on DioError catch (e) {
-      if (e.type == DioErrorType.response) {
-        final jsonMap = e.response?.data as Map<String, dynamic>;
-        throw UserException(
-            code: jsonMap['action_error']['code'],
-            message: jsonMap['action_error']['message']);
-      }
-      throw ServerException();
-    }
-    throw ServerException();
-  }
-
-  @override
-  Future<List<ParkingModel>> create({
-    required int userId,
-    required int parkingId,
-  }) async {
-    var box = await Hive.openBox('tokens');
-    var spotToken = box.get('userSpotToken');
-    client.options.headers = {
-      'Authorization': '$spotToken',
-      'Content-Type': 'application/json',
-    };
-
-    try {
-      final response = await client.post(
-        '$BASE_API_URL/spot/Parking/create',
+        '$BASE_API_URL/spot/Parking/getItemsByAddress',
         data: {
           "attributes": {
-            "user_id": userId,
-            "parking_id": parkingId,
+            "input": searchValue,
           }
-        },
-      );
-
-      if (response.statusCode == 200) {
-        final jsonMap = response.data as Map<String, dynamic>;
-        return [ParkingModel.fromJson(jsonMap['action_result']['data'])];
-      }
-    } on DioError catch (e) {
-      if (e.type == DioErrorType.response) {
-        final jsonMap = e.response?.data as Map<String, dynamic>;
-        throw UserException(
-            code: jsonMap['action_error']['code'],
-            message: jsonMap['action_error']['message']);
-      }
-      throw ServerException();
-    }
-    throw ServerException();
-  }
-
-  @override
-  Future<List<ParkingModel>> update({
-    required int id,
-  }) async {
-    var box = await Hive.openBox('tokens');
-    var spotToken = box.get('userSpotToken');
-    client.options.headers = {
-      'Authorization': '$spotToken',
-      'Content-Type': 'application/json',
-    };
-
-    try {
-      final response = await client.post(
-        '$BASE_API_URL/spot/Parking/update',
-        data: {
-          "id": id,
-          // "attributes": {"parking_id": parkingId}
         },
       );
 
@@ -159,7 +89,7 @@ class ParkingDataSourceImpl implements ParkingDataSource {
   }
 
   @override
-  Future<String> delete({required int id}) async {
+  Future<ParkingModel> getItem({required int id}) async {
     var box = await Hive.openBox('tokens');
     var spotToken = box.get('userSpotToken');
     client.options.headers = {
@@ -169,13 +99,13 @@ class ParkingDataSourceImpl implements ParkingDataSource {
 
     try {
       final response = await client.post(
-        '$BASE_API_URL/spot/Parking/delete/',
+        '$BASE_API_URL/spot/Parking/getItems',
         data: {"id": id},
       );
 
       if (response.statusCode == 200) {
         final jsonMap = response.data as Map<String, dynamic>;
-        return jsonMap['action_result']['data']['message'];
+        return ParkingModel.fromJson(jsonMap['action_result']['data']);
       }
     } on DioError catch (e) {
       if (e.type == DioErrorType.response) {

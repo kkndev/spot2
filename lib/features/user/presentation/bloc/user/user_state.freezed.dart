@@ -16,12 +16,22 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$UserState {
-  RequestStatus<UserEntity> get requestStatus =>
-      throw _privateConstructorUsedError;
+  UserEntity get user => throw _privateConstructorUsedError;
+  UserInfoEntity get userInfo => throw _privateConstructorUsedError;
   RequestStatus<String> get activatePromoCodeRequestStatus =>
       throw _privateConstructorUsedError;
-  UserEntity get user => throw _privateConstructorUsedError;
   String get activatePromoCodeResult => throw _privateConstructorUsedError;
+  RequestStatus<UserEntity> get getUserRequestStatus =>
+      throw _privateConstructorUsedError;
+  String get getUserResult => throw _privateConstructorUsedError;
+  RequestStatus<UserEntity> get updateUserRequestStatus =>
+      throw _privateConstructorUsedError;
+  String get updateUserResult => throw _privateConstructorUsedError;
+  RequestStatus<UserInfoEntity> get whoamiRequestStatus =>
+      throw _privateConstructorUsedError;
+  String get minAppVersion => throw _privateConstructorUsedError;
+  RequestStatus<String> get getMinAppVersionRequestStatus =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserStateCopyWith<UserState> get copyWith =>
@@ -34,13 +44,25 @@ abstract class $UserStateCopyWith<$Res> {
       _$UserStateCopyWithImpl<$Res, UserState>;
   @useResult
   $Res call(
-      {RequestStatus<UserEntity> requestStatus,
+      {UserEntity user,
+      UserInfoEntity userInfo,
       RequestStatus<String> activatePromoCodeRequestStatus,
-      UserEntity user,
-      String activatePromoCodeResult});
+      String activatePromoCodeResult,
+      RequestStatus<UserEntity> getUserRequestStatus,
+      String getUserResult,
+      RequestStatus<UserEntity> updateUserRequestStatus,
+      String updateUserResult,
+      RequestStatus<UserInfoEntity> whoamiRequestStatus,
+      String minAppVersion,
+      RequestStatus<String> getMinAppVersionRequestStatus});
 
-  $RequestStatusCopyWith<UserEntity, $Res> get requestStatus;
+  $UserEntityCopyWith<$Res> get user;
+  $UserInfoEntityCopyWith<$Res> get userInfo;
   $RequestStatusCopyWith<String, $Res> get activatePromoCodeRequestStatus;
+  $RequestStatusCopyWith<UserEntity, $Res> get getUserRequestStatus;
+  $RequestStatusCopyWith<UserEntity, $Res> get updateUserRequestStatus;
+  $RequestStatusCopyWith<UserInfoEntity, $Res> get whoamiRequestStatus;
+  $RequestStatusCopyWith<String, $Res> get getMinAppVersionRequestStatus;
 }
 
 /// @nodoc
@@ -56,37 +78,79 @@ class _$UserStateCopyWithImpl<$Res, $Val extends UserState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? requestStatus = null,
-    Object? activatePromoCodeRequestStatus = null,
     Object? user = null,
+    Object? userInfo = null,
+    Object? activatePromoCodeRequestStatus = null,
     Object? activatePromoCodeResult = null,
+    Object? getUserRequestStatus = null,
+    Object? getUserResult = null,
+    Object? updateUserRequestStatus = null,
+    Object? updateUserResult = null,
+    Object? whoamiRequestStatus = null,
+    Object? minAppVersion = null,
+    Object? getMinAppVersionRequestStatus = null,
   }) {
     return _then(_value.copyWith(
-      requestStatus: null == requestStatus
-          ? _value.requestStatus
-          : requestStatus // ignore: cast_nullable_to_non_nullable
-              as RequestStatus<UserEntity>,
-      activatePromoCodeRequestStatus: null == activatePromoCodeRequestStatus
-          ? _value.activatePromoCodeRequestStatus
-          : activatePromoCodeRequestStatus // ignore: cast_nullable_to_non_nullable
-              as RequestStatus<String>,
       user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as UserEntity,
+      userInfo: null == userInfo
+          ? _value.userInfo
+          : userInfo // ignore: cast_nullable_to_non_nullable
+              as UserInfoEntity,
+      activatePromoCodeRequestStatus: null == activatePromoCodeRequestStatus
+          ? _value.activatePromoCodeRequestStatus
+          : activatePromoCodeRequestStatus // ignore: cast_nullable_to_non_nullable
+              as RequestStatus<String>,
       activatePromoCodeResult: null == activatePromoCodeResult
           ? _value.activatePromoCodeResult
           : activatePromoCodeResult // ignore: cast_nullable_to_non_nullable
               as String,
+      getUserRequestStatus: null == getUserRequestStatus
+          ? _value.getUserRequestStatus
+          : getUserRequestStatus // ignore: cast_nullable_to_non_nullable
+              as RequestStatus<UserEntity>,
+      getUserResult: null == getUserResult
+          ? _value.getUserResult
+          : getUserResult // ignore: cast_nullable_to_non_nullable
+              as String,
+      updateUserRequestStatus: null == updateUserRequestStatus
+          ? _value.updateUserRequestStatus
+          : updateUserRequestStatus // ignore: cast_nullable_to_non_nullable
+              as RequestStatus<UserEntity>,
+      updateUserResult: null == updateUserResult
+          ? _value.updateUserResult
+          : updateUserResult // ignore: cast_nullable_to_non_nullable
+              as String,
+      whoamiRequestStatus: null == whoamiRequestStatus
+          ? _value.whoamiRequestStatus
+          : whoamiRequestStatus // ignore: cast_nullable_to_non_nullable
+              as RequestStatus<UserInfoEntity>,
+      minAppVersion: null == minAppVersion
+          ? _value.minAppVersion
+          : minAppVersion // ignore: cast_nullable_to_non_nullable
+              as String,
+      getMinAppVersionRequestStatus: null == getMinAppVersionRequestStatus
+          ? _value.getMinAppVersionRequestStatus
+          : getMinAppVersionRequestStatus // ignore: cast_nullable_to_non_nullable
+              as RequestStatus<String>,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $RequestStatusCopyWith<UserEntity, $Res> get requestStatus {
-    return $RequestStatusCopyWith<UserEntity, $Res>(_value.requestStatus,
-        (value) {
-      return _then(_value.copyWith(requestStatus: value) as $Val);
+  $UserEntityCopyWith<$Res> get user {
+    return $UserEntityCopyWith<$Res>(_value.user, (value) {
+      return _then(_value.copyWith(user: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserInfoEntityCopyWith<$Res> get userInfo {
+    return $UserInfoEntityCopyWith<$Res>(_value.userInfo, (value) {
+      return _then(_value.copyWith(userInfo: value) as $Val);
     });
   }
 
@@ -99,6 +163,43 @@ class _$UserStateCopyWithImpl<$Res, $Val extends UserState>
           _value.copyWith(activatePromoCodeRequestStatus: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $RequestStatusCopyWith<UserEntity, $Res> get getUserRequestStatus {
+    return $RequestStatusCopyWith<UserEntity, $Res>(_value.getUserRequestStatus,
+        (value) {
+      return _then(_value.copyWith(getUserRequestStatus: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $RequestStatusCopyWith<UserEntity, $Res> get updateUserRequestStatus {
+    return $RequestStatusCopyWith<UserEntity, $Res>(
+        _value.updateUserRequestStatus, (value) {
+      return _then(_value.copyWith(updateUserRequestStatus: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $RequestStatusCopyWith<UserInfoEntity, $Res> get whoamiRequestStatus {
+    return $RequestStatusCopyWith<UserInfoEntity, $Res>(
+        _value.whoamiRequestStatus, (value) {
+      return _then(_value.copyWith(whoamiRequestStatus: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $RequestStatusCopyWith<String, $Res> get getMinAppVersionRequestStatus {
+    return $RequestStatusCopyWith<String, $Res>(
+        _value.getMinAppVersionRequestStatus, (value) {
+      return _then(
+          _value.copyWith(getMinAppVersionRequestStatus: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -109,15 +210,32 @@ abstract class _$$_UserStateCopyWith<$Res> implements $UserStateCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {RequestStatus<UserEntity> requestStatus,
+      {UserEntity user,
+      UserInfoEntity userInfo,
       RequestStatus<String> activatePromoCodeRequestStatus,
-      UserEntity user,
-      String activatePromoCodeResult});
+      String activatePromoCodeResult,
+      RequestStatus<UserEntity> getUserRequestStatus,
+      String getUserResult,
+      RequestStatus<UserEntity> updateUserRequestStatus,
+      String updateUserResult,
+      RequestStatus<UserInfoEntity> whoamiRequestStatus,
+      String minAppVersion,
+      RequestStatus<String> getMinAppVersionRequestStatus});
 
   @override
-  $RequestStatusCopyWith<UserEntity, $Res> get requestStatus;
+  $UserEntityCopyWith<$Res> get user;
+  @override
+  $UserInfoEntityCopyWith<$Res> get userInfo;
   @override
   $RequestStatusCopyWith<String, $Res> get activatePromoCodeRequestStatus;
+  @override
+  $RequestStatusCopyWith<UserEntity, $Res> get getUserRequestStatus;
+  @override
+  $RequestStatusCopyWith<UserEntity, $Res> get updateUserRequestStatus;
+  @override
+  $RequestStatusCopyWith<UserInfoEntity, $Res> get whoamiRequestStatus;
+  @override
+  $RequestStatusCopyWith<String, $Res> get getMinAppVersionRequestStatus;
 }
 
 /// @nodoc
@@ -131,28 +249,63 @@ class __$$_UserStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? requestStatus = null,
-    Object? activatePromoCodeRequestStatus = null,
     Object? user = null,
+    Object? userInfo = null,
+    Object? activatePromoCodeRequestStatus = null,
     Object? activatePromoCodeResult = null,
+    Object? getUserRequestStatus = null,
+    Object? getUserResult = null,
+    Object? updateUserRequestStatus = null,
+    Object? updateUserResult = null,
+    Object? whoamiRequestStatus = null,
+    Object? minAppVersion = null,
+    Object? getMinAppVersionRequestStatus = null,
   }) {
     return _then(_$_UserState(
-      null == requestStatus
-          ? _value.requestStatus
-          : requestStatus // ignore: cast_nullable_to_non_nullable
-              as RequestStatus<UserEntity>,
-      null == activatePromoCodeRequestStatus
-          ? _value.activatePromoCodeRequestStatus
-          : activatePromoCodeRequestStatus // ignore: cast_nullable_to_non_nullable
-              as RequestStatus<String>,
       null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as UserEntity,
+      null == userInfo
+          ? _value.userInfo
+          : userInfo // ignore: cast_nullable_to_non_nullable
+              as UserInfoEntity,
+      null == activatePromoCodeRequestStatus
+          ? _value.activatePromoCodeRequestStatus
+          : activatePromoCodeRequestStatus // ignore: cast_nullable_to_non_nullable
+              as RequestStatus<String>,
       null == activatePromoCodeResult
           ? _value.activatePromoCodeResult
           : activatePromoCodeResult // ignore: cast_nullable_to_non_nullable
               as String,
+      null == getUserRequestStatus
+          ? _value.getUserRequestStatus
+          : getUserRequestStatus // ignore: cast_nullable_to_non_nullable
+              as RequestStatus<UserEntity>,
+      null == getUserResult
+          ? _value.getUserResult
+          : getUserResult // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == updateUserRequestStatus
+          ? _value.updateUserRequestStatus
+          : updateUserRequestStatus // ignore: cast_nullable_to_non_nullable
+              as RequestStatus<UserEntity>,
+      null == updateUserResult
+          ? _value.updateUserResult
+          : updateUserResult // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == whoamiRequestStatus
+          ? _value.whoamiRequestStatus
+          : whoamiRequestStatus // ignore: cast_nullable_to_non_nullable
+              as RequestStatus<UserInfoEntity>,
+      null == minAppVersion
+          ? _value.minAppVersion
+          : minAppVersion // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == getMinAppVersionRequestStatus
+          ? _value.getMinAppVersionRequestStatus
+          : getMinAppVersionRequestStatus // ignore: cast_nullable_to_non_nullable
+              as RequestStatus<String>,
     ));
   }
 }
@@ -161,27 +314,55 @@ class __$$_UserStateCopyWithImpl<$Res>
 
 class _$_UserState implements _UserState {
   _$_UserState(
-      [this.requestStatus = const RequestStatus.init(),
+      [this.user = UserEntity.emptyUser,
+      this.userInfo = UserInfoEntity.emptyUser,
       this.activatePromoCodeRequestStatus = const RequestStatus.init(),
-      this.user = const UserEntity.empty(),
-      this.activatePromoCodeResult = '']);
+      this.activatePromoCodeResult = '',
+      this.getUserRequestStatus = const RequestStatus.init(),
+      this.getUserResult = '',
+      this.updateUserRequestStatus = const RequestStatus.init(),
+      this.updateUserResult = '',
+      this.whoamiRequestStatus = const RequestStatus.init(),
+      this.minAppVersion = '',
+      this.getMinAppVersionRequestStatus = const RequestStatus.init()]);
 
-  @override
-  @JsonKey()
-  final RequestStatus<UserEntity> requestStatus;
-  @override
-  @JsonKey()
-  final RequestStatus<String> activatePromoCodeRequestStatus;
   @override
   @JsonKey()
   final UserEntity user;
   @override
   @JsonKey()
+  final UserInfoEntity userInfo;
+  @override
+  @JsonKey()
+  final RequestStatus<String> activatePromoCodeRequestStatus;
+  @override
+  @JsonKey()
   final String activatePromoCodeResult;
+  @override
+  @JsonKey()
+  final RequestStatus<UserEntity> getUserRequestStatus;
+  @override
+  @JsonKey()
+  final String getUserResult;
+  @override
+  @JsonKey()
+  final RequestStatus<UserEntity> updateUserRequestStatus;
+  @override
+  @JsonKey()
+  final String updateUserResult;
+  @override
+  @JsonKey()
+  final RequestStatus<UserInfoEntity> whoamiRequestStatus;
+  @override
+  @JsonKey()
+  final String minAppVersion;
+  @override
+  @JsonKey()
+  final RequestStatus<String> getMinAppVersionRequestStatus;
 
   @override
   String toString() {
-    return 'UserState(requestStatus: $requestStatus, activatePromoCodeRequestStatus: $activatePromoCodeRequestStatus, user: $user, activatePromoCodeResult: $activatePromoCodeResult)';
+    return 'UserState(user: $user, userInfo: $userInfo, activatePromoCodeRequestStatus: $activatePromoCodeRequestStatus, activatePromoCodeResult: $activatePromoCodeResult, getUserRequestStatus: $getUserRequestStatus, getUserResult: $getUserResult, updateUserRequestStatus: $updateUserRequestStatus, updateUserResult: $updateUserResult, whoamiRequestStatus: $whoamiRequestStatus, minAppVersion: $minAppVersion, getMinAppVersionRequestStatus: $getMinAppVersionRequestStatus)';
   }
 
   @override
@@ -189,21 +370,49 @@ class _$_UserState implements _UserState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_UserState &&
-            (identical(other.requestStatus, requestStatus) ||
-                other.requestStatus == requestStatus) &&
+            (identical(other.user, user) || other.user == user) &&
+            (identical(other.userInfo, userInfo) ||
+                other.userInfo == userInfo) &&
             (identical(other.activatePromoCodeRequestStatus,
                     activatePromoCodeRequestStatus) ||
                 other.activatePromoCodeRequestStatus ==
                     activatePromoCodeRequestStatus) &&
-            (identical(other.user, user) || other.user == user) &&
             (identical(
                     other.activatePromoCodeResult, activatePromoCodeResult) ||
-                other.activatePromoCodeResult == activatePromoCodeResult));
+                other.activatePromoCodeResult == activatePromoCodeResult) &&
+            (identical(other.getUserRequestStatus, getUserRequestStatus) ||
+                other.getUserRequestStatus == getUserRequestStatus) &&
+            (identical(other.getUserResult, getUserResult) ||
+                other.getUserResult == getUserResult) &&
+            (identical(
+                    other.updateUserRequestStatus, updateUserRequestStatus) ||
+                other.updateUserRequestStatus == updateUserRequestStatus) &&
+            (identical(other.updateUserResult, updateUserResult) ||
+                other.updateUserResult == updateUserResult) &&
+            (identical(other.whoamiRequestStatus, whoamiRequestStatus) ||
+                other.whoamiRequestStatus == whoamiRequestStatus) &&
+            (identical(other.minAppVersion, minAppVersion) ||
+                other.minAppVersion == minAppVersion) &&
+            (identical(other.getMinAppVersionRequestStatus,
+                    getMinAppVersionRequestStatus) ||
+                other.getMinAppVersionRequestStatus ==
+                    getMinAppVersionRequestStatus));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, requestStatus,
-      activatePromoCodeRequestStatus, user, activatePromoCodeResult);
+  int get hashCode => Object.hash(
+      runtimeType,
+      user,
+      userInfo,
+      activatePromoCodeRequestStatus,
+      activatePromoCodeResult,
+      getUserRequestStatus,
+      getUserResult,
+      updateUserRequestStatus,
+      updateUserResult,
+      whoamiRequestStatus,
+      minAppVersion,
+      getMinAppVersionRequestStatus);
 
   @JsonKey(ignore: true)
   @override
@@ -214,19 +423,41 @@ class _$_UserState implements _UserState {
 
 abstract class _UserState implements UserState {
   factory _UserState(
-      [final RequestStatus<UserEntity> requestStatus,
-      final RequestStatus<String> activatePromoCodeRequestStatus,
-      final UserEntity user,
-      final String activatePromoCodeResult]) = _$_UserState;
+          [final UserEntity user,
+          final UserInfoEntity userInfo,
+          final RequestStatus<String> activatePromoCodeRequestStatus,
+          final String activatePromoCodeResult,
+          final RequestStatus<UserEntity> getUserRequestStatus,
+          final String getUserResult,
+          final RequestStatus<UserEntity> updateUserRequestStatus,
+          final String updateUserResult,
+          final RequestStatus<UserInfoEntity> whoamiRequestStatus,
+          final String minAppVersion,
+          final RequestStatus<String> getMinAppVersionRequestStatus]) =
+      _$_UserState;
 
-  @override
-  RequestStatus<UserEntity> get requestStatus;
-  @override
-  RequestStatus<String> get activatePromoCodeRequestStatus;
   @override
   UserEntity get user;
   @override
+  UserInfoEntity get userInfo;
+  @override
+  RequestStatus<String> get activatePromoCodeRequestStatus;
+  @override
   String get activatePromoCodeResult;
+  @override
+  RequestStatus<UserEntity> get getUserRequestStatus;
+  @override
+  String get getUserResult;
+  @override
+  RequestStatus<UserEntity> get updateUserRequestStatus;
+  @override
+  String get updateUserResult;
+  @override
+  RequestStatus<UserInfoEntity> get whoamiRequestStatus;
+  @override
+  String get minAppVersion;
+  @override
+  RequestStatus<String> get getMinAppVersionRequestStatus;
   @override
   @JsonKey(ignore: true)
   _$$_UserStateCopyWith<_$_UserState> get copyWith =>
