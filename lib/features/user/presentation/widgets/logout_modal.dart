@@ -4,8 +4,8 @@ import '../../../../extensions/extensions.dart';
 import 'primary_button.dart';
 import 'tertiary_button.dart';
 
-class DeleteModal extends StatelessWidget {
-  const DeleteModal({Key? key}) : super(key: key);
+class LogoutModal extends StatelessWidget {
+  const LogoutModal({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class DeleteModal extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Удалить парковку из избранного?',
+              'Выйти из аккаунта?',
               style: textStyles.subtitle1,
             ),
             const SizedBox(

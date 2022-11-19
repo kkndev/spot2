@@ -9,9 +9,12 @@ part 'parking_state.freezed.dart';
 class ParkingState with _$ParkingState {
   factory ParkingState([
     @Default(RequestStatus.init())
-        RequestStatus<ParkingEntity> getParkingRequestStatus,
+        RequestStatus<ParkingEntity> getParkingItemRequestStatus,
+    @Default(RequestStatus.init())
+        RequestStatus<List<ParkingEntity>> getParkingRequestStatus,
     @Default(RequestStatus.init())
         RequestStatus<List<ParkingEntity>> getParkingByAddressRequestStatus,
     @Default([]) List<ParkingEntity> searchedParkingList,
+    @Default([]) List<ParkingEntity> parkingList,
   ]) = _ParkingState;
 }

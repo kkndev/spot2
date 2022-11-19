@@ -6,24 +6,13 @@ import '../entity/parking_entity/parking_entity.dart';
 import '../repository/parking_repository.dart';
 import 'usecase.dart';
 
-class GetParkingUsecase extends UseCase<ParkingEntity, GetParkingParams> {
+class GetParkingUsecase extends UseCase<List<ParkingEntity>, NoParams> {
   final ParkingRepository parkingRepository;
 
   GetParkingUsecase(this.parkingRepository);
 
   @override
-  Future<Either<Failure, ParkingEntity>> call(GetParkingParams params) async {
-    return await parkingRepository.getItem(
-      id: params.id,
-    );
+  Future<Either<Failure, List<ParkingEntity>>> call(NoParams params) async {
+    return await parkingRepository.getItems();
   }
-}
-
-class GetParkingParams extends Equatable {
-  final int id;
-
-  const GetParkingParams({required this.id});
-
-  @override
-  List<Object> get props => [id];
 }

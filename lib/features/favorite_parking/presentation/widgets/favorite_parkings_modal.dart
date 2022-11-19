@@ -1,15 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:spot2/features/user/presentation/bloc/user/user.dart';
 
 import '../../../../consts/app_images.dart';
 import '../bloc/bloc.dart';
+import '../bloc/favorite_parking/favorite_parking_event.dart';
 import '../widgets/home_list_item.dart';
 import '../widgets/list_item.dart';
 import '../widgets/modal_header.dart';
 
-class FavoriteParkingModal extends StatelessWidget {
+class FavoriteParkingModal extends StatefulWidget {
   const FavoriteParkingModal({Key? key}) : super(key: key);
+
+  @override
+  State<FavoriteParkingModal> createState() => _FavoriteParkingModalState();
+}
+
+class _FavoriteParkingModalState extends State<FavoriteParkingModal> {
+  @override
+  void initState() {
+    context.read<UserBloc>().add(
+          GetUserEvent(id: 609),
+        );
+    context.read<FavoriteParkingBloc>().add(
+          GetFavoriteParkingEvent(
+              userUid: '87adafcf-38fa-4e22-9ab0-2f6c8fbffefc'),
+        );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -2,10 +2,7 @@ abstract class ParkingEvent {}
 
 class InitParkingEvent extends ParkingEvent {}
 
-class GetParkingEvent extends ParkingEvent {
-  GetParkingEvent({required this.id});
-  final int id;
-}
+class GetParkingEvent extends ParkingEvent {}
 
 class GetParkingByAddressEvent extends ParkingEvent {
   GetParkingByAddressEvent({required this.searchValue});

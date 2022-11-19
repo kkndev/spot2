@@ -7,12 +7,14 @@ import 'package:spot2/features/user/domain/usecases/whoami_usecase.dart';
 
 import '../../../domain/usecases/activate_promo_code_usecase.dart';
 import '../../../domain/entity/entities.dart';
+import '../../../domain/usecases/update_user_name_usecase.dart';
 import 'user.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   final ActivatePromoCodeUsecase activatePromoCodeUsecase;
   final GetUserUsecase getUserUsecase;
   final UpdateUserUsecase updateUserUsecase;
+  final UpdateUserNameUsecase updateUserNameUsecase;
   final WhoamiUsecase whoamiUsecase;
   final GetMinAppVersionUsecase getMinAppVersionUsecase;
 
@@ -22,6 +24,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     required this.updateUserUsecase,
     required this.whoamiUsecase,
     required this.getMinAppVersionUsecase,
+    required this.updateUserNameUsecase,
   }) : super(UserState()) {
     on<InitUser>((event, emit) {});
     on<ActivatePromoCodeEvent>((event, emit) async {
@@ -80,6 +83,31 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       );
       var result = await updateUserUsecase(
         UpdateUserParams(name: event.name, deviceToken: 'asf'),
+      );
+      result.fold(
+        (error) => emit(
+          state.copyWith(
+            updateUserRequestStatus: RequestStatus.failure(error: error),
+            updateUserResult: error.message,
+          ),
+        ),
+        (result) => emit(
+          state.copyWith(
+            updateUserRequestStatus: RequestStatus.success(data: result),
+            user: result,
+          ),
+        ),
+      );
+    });
+    on<UpdateUserNameEvent>((event, emit) async {
+      emit(
+        state.copyWith(
+          updateUserRequestStatus: const RequestStatus.loading(),
+          updateUserResult: '',
+        ),
+      );
+      var result = await updateUserNameUsecase(
+        UpdateUserNameParams(name: event.name),
       );
       result.fold(
         (error) => emit(

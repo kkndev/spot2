@@ -23,6 +23,7 @@ class ProfileListItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        color: Colors.transparent,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -37,6 +38,7 @@ class ProfileListItem extends StatelessWidget {
                   width: 12,
                 ),
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       user.name,

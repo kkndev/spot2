@@ -8,5 +8,8 @@ abstract class UserRemoteDataSource {
     required String name,
     required String deviceToken,
   });
+  Future<UserModel> updateUserName({
+    required String name,
+  });
   Future<String> getMinAppVersion();
 }

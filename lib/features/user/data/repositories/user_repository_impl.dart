@@ -85,6 +85,33 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
+  Future<Either<Failure, UserEntity>> updateUserName({
+    required String name,
+  }) async {
+    try {
+      final result = await remoteDataSource.updateUserName(
+        name: name,
+      );
+      return Right(UserEntity(
+        id: result.id,
+        uid: result.uid,
+        name: result.name,
+        surname: result.surname,
+        sex: result.sex,
+        dateOfBirth: result.dateOfBirth,
+        carBrand: result.carBrand,
+        carModel: result.carModel,
+        drivingLicenseObtainingDate: result.drivingLicenseObtainingDate,
+        deviceToken: result.deviceToken,
+      ));
+    } on UserException catch (e) {
+      return Left(UserFailure(code: e.code, message: e.message));
+    } on ServerException {
+      return Left(ServerFailure(code: 500, message: 'Server Error'));
+    }
+  }
+
+  @override
   Future<Either<Failure, UserInfoEntity>> whoami() async {
     try {
       final result = await remoteDataSource.whoami();

@@ -17,7 +17,7 @@ class _ParkingPageState extends State<ParkingPage> {
   @override
   void initState() {
     context.read<ParkingBloc>().add(
-          GetParkingEvent(id: 13374),
+          GetParkingEvent(),
         );
     super.initState();
   }
@@ -35,7 +35,7 @@ class _ParkingPageState extends State<ParkingPage> {
                   const SizedBox(
                     height: 16,
                   ),
-                  state.getParkingRequestStatus.when(
+                  state.getParkingItemRequestStatus.when(
                     loading: () => const CircularProgressIndicator(),
                     success: (data) => HomeListItem(parking: data),
                     failure: (error) {

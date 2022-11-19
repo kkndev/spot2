@@ -13,6 +13,7 @@ class AppImages {
   static const placeAvailablePng = 'assets/images/png/place_available.png';
   static const placeErrorPng = 'assets/images/png/place_error.png';
   static const userCar = 'assets/images/svg/user_car.svg';
+  static const notFound = 'assets/images/svg/not_found.svg';
   // bottom tab icons
   static const parkingTab = 'assets/images/icons/parking_tab.svg';
   static const parkingTabActive = 'assets/images/icons/parking_tab_active.svg';
@@ -36,6 +37,7 @@ class AppImages {
   static const route = 'assets/images/icons/route.svg';
   static const search = 'assets/images/icons/search.svg';
   static const roll = 'assets/images/icons/roll.svg';
+  static const searchInput = 'assets/images/icons/search_input.svg';
   //
   static const alertCheck = 'assets/images/icons/alert_check.svg';
   static const alertError = 'assets/images/icons/alert_error.svg';

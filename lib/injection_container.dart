@@ -1,11 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:spot2/features/auth2/data/data_source/auth_remote_data_source.dart';
-import 'package:spot2/features/auth2/data/data_source/auth_remote_data_source_interface.dart';
-import 'package:spot2/features/auth2/data/repository/auth_repository_impl.dart';
-import 'package:spot2/features/auth2/domain/repository/auth_repository.dart';
-import 'package:spot2/features/auth2/domain/usecase/login_to_service_usecase.dart';
-import 'package:spot2/features/auth2/domain/usecase/refresh_user_master_token_usecase.dart';
+import 'package:spot2/features/auth/domain/usecases/get_code_by_email.dart';
+import 'package:spot2/features/auth/domain/usecases/get_code_by_phone.dart';
+import 'package:spot2/features/auth/domain/usecases/get_parking_items.dart';
 import 'package:spot2/features/favorite_parking/data/data_source/favorite_parking_remote_data_source_interface.dart';
 import 'package:spot2/features/favorite_parking/data/repository/favorite_parking_repository_impl.dart';
 import 'package:spot2/features/favorite_parking/domain/repository/favorite_parking_repository.dart';
@@ -22,6 +19,11 @@ import 'package:spot2/features/user/domain/usecases/whoami_usecase.dart';
 
 import '/core/data/data_source/dio_client.dart';
 import '/features/auth/data/datasources/auth_remote_data_source.dart';
+import 'features/auth/data/repositories/auth_repository_impl.dart';
+import 'features/auth/domain/repositories/auth_repository.dart';
+import 'features/auth/domain/usecases/get_parking_places.dart';
+import 'features/auth/domain/usecases/send_code_from_email.dart';
+import 'features/auth/domain/usecases/send_code_from_phone.dart';
 import 'features/favorite_parking/data/data_source/favorite_parking_remote_data_source.dart';
 import 'features/favorite_parking/domain/usecase/create_favorite_parking_usecase.dart';
 import 'features/favorite_parking/domain/usecase/delete_favorite_parking_usecase.dart';
@@ -49,31 +51,21 @@ import 'features/parking_camera/presentation/bloc/parking_camera/parking_camera_
 import 'features/user/data/datasources/user_remote_data_source.dart';
 import 'features/user/data/repositories/user_repository_impl.dart';
 import 'core/platform/network_info.dart';
-import 'features/auth2/presentation/bloc/auth/auth_bloc.dart';
-import 'features/characters/data/datasources/person_remote_data_source.dart';
+import 'features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'features/user/domain/repositories/user_repository.dart';
+import 'features/user/domain/usecases/update_user_name_usecase.dart';
 import 'features/user/presentation/bloc/user/user_bloc.dart';
 
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  sl.registerLazySingleton<AuthRemoteDataSource>(
-    () => AuthRemoteDataSourceImpl(
-      client: sl(),
-    ),
-  );
-  sl.registerLazySingleton<PersonRemoteDataSource>(
-    () => PersonRemoteDataSourceImpl(
-      client: sl(),
-    ),
-  );
-
   // User feature ---------------------------------------------------
   sl.registerFactory(
     () => UserBloc(
       activatePromoCodeUsecase: sl(),
       getUserUsecase: sl(),
       updateUserUsecase: sl(),
+      updateUserNameUsecase: sl(),
       whoamiUsecase: sl(),
       getMinAppVersionUsecase: sl(),
     ),
@@ -81,6 +73,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => ActivatePromoCodeUsecase(sl()));
   sl.registerLazySingleton(() => GetUserUsecase(sl()));
   sl.registerLazySingleton(() => UpdateUserUsecase(sl()));
+  sl.registerLazySingleton(() => UpdateUserNameUsecase(sl()));
   sl.registerLazySingleton(() => WhoamiUsecase(sl()));
   sl.registerLazySingleton(() => GetMinAppVersionUsecase(sl()));
   sl.registerLazySingleton<UserRepository>(
@@ -190,24 +183,33 @@ Future<void> init() async {
   );
   //----------------------------------------------------------------------------
 
-  // Auth2 feature ---------------------------------------------------
+  // Auth feature ---------------------------------------------------
   sl.registerFactory(
     () => AuthBloc(
-      refreshUserMasterTokenUsecase: sl(),
-      loginToServiceUsecase: sl(),
+      getCodeByPhone: sl(),
+      getCodeByEmail: sl(),
+      getParkingItems: sl(),
+      getParkingPlaces: sl(),
+      sendCodeFromPhone: sl(),
+      sendCodeFromEmail: sl(),
     ),
   );
-  sl.registerLazySingleton(() => RefreshUserMasterTokenUsecase(sl()));
-  sl.registerLazySingleton(() => LoginToServiceUsecase(sl()));
+  sl.registerLazySingleton(() => GetCodeByPhone(sl()));
+  sl.registerLazySingleton(() => GetCodeByEmail(sl()));
+  sl.registerLazySingleton(() => GetParkingItems(sl()));
+  sl.registerLazySingleton(() => GetParkingPlaces(sl()));
+  sl.registerLazySingleton(() => SendCodeFromPhone(sl()));
+  sl.registerLazySingleton(() => SendCodeFromEmail(sl()));
 
   sl.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(
       remoteDataSource: sl(),
+      networkInfo: sl(),
     ),
   );
-  sl.registerLazySingleton<AuthDataSource>(
+  sl.registerLazySingleton<AuthRemoteDataSource>(
     // () => AuthDataSourceMock(
-    () => AuthDataSourceImpl(
+    () => AuthRemoteDataSourceImpl(
       client: sl(),
     ),
   );

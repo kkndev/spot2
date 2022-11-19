@@ -9,6 +9,7 @@ ThemeData lightTheme = ThemeData(
       backgroundGlobe: AppColorsPalette.backgroundGlobe,
       backgroundAccent: AppColorsPalette.backgroundAccent,
       backgroundModal: AppColorsPalette.backgroundModal,
+      backgroundFields: AppColorsPalette.backgroundFields,
       buttonPrimaryDisabled: AppColorsPalette.buttonPrimaryDisabled,
       buttonPrimaryDefault: AppColorsPalette.buttonPrimaryDefault,
       buttonPrimaryPressed: AppColorsPalette.buttonPrimaryPressed,

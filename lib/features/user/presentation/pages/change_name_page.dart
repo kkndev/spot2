@@ -1,25 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spot2/extensions/extensions.dart';
 
 import '../../../../core/presentation/components/components.dart';
 import '../bloc/user/user.dart';
-import '../widgets/widgets.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+class ChangeNamePage extends StatefulWidget {
+  const ChangeNamePage({Key? key}) : super(key: key);
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<ChangeNamePage> createState() => _ChangeNamePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ChangeNamePageState extends State<ChangeNamePage> {
   final TextEditingController nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    var textStyles = Theme.of(context).extension<AppTextStyles>()!;
-
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
@@ -32,18 +28,23 @@ class _ProfilePageState extends State<ProfilePage> {
                 padding: const EdgeInsets.all(24.0),
                 child: Column(
                   children: [
-                    const Header(label: 'Профиль'),
+                    const Header(label: 'Имя'),
                     const SizedBox(
                       height: 32,
                     ),
-                    NameListItem(
-                      name: state.user.name,
+                    TextInput(
+                      controller: nameController,
                     ),
                     const SizedBox(
-                      height: 8,
+                      height: 36,
                     ),
-                    PhoneListItem(
-                      phone: state.user.name,
+                    PrimaryButton(
+                      label: 'сохранить',
+                      onTap: () {
+                        context.read<UserBloc>().add(
+                            UpdateUserNameEvent(name: nameController.text));
+                        FocusScope.of(context).unfocus();
+                      },
                     ),
                   ],
                 ),

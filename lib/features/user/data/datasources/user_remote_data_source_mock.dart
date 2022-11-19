@@ -49,6 +49,19 @@ class UserRemoteDataSourceMock implements UserRemoteDataSource {
   }
 
   @override
+  Future<UserModel> updateUserName({
+    required String name,
+  }) async {
+    await Future.delayed(const Duration(seconds: 3));
+    final Map<String, dynamic> jsonMap = {
+      "action_result": {
+        "data": {"message": "Entity deleted!"}
+      }
+    };
+    return UserModel.fromJson(jsonMap['action_result']['data']['message']);
+  }
+
+  @override
   Future<UserInfoModel> whoami() async {
     await Future.delayed(const Duration(seconds: 3));
     final Map<String, dynamic> jsonMap = {

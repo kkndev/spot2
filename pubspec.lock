@@ -232,13 +232,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.7.8"
-  dgis_flutter:
-    dependency: "direct main"
-    description:
-      path: "2gis"
-      relative: true
-    source: path
-    version: "0.0.31"
   dio:
     dependency: "direct main"
     description:
@@ -527,6 +520,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  location:
+    dependency: "direct main"
+    description:
+      name: location
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.4.0"
+  location_platform_interface:
+    dependency: transitive
+    description:
+      name: location_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.3.0"
+  location_web:
+    dependency: transitive
+    description:
+      name: location_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.1"
   logging:
     dependency: transitive
     description:
@@ -537,9 +551,9 @@ packages:
   mapbox_gl:
     dependency: "direct main"
     description:
-      name: mapbox_gl
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: maps
+      relative: true
+    source: path
     version: "0.16.0"
   mapbox_gl_dart:
     dependency: transitive
@@ -551,16 +565,20 @@ packages:
   mapbox_gl_platform_interface:
     dependency: transitive
     description:
-      name: mapbox_gl_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: mapbox_gl_platform_interface
+      ref: HEAD
+      resolved-ref: f505fcf5c79b75c165703028af77f3af62d382ae
+      url: "https://github.com/tobrun/flutter-mapbox-gl.git"
+    source: git
     version: "0.16.0"
   mapbox_gl_web:
     dependency: transitive
     description:
-      name: mapbox_gl_web
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: mapbox_gl_web
+      ref: HEAD
+      resolved-ref: f505fcf5c79b75c165703028af77f3af62d382ae
+      url: "https://github.com/tobrun/flutter-mapbox-gl.git"
+    source: git
     version: "0.16.0"
   matcher:
     dependency: transitive

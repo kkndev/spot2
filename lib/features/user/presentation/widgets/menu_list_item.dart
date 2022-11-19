@@ -11,11 +11,13 @@ class MenuListItem extends StatelessWidget {
     this.onTap,
     required this.label,
     this.isDanger = false,
+    this.hasChevron = true,
   }) : super(key: key);
 
   final void Function()? onTap;
   final String label;
   final bool isDanger;
+  final bool hasChevron;
 
   @override
   Widget build(BuildContext context) {
@@ -35,15 +37,16 @@ class MenuListItem extends StatelessWidget {
                       .copyWith(color: appColors?.statusError)
                   : textStyles?.subtitle1,
             ),
-            Transform.rotate(
-              angle: -pi,
-              child: SvgPicture.asset(
-                AppImages.chevron,
-                color: appColors?.iconsPrimary,
-                width: 16,
-                height: 16,
+            if (hasChevron)
+              Transform.rotate(
+                angle: -pi,
+                child: SvgPicture.asset(
+                  AppImages.chevron,
+                  color: appColors?.iconsPrimary,
+                  width: 16,
+                  height: 16,
+                ),
               ),
-            ),
           ],
         ),
       ),

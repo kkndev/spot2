@@ -12,6 +12,11 @@ class UpdateUserEvent extends UserEvent {
   final String name;
 }
 
+class UpdateUserNameEvent extends UserEvent {
+  UpdateUserNameEvent({required this.name});
+  final String name;
+}
+
 class WhoamiEvent extends UserEvent {}
 
 class GetMinAppVersionEvent extends UserEvent {}

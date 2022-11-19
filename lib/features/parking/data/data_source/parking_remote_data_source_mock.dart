@@ -9,7 +9,7 @@ class ParkingDataSourceMock implements ParkingDataSource {
   ParkingDataSourceMock({required this.client});
 
   @override
-  Future<List<ParkingModel>> getItems({required int userId}) async {
+  Future<List<ParkingModel>> getItems() async {
     await Future.delayed(const Duration(seconds: 3));
     final Map<String, dynamic> jsonMap = {
       "action_result": {

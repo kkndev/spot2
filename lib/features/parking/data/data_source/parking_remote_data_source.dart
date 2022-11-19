@@ -14,7 +14,7 @@ class ParkingDataSourceImpl implements ParkingDataSource {
   ParkingDataSourceImpl({required this.client});
 
   @override
-  Future<List<ParkingModel>> getItems({required int userId}) async {
+  Future<List<ParkingModel>> getItems() async {
     var box = await Hive.openBox('tokens');
     var spotToken = box.get('userSpotToken');
     client.options.headers = {
@@ -25,11 +25,7 @@ class ParkingDataSourceImpl implements ParkingDataSource {
     try {
       final response = await client.post(
         '$BASE_API_URL/spot/Parking/getItems',
-        data: {
-          "filter": [
-            ["user_id", "eq", userId]
-          ]
-        },
+        data: {},
       );
 
       if (response.statusCode == 200) {

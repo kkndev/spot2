@@ -35,15 +35,11 @@ class _TertiaryButtonState extends State<TertiaryButton> {
     return GestureDetector(
       onTap: widget.onTap,
       child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(16),
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
-        ),
+        padding: const EdgeInsets.symmetric(vertical: 12),
         child: Text(
-          widget.label.toUpperCase(),
+          widget.label,
           textAlign: TextAlign.center,
-          style: textStyles?.button.copyWith(
+          style: textStyles?.subtitle2.copyWith(
             color: isDisabled
                 ? appColors?.buttonTertiaryDisabled
                 : appColors?.buttonTertiaryText,

@@ -11,5 +11,8 @@ abstract class UserRepository {
     required String name,
     required String deviceToken,
   });
+  Future<Either<Failure, UserEntity>> updateUserName({
+    required String name,
+  });
   Future<Either<Failure, String>> getMinAppVersion();
 }

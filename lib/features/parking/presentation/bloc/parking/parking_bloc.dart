@@ -1,8 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spot2/features/parking/domain/usecase/get_parking_by_address_usecase.dart';
 
 import '../../../domain/entity/request_status/request_status.dart';
+import '../../../domain/usecase/get_parking_by_address_usecase.dart';
 import '../../../domain/usecase/get_parking_usecase.dart';
+import '../../../domain/usecase/usecase.dart';
 import 'parking_state.dart';
 import 'parking_event.dart';
 
@@ -21,7 +22,7 @@ class ParkingBloc extends Bloc<ParkingEvent, ParkingState> {
           getParkingRequestStatus: const RequestStatus.loading(),
         ),
       );
-      var result = await getParkingUsecase(GetParkingParams(id: event.id));
+      var result = await getParkingUsecase(NoParams());
       result.fold(
         (error) => emit(
           state.copyWith(
@@ -31,6 +32,7 @@ class ParkingBloc extends Bloc<ParkingEvent, ParkingState> {
         (result) => emit(
           state.copyWith(
             getParkingRequestStatus: RequestStatus.success(data: result),
+            parkingList: result,
           ),
         ),
       );

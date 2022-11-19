@@ -5,6 +5,7 @@ class AppColorsPalette {
   static const backgroundGlobe = Color(0xFFFFFFFF);
   static const backgroundAccent = Color(0xFF4941ED);
   static const backgroundModal = Color.fromRGBO(108, 107, 135, 0.3);
+  static const backgroundFields = Color(0xFFE9E9ED);
   // buttons
   static const buttonPrimaryDisabled = Color(0xFFB5B4BF);
   static const buttonPrimaryDefault = Color(0xFF4941ED);

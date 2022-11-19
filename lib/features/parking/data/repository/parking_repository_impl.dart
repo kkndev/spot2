@@ -14,12 +14,9 @@ class ParkingRepositoryImpl implements ParkingRepository {
   });
 
   @override
-  Future<Either<Failure, List<ParkingEntity>>> getItems(
-      {required int userId}) async {
+  Future<Either<Failure, List<ParkingEntity>>> getItems() async {
     try {
-      final result = await remoteDataSource.getItems(
-        userId: userId,
-      );
+      final result = await remoteDataSource.getItems();
       return Right(result
           .map((parking) => ParkingEntity(
                 id: parking.id,

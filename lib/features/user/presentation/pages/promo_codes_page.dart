@@ -1,12 +1,11 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:spot2/core/presentation/components/error_toast.dart';
 
 import '/features/user/presentation/bloc/user/user.dart';
 import '/core/presentation/components/components.dart';
+import '../../domain/entity/entities.dart';
 
 class PromoCodesPage extends StatefulWidget {
   const PromoCodesPage({Key? key}) : super(key: key);
@@ -112,48 +111,15 @@ class _PromoCodesPageState extends State<PromoCodesPage> {
                         const SizedBox(
                           height: 36,
                         ),
-                        Text(context
-                            .watch<UserBloc>()
-                            .state
-                            .activatePromoCodeResult),
-                        state.activatePromoCodeRequestStatus.when(
-                          loading: () => const CircularProgressIndicator(),
-                          success: (data) => Text(data),
-                          failure: (error) {
-                            return Text(error.message);
-                          },
-                          init: () => const SizedBox(),
-                        ),
                         PrimaryButton(
-                            isDisabled: isDisabled,
-                            label: 'активировать',
-                            onTap: () {
-                              context.read<UserBloc>().add(
-                                    ActivatePromoCodeEvent(
-                                        promoCode: promoCodeController.text),
-                                  );
-                              FocusScope.of(context).unfocus();
-                            }),
-                        TertiaryButton(
-                          label: 'reset master token',
-                          onTap: () async {
-                            var box = await Hive.openBox('tokens');
-                            box.put('masterToken',
-                                'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW10IiwiYXV0aF9pZGVudGlmaWNhdGlvbiI6Ijg3YWRhZmNmLTM4ZmEtNGUyMi05YWIwLTJmNmM4ZmJmZmVmYyIsImFsaXZlX3VudGlsIjoiMjAyMi0xMS0xNlQxODo0ODoyMC43NTc3OTFaIn0.t_r2JBEqv3w5KQLvqeFEPKI2D7AVYJUQMeS1wNqR7cU');
-                          },
-                        ),
-                        TertiaryButton(
-                          label: 'reset spot token',
-                          onTap: () async {
-                            var box = await Hive.openBox('tokens');
-                            box.put('spotMasterToken',
-                                'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidXN0IiwiYXV0aF9pbmZvcm1hdGlvbiI6eyJpZCI6Ijg3YWRhZmNmLTM4ZmEtNGUyMi05YWIwLTJmNmM4ZmJmZmVmYyIsImVtYWlsIjoia29rb25zdHlhZGV2QGdtYWlsLmNvbSIsImNyZWF0ZWRfYXQiOiIyMDIyLTExLTAyVDE3OjE5OjI0LjAwMDAwMFoiLCJ1cGRhdGVkX2F0IjoiMjAyMi0xMS0xNlQxNzowMTo0OC4wMDAwMDBaIiwiaXNfY29tcGxldGVkIjp0cnVlLCJwaG9uZSI6bnVsbCwic29jaWFsIjpudWxsLCJpZF9pbl9zb2NpYWwiOm51bGwsImVtYWlsX2Zyb21fc29jaWFsIjpudWxsLCJsYXN0X2xvZ2luIjoiMjAyMi0xMS0xNiAxNzowMTo0OCIsImlzX3ByZW1pdW0iOmZhbHNlLCJhdXRoX2lkZW50aWZpY2F0aW9uIjoiODdhZGFmY2YtMzhmYS00ZTIyLTlhYjAtMmY2YzhmYmZmZWZjIiwicm9sZXMiOltdLCJwZXJtaXNzaW9ucyI6W119LCJhbGl2ZV91bnRpbCI6IjIwMjItMTEtMTZUMTg6MzU6MjAuNzg1NzM3WiJ9.fuD4xIR1RK7KfPps--7p6yxytlB-NuZWyeSekIBblC4');
-                          },
-                        ),
-                        TertiaryButton(
-                          label: 'auth2',
+                          isDisabled: state.activatePromoCodeRequestStatus ==
+                              const RequestStatus<String>.loading(),
+                          label: 'активировать',
                           onTap: () {
-                            context.router.pushNamed('auth2');
+                            context.read<UserBloc>().add(
+                                  ActivatePromoCodeEvent(
+                                      promoCode: promoCodeController.text),
+                                );
                           },
                         ),
                       ],

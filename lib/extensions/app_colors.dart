@@ -6,6 +6,7 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.backgroundGlobe,
     required this.backgroundAccent,
     required this.backgroundModal,
+    required this.backgroundFields,
     required this.buttonPrimaryDisabled,
     required this.buttonPrimaryDefault,
     required this.buttonPrimaryPressed,
@@ -34,6 +35,7 @@ class AppColors extends ThemeExtension<AppColors> {
   final Color backgroundGlobe;
   final Color backgroundAccent;
   final Color backgroundModal;
+  final Color backgroundFields;
   final Color buttonPrimaryDisabled;
   final Color buttonPrimaryDefault;
   final Color buttonPrimaryPressed;
@@ -63,6 +65,7 @@ class AppColors extends ThemeExtension<AppColors> {
     Color? backgroundGlobe,
     Color? backgroundAccent,
     Color? backgroundModal,
+    Color? backgroundFields,
     Color? buttonPrimaryDisabled,
     Color? buttonPrimaryDefault,
     Color? buttonPrimaryPressed,
@@ -91,6 +94,7 @@ class AppColors extends ThemeExtension<AppColors> {
       backgroundGlobe: backgroundGlobe ?? this.backgroundGlobe,
       backgroundAccent: backgroundAccent ?? this.backgroundAccent,
       backgroundModal: backgroundModal ?? this.backgroundModal,
+      backgroundFields: backgroundFields ?? this.backgroundFields,
       buttonPrimaryDisabled:
           buttonPrimaryDisabled ?? this.buttonPrimaryDisabled,
       buttonPrimaryDefault: buttonPrimaryDefault ?? this.buttonPrimaryDefault,
@@ -137,6 +141,9 @@ class AppColors extends ThemeExtension<AppColors> {
               backgroundAccent,
       backgroundModal: Color.lerp(backgroundModal, other.backgroundModal, t) ??
           backgroundModal,
+      backgroundFields:
+          Color.lerp(backgroundFields, other.backgroundFields, t) ??
+              backgroundFields,
       buttonPrimaryDisabled:
           Color.lerp(buttonPrimaryDisabled, other.buttonPrimaryDisabled, t) ??
               buttonPrimaryDisabled,
@@ -202,6 +209,7 @@ class AppColors extends ThemeExtension<AppColors> {
       'backgroundGlobe: $backgroundGlobe,'
       'backgroundAccent: $backgroundAccent,'
       'backgroundModal: $backgroundModal,'
+      'backgroundFields: $backgroundFields,'
       'buttonPrimaryDisabled: $buttonPrimaryDisabled,'
       'buttonPrimaryDefault: $buttonPrimaryDefault,'
       'buttonPrimaryPressed: $buttonPrimaryPressed,'
