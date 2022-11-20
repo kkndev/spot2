@@ -6,8 +6,8 @@ part of 'parking_place_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ParkingModel _$$_ParkingModelFromJson(Map<String, dynamic> json) =>
-    _$_ParkingModel(
+_$_ParkingPlaceModel _$$_ParkingPlaceModelFromJson(Map<String, dynamic> json) =>
+    _$_ParkingPlaceModel(
       id: json['id'] as int,
       parkingPlaceUid:
           json['parking_place_uid'] as String? ?? 'parking_place_uid',
@@ -25,7 +25,8 @@ _$_ParkingModel _$$_ParkingModelFromJson(Map<String, dynamic> json) =>
       updatedAt: json['updated_at'] as String? ?? 'updated_at',
     );
 
-Map<String, dynamic> _$$_ParkingModelToJson(_$_ParkingModel instance) =>
+Map<String, dynamic> _$$_ParkingPlaceModelToJson(
+        _$_ParkingPlaceModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'parking_place_uid': instance.parkingPlaceUid,

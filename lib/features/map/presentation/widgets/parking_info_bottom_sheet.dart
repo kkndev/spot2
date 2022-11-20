@@ -24,62 +24,60 @@ class ParkingInfoBottomSheet extends StatelessWidget {
 
     return Container(
       height: 144,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          children: [
-            SvgPicture.asset(
-              AppImages.roll,
-              width: 36,
-              height: 12,
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            MapModalHeader(label: parking.address),
-            SizedBox(
-              height: 6,
-            ),
-            Row(
-              children: [
-                Text(
-                  parking.favoriteName,
-                  style: textStyle.caption.copyWith(
-                    color: appColors.textSecondary,
-                  ),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        children: [
+          SvgPicture.asset(
+            AppImages.roll,
+            width: 36,
+            height: 12,
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          MapModalHeader(label: parking.address),
+          SizedBox(
+            height: 6,
+          ),
+          Row(
+            children: [
+              Text(
+                parking.favoriteName,
+                style: textStyle.caption.copyWith(
+                  color: appColors.textSecondary,
                 ),
-              ],
-            ),
-            const SizedBox(
-              height: 24,
-            ),
-            Row(
-              children: [
-                MapPrimaryButton(
-                  label: 'Smart-охрана',
-                ),
-                SizedBox(
-                  width: 8,
-                ),
-                MapPrimaryButton(
-                  label: 'Трафик',
-                ),
-                SizedBox(
-                  width: 8,
-                ),
-                MapSecondaryButton(
-                  iconName: AppImages.mapRoute,
-                ),
-                SizedBox(
-                  width: 8,
-                ),
-                MapSecondaryButton(
-                  iconName: AppImages.camera,
-                ),
-              ],
-            )
-          ],
-        ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 24,
+          ),
+          Row(
+            children: [
+              MapPrimaryButton(
+                label: 'Smart-охрана',
+              ),
+              SizedBox(
+                width: 8,
+              ),
+              MapPrimaryButton(
+                label: 'Трафик',
+              ),
+              SizedBox(
+                width: 8,
+              ),
+              MapSecondaryButton(
+                iconName: AppImages.mapRoute,
+              ),
+              SizedBox(
+                width: 8,
+              ),
+              MapSecondaryButton(
+                iconName: AppImages.camera,
+              ),
+            ],
+          )
+        ],
       ),
     );
   }

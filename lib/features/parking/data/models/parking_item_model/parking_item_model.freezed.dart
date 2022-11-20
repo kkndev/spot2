@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'parking_entity.dart';
+part of 'parking_item_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,55 +14,71 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+ParkingItemModel _$ParkingItemModelFromJson(Map<String, dynamic> json) {
+  return _ParkingItemModel.fromJson(json);
+}
+
 /// @nodoc
-mixin _$ParkingEntity {
+mixin _$ParkingItemModel {
   int get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'parking_uid')
   String get parkingUid => throw _privateConstructorUsedError;
   @JsonKey(name: 'address')
   String get address => throw _privateConstructorUsedError;
   @JsonKey(name: 'latitude')
-  double get latitude => throw _privateConstructorUsedError;
+  String get latitude => throw _privateConstructorUsedError;
   @JsonKey(name: 'longitude')
-  double get longitude => throw _privateConstructorUsedError;
+  String get longitude => throw _privateConstructorUsedError;
   @JsonKey(name: 'free_places_count')
   int get freePlacesCount => throw _privateConstructorUsedError;
   @JsonKey(name: 'occupied_places_count')
   int get occupiedPlacesCount => throw _privateConstructorUsedError;
   @JsonKey(name: 'unknown_places_count')
   int get unknownPlacesCount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
+  String get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'updated_at')
+  String get updatedAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'favorite_name')
   String get favoriteName => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  List<ParkingPlaceModel> get parkingPlaces =>
+      throw _privateConstructorUsedError;
+  List<CameraModel> get cameras => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ParkingEntityCopyWith<ParkingEntity> get copyWith =>
+  $ParkingItemModelCopyWith<ParkingItemModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ParkingEntityCopyWith<$Res> {
-  factory $ParkingEntityCopyWith(
-          ParkingEntity value, $Res Function(ParkingEntity) then) =
-      _$ParkingEntityCopyWithImpl<$Res, ParkingEntity>;
+abstract class $ParkingItemModelCopyWith<$Res> {
+  factory $ParkingItemModelCopyWith(
+          ParkingItemModel value, $Res Function(ParkingItemModel) then) =
+      _$ParkingItemModelCopyWithImpl<$Res, ParkingItemModel>;
   @useResult
   $Res call(
       {int id,
       @JsonKey(name: 'parking_uid') String parkingUid,
       @JsonKey(name: 'address') String address,
-      @JsonKey(name: 'latitude') double latitude,
-      @JsonKey(name: 'longitude') double longitude,
+      @JsonKey(name: 'latitude') String latitude,
+      @JsonKey(name: 'longitude') String longitude,
       @JsonKey(name: 'free_places_count') int freePlacesCount,
       @JsonKey(name: 'occupied_places_count') int occupiedPlacesCount,
       @JsonKey(name: 'unknown_places_count') int unknownPlacesCount,
+      @JsonKey(name: 'created_at') String createdAt,
+      @JsonKey(name: 'updated_at') String updatedAt,
       @JsonKey(name: 'favorite_name') String favoriteName,
-      String name});
+      String name,
+      List<ParkingPlaceModel> parkingPlaces,
+      List<CameraModel> cameras});
 }
 
 /// @nodoc
-class _$ParkingEntityCopyWithImpl<$Res, $Val extends ParkingEntity>
-    implements $ParkingEntityCopyWith<$Res> {
-  _$ParkingEntityCopyWithImpl(this._value, this._then);
+class _$ParkingItemModelCopyWithImpl<$Res, $Val extends ParkingItemModel>
+    implements $ParkingItemModelCopyWith<$Res> {
+  _$ParkingItemModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -80,8 +96,12 @@ class _$ParkingEntityCopyWithImpl<$Res, $Val extends ParkingEntity>
     Object? freePlacesCount = null,
     Object? occupiedPlacesCount = null,
     Object? unknownPlacesCount = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
     Object? favoriteName = null,
     Object? name = null,
+    Object? parkingPlaces = null,
+    Object? cameras = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -99,11 +119,11 @@ class _$ParkingEntityCopyWithImpl<$Res, $Val extends ParkingEntity>
       latitude: null == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
-              as double,
+              as String,
       longitude: null == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
-              as double,
+              as String,
       freePlacesCount: null == freePlacesCount
           ? _value.freePlacesCount
           : freePlacesCount // ignore: cast_nullable_to_non_nullable
@@ -116,6 +136,14 @@ class _$ParkingEntityCopyWithImpl<$Res, $Val extends ParkingEntity>
           ? _value.unknownPlacesCount
           : unknownPlacesCount // ignore: cast_nullable_to_non_nullable
               as int,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String,
       favoriteName: null == favoriteName
           ? _value.favoriteName
           : favoriteName // ignore: cast_nullable_to_non_nullable
@@ -124,37 +152,49 @@ class _$ParkingEntityCopyWithImpl<$Res, $Val extends ParkingEntity>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      parkingPlaces: null == parkingPlaces
+          ? _value.parkingPlaces
+          : parkingPlaces // ignore: cast_nullable_to_non_nullable
+              as List<ParkingPlaceModel>,
+      cameras: null == cameras
+          ? _value.cameras
+          : cameras // ignore: cast_nullable_to_non_nullable
+              as List<CameraModel>,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_ParkingEntityCopyWith<$Res>
-    implements $ParkingEntityCopyWith<$Res> {
-  factory _$$_ParkingEntityCopyWith(
-          _$_ParkingEntity value, $Res Function(_$_ParkingEntity) then) =
-      __$$_ParkingEntityCopyWithImpl<$Res>;
+abstract class _$$_ParkingItemModelCopyWith<$Res>
+    implements $ParkingItemModelCopyWith<$Res> {
+  factory _$$_ParkingItemModelCopyWith(
+          _$_ParkingItemModel value, $Res Function(_$_ParkingItemModel) then) =
+      __$$_ParkingItemModelCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
       {int id,
       @JsonKey(name: 'parking_uid') String parkingUid,
       @JsonKey(name: 'address') String address,
-      @JsonKey(name: 'latitude') double latitude,
-      @JsonKey(name: 'longitude') double longitude,
+      @JsonKey(name: 'latitude') String latitude,
+      @JsonKey(name: 'longitude') String longitude,
       @JsonKey(name: 'free_places_count') int freePlacesCount,
       @JsonKey(name: 'occupied_places_count') int occupiedPlacesCount,
       @JsonKey(name: 'unknown_places_count') int unknownPlacesCount,
+      @JsonKey(name: 'created_at') String createdAt,
+      @JsonKey(name: 'updated_at') String updatedAt,
       @JsonKey(name: 'favorite_name') String favoriteName,
-      String name});
+      String name,
+      List<ParkingPlaceModel> parkingPlaces,
+      List<CameraModel> cameras});
 }
 
 /// @nodoc
-class __$$_ParkingEntityCopyWithImpl<$Res>
-    extends _$ParkingEntityCopyWithImpl<$Res, _$_ParkingEntity>
-    implements _$$_ParkingEntityCopyWith<$Res> {
-  __$$_ParkingEntityCopyWithImpl(
-      _$_ParkingEntity _value, $Res Function(_$_ParkingEntity) _then)
+class __$$_ParkingItemModelCopyWithImpl<$Res>
+    extends _$ParkingItemModelCopyWithImpl<$Res, _$_ParkingItemModel>
+    implements _$$_ParkingItemModelCopyWith<$Res> {
+  __$$_ParkingItemModelCopyWithImpl(
+      _$_ParkingItemModel _value, $Res Function(_$_ParkingItemModel) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -168,10 +208,14 @@ class __$$_ParkingEntityCopyWithImpl<$Res>
     Object? freePlacesCount = null,
     Object? occupiedPlacesCount = null,
     Object? unknownPlacesCount = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
     Object? favoriteName = null,
     Object? name = null,
+    Object? parkingPlaces = null,
+    Object? cameras = null,
   }) {
-    return _then(_$_ParkingEntity(
+    return _then(_$_ParkingItemModel(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -187,11 +231,11 @@ class __$$_ParkingEntityCopyWithImpl<$Res>
       latitude: null == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
-              as double,
+              as String,
       longitude: null == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
-              as double,
+              as String,
       freePlacesCount: null == freePlacesCount
           ? _value.freePlacesCount
           : freePlacesCount // ignore: cast_nullable_to_non_nullable
@@ -204,6 +248,14 @@ class __$$_ParkingEntityCopyWithImpl<$Res>
           ? _value.unknownPlacesCount
           : unknownPlacesCount // ignore: cast_nullable_to_non_nullable
               as int,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String,
       favoriteName: null == favoriteName
           ? _value.favoriteName
           : favoriteName // ignore: cast_nullable_to_non_nullable
@@ -212,14 +264,22 @@ class __$$_ParkingEntityCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      parkingPlaces: null == parkingPlaces
+          ? _value._parkingPlaces
+          : parkingPlaces // ignore: cast_nullable_to_non_nullable
+              as List<ParkingPlaceModel>,
+      cameras: null == cameras
+          ? _value._cameras
+          : cameras // ignore: cast_nullable_to_non_nullable
+              as List<CameraModel>,
     ));
   }
 }
 
 /// @nodoc
-
-class _$_ParkingEntity implements _ParkingEntity {
-  const _$_ParkingEntity(
+@JsonSerializable()
+class _$_ParkingItemModel implements _ParkingItemModel {
+  const _$_ParkingItemModel(
       {required this.id,
       @JsonKey(name: 'parking_uid') required this.parkingUid,
       @JsonKey(name: 'address') required this.address,
@@ -228,8 +288,17 @@ class _$_ParkingEntity implements _ParkingEntity {
       @JsonKey(name: 'free_places_count') required this.freePlacesCount,
       @JsonKey(name: 'occupied_places_count') required this.occupiedPlacesCount,
       @JsonKey(name: 'unknown_places_count') required this.unknownPlacesCount,
+      @JsonKey(name: 'created_at') this.createdAt = 'created_at',
+      @JsonKey(name: 'updated_at') this.updatedAt = 'updated_at',
       @JsonKey(name: 'favorite_name') this.favoriteName = 'favorite_name',
-      this.name = 'name'});
+      this.name = 'name',
+      final List<ParkingPlaceModel> parkingPlaces = const [],
+      final List<CameraModel> cameras = const []})
+      : _parkingPlaces = parkingPlaces,
+        _cameras = cameras;
+
+  factory _$_ParkingItemModel.fromJson(Map<String, dynamic> json) =>
+      _$$_ParkingItemModelFromJson(json);
 
   @override
   final int id;
@@ -241,10 +310,10 @@ class _$_ParkingEntity implements _ParkingEntity {
   final String address;
   @override
   @JsonKey(name: 'latitude')
-  final double latitude;
+  final String latitude;
   @override
   @JsonKey(name: 'longitude')
-  final double longitude;
+  final String longitude;
   @override
   @JsonKey(name: 'free_places_count')
   final int freePlacesCount;
@@ -255,22 +324,43 @@ class _$_ParkingEntity implements _ParkingEntity {
   @JsonKey(name: 'unknown_places_count')
   final int unknownPlacesCount;
   @override
+  @JsonKey(name: 'created_at')
+  final String createdAt;
+  @override
+  @JsonKey(name: 'updated_at')
+  final String updatedAt;
+  @override
   @JsonKey(name: 'favorite_name')
   final String favoriteName;
   @override
   @JsonKey()
   final String name;
+  final List<ParkingPlaceModel> _parkingPlaces;
+  @override
+  @JsonKey()
+  List<ParkingPlaceModel> get parkingPlaces {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_parkingPlaces);
+  }
+
+  final List<CameraModel> _cameras;
+  @override
+  @JsonKey()
+  List<CameraModel> get cameras {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_cameras);
+  }
 
   @override
   String toString() {
-    return 'ParkingEntity(id: $id, parkingUid: $parkingUid, address: $address, latitude: $latitude, longitude: $longitude, freePlacesCount: $freePlacesCount, occupiedPlacesCount: $occupiedPlacesCount, unknownPlacesCount: $unknownPlacesCount, favoriteName: $favoriteName, name: $name)';
+    return 'ParkingItemModel(id: $id, parkingUid: $parkingUid, address: $address, latitude: $latitude, longitude: $longitude, freePlacesCount: $freePlacesCount, occupiedPlacesCount: $occupiedPlacesCount, unknownPlacesCount: $unknownPlacesCount, createdAt: $createdAt, updatedAt: $updatedAt, favoriteName: $favoriteName, name: $name, parkingPlaces: $parkingPlaces, cameras: $cameras)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ParkingEntity &&
+            other is _$_ParkingItemModel &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.parkingUid, parkingUid) ||
                 other.parkingUid == parkingUid) &&
@@ -285,11 +375,19 @@ class _$_ParkingEntity implements _ParkingEntity {
                 other.occupiedPlacesCount == occupiedPlacesCount) &&
             (identical(other.unknownPlacesCount, unknownPlacesCount) ||
                 other.unknownPlacesCount == unknownPlacesCount) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt) &&
             (identical(other.favoriteName, favoriteName) ||
                 other.favoriteName == favoriteName) &&
-            (identical(other.name, name) || other.name == name));
+            (identical(other.name, name) || other.name == name) &&
+            const DeepCollectionEquality()
+                .equals(other._parkingPlaces, _parkingPlaces) &&
+            const DeepCollectionEquality().equals(other._cameras, _cameras));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -301,36 +399,56 @@ class _$_ParkingEntity implements _ParkingEntity {
       freePlacesCount,
       occupiedPlacesCount,
       unknownPlacesCount,
+      createdAt,
+      updatedAt,
       favoriteName,
-      name);
+      name,
+      const DeepCollectionEquality().hash(_parkingPlaces),
+      const DeepCollectionEquality().hash(_cameras));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ParkingEntityCopyWith<_$_ParkingEntity> get copyWith =>
-      __$$_ParkingEntityCopyWithImpl<_$_ParkingEntity>(this, _$identity);
+  _$$_ParkingItemModelCopyWith<_$_ParkingItemModel> get copyWith =>
+      __$$_ParkingItemModelCopyWithImpl<_$_ParkingItemModel>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_ParkingItemModelToJson(
+      this,
+    );
+  }
 }
 
-abstract class _ParkingEntity implements ParkingEntity {
-  const factory _ParkingEntity(
+abstract class _ParkingItemModel implements ParkingItemModel {
+  const factory _ParkingItemModel(
       {required final int id,
       @JsonKey(name: 'parking_uid')
           required final String parkingUid,
       @JsonKey(name: 'address')
           required final String address,
       @JsonKey(name: 'latitude')
-          required final double latitude,
+          required final String latitude,
       @JsonKey(name: 'longitude')
-          required final double longitude,
+          required final String longitude,
       @JsonKey(name: 'free_places_count')
           required final int freePlacesCount,
       @JsonKey(name: 'occupied_places_count')
           required final int occupiedPlacesCount,
       @JsonKey(name: 'unknown_places_count')
           required final int unknownPlacesCount,
+      @JsonKey(name: 'created_at')
+          final String createdAt,
+      @JsonKey(name: 'updated_at')
+          final String updatedAt,
       @JsonKey(name: 'favorite_name')
           final String favoriteName,
-      final String name}) = _$_ParkingEntity;
+      final String name,
+      final List<ParkingPlaceModel> parkingPlaces,
+      final List<CameraModel> cameras}) = _$_ParkingItemModel;
+
+  factory _ParkingItemModel.fromJson(Map<String, dynamic> json) =
+      _$_ParkingItemModel.fromJson;
 
   @override
   int get id;
@@ -342,10 +460,10 @@ abstract class _ParkingEntity implements ParkingEntity {
   String get address;
   @override
   @JsonKey(name: 'latitude')
-  double get latitude;
+  String get latitude;
   @override
   @JsonKey(name: 'longitude')
-  double get longitude;
+  String get longitude;
   @override
   @JsonKey(name: 'free_places_count')
   int get freePlacesCount;
@@ -356,12 +474,22 @@ abstract class _ParkingEntity implements ParkingEntity {
   @JsonKey(name: 'unknown_places_count')
   int get unknownPlacesCount;
   @override
+  @JsonKey(name: 'created_at')
+  String get createdAt;
+  @override
+  @JsonKey(name: 'updated_at')
+  String get updatedAt;
+  @override
   @JsonKey(name: 'favorite_name')
   String get favoriteName;
   @override
   String get name;
   @override
+  List<ParkingPlaceModel> get parkingPlaces;
+  @override
+  List<CameraModel> get cameras;
+  @override
   @JsonKey(ignore: true)
-  _$$_ParkingEntityCopyWith<_$_ParkingEntity> get copyWith =>
+  _$$_ParkingItemModelCopyWith<_$_ParkingItemModel> get copyWith =>
       throw _privateConstructorUsedError;
 }

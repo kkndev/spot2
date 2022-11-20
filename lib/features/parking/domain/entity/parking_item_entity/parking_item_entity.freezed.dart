@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'parking_entity.dart';
+part of 'parking_item_entity.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$ParkingEntity {
+mixin _$ParkingItemEntity {
   int get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'parking_uid')
   String get parkingUid => throw _privateConstructorUsedError;
@@ -34,17 +34,20 @@ mixin _$ParkingEntity {
   @JsonKey(name: 'favorite_name')
   String get favoriteName => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  List<ParkingPlaceEntity> get parkingPlaces =>
+      throw _privateConstructorUsedError;
+  List<CameraEntity> get cameras => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $ParkingEntityCopyWith<ParkingEntity> get copyWith =>
+  $ParkingItemEntityCopyWith<ParkingItemEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ParkingEntityCopyWith<$Res> {
-  factory $ParkingEntityCopyWith(
-          ParkingEntity value, $Res Function(ParkingEntity) then) =
-      _$ParkingEntityCopyWithImpl<$Res, ParkingEntity>;
+abstract class $ParkingItemEntityCopyWith<$Res> {
+  factory $ParkingItemEntityCopyWith(
+          ParkingItemEntity value, $Res Function(ParkingItemEntity) then) =
+      _$ParkingItemEntityCopyWithImpl<$Res, ParkingItemEntity>;
   @useResult
   $Res call(
       {int id,
@@ -56,13 +59,15 @@ abstract class $ParkingEntityCopyWith<$Res> {
       @JsonKey(name: 'occupied_places_count') int occupiedPlacesCount,
       @JsonKey(name: 'unknown_places_count') int unknownPlacesCount,
       @JsonKey(name: 'favorite_name') String favoriteName,
-      String name});
+      String name,
+      List<ParkingPlaceEntity> parkingPlaces,
+      List<CameraEntity> cameras});
 }
 
 /// @nodoc
-class _$ParkingEntityCopyWithImpl<$Res, $Val extends ParkingEntity>
-    implements $ParkingEntityCopyWith<$Res> {
-  _$ParkingEntityCopyWithImpl(this._value, this._then);
+class _$ParkingItemEntityCopyWithImpl<$Res, $Val extends ParkingItemEntity>
+    implements $ParkingItemEntityCopyWith<$Res> {
+  _$ParkingItemEntityCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -82,6 +87,8 @@ class _$ParkingEntityCopyWithImpl<$Res, $Val extends ParkingEntity>
     Object? unknownPlacesCount = null,
     Object? favoriteName = null,
     Object? name = null,
+    Object? parkingPlaces = null,
+    Object? cameras = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -124,16 +131,24 @@ class _$ParkingEntityCopyWithImpl<$Res, $Val extends ParkingEntity>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      parkingPlaces: null == parkingPlaces
+          ? _value.parkingPlaces
+          : parkingPlaces // ignore: cast_nullable_to_non_nullable
+              as List<ParkingPlaceEntity>,
+      cameras: null == cameras
+          ? _value.cameras
+          : cameras // ignore: cast_nullable_to_non_nullable
+              as List<CameraEntity>,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_ParkingEntityCopyWith<$Res>
-    implements $ParkingEntityCopyWith<$Res> {
-  factory _$$_ParkingEntityCopyWith(
-          _$_ParkingEntity value, $Res Function(_$_ParkingEntity) then) =
-      __$$_ParkingEntityCopyWithImpl<$Res>;
+abstract class _$$_ParkingItemEntityCopyWith<$Res>
+    implements $ParkingItemEntityCopyWith<$Res> {
+  factory _$$_ParkingItemEntityCopyWith(_$_ParkingItemEntity value,
+          $Res Function(_$_ParkingItemEntity) then) =
+      __$$_ParkingItemEntityCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -146,15 +161,17 @@ abstract class _$$_ParkingEntityCopyWith<$Res>
       @JsonKey(name: 'occupied_places_count') int occupiedPlacesCount,
       @JsonKey(name: 'unknown_places_count') int unknownPlacesCount,
       @JsonKey(name: 'favorite_name') String favoriteName,
-      String name});
+      String name,
+      List<ParkingPlaceEntity> parkingPlaces,
+      List<CameraEntity> cameras});
 }
 
 /// @nodoc
-class __$$_ParkingEntityCopyWithImpl<$Res>
-    extends _$ParkingEntityCopyWithImpl<$Res, _$_ParkingEntity>
-    implements _$$_ParkingEntityCopyWith<$Res> {
-  __$$_ParkingEntityCopyWithImpl(
-      _$_ParkingEntity _value, $Res Function(_$_ParkingEntity) _then)
+class __$$_ParkingItemEntityCopyWithImpl<$Res>
+    extends _$ParkingItemEntityCopyWithImpl<$Res, _$_ParkingItemEntity>
+    implements _$$_ParkingItemEntityCopyWith<$Res> {
+  __$$_ParkingItemEntityCopyWithImpl(
+      _$_ParkingItemEntity _value, $Res Function(_$_ParkingItemEntity) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -170,8 +187,10 @@ class __$$_ParkingEntityCopyWithImpl<$Res>
     Object? unknownPlacesCount = null,
     Object? favoriteName = null,
     Object? name = null,
+    Object? parkingPlaces = null,
+    Object? cameras = null,
   }) {
-    return _then(_$_ParkingEntity(
+    return _then(_$_ParkingItemEntity(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -212,14 +231,22 @@ class __$$_ParkingEntityCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      parkingPlaces: null == parkingPlaces
+          ? _value._parkingPlaces
+          : parkingPlaces // ignore: cast_nullable_to_non_nullable
+              as List<ParkingPlaceEntity>,
+      cameras: null == cameras
+          ? _value._cameras
+          : cameras // ignore: cast_nullable_to_non_nullable
+              as List<CameraEntity>,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_ParkingEntity implements _ParkingEntity {
-  const _$_ParkingEntity(
+class _$_ParkingItemEntity implements _ParkingItemEntity {
+  const _$_ParkingItemEntity(
       {required this.id,
       @JsonKey(name: 'parking_uid') required this.parkingUid,
       @JsonKey(name: 'address') required this.address,
@@ -229,7 +256,11 @@ class _$_ParkingEntity implements _ParkingEntity {
       @JsonKey(name: 'occupied_places_count') required this.occupiedPlacesCount,
       @JsonKey(name: 'unknown_places_count') required this.unknownPlacesCount,
       @JsonKey(name: 'favorite_name') this.favoriteName = 'favorite_name',
-      this.name = 'name'});
+      this.name = 'name',
+      final List<ParkingPlaceEntity> parkingPlaces = const [],
+      final List<CameraEntity> cameras = const []})
+      : _parkingPlaces = parkingPlaces,
+        _cameras = cameras;
 
   @override
   final int id;
@@ -260,17 +291,32 @@ class _$_ParkingEntity implements _ParkingEntity {
   @override
   @JsonKey()
   final String name;
+  final List<ParkingPlaceEntity> _parkingPlaces;
+  @override
+  @JsonKey()
+  List<ParkingPlaceEntity> get parkingPlaces {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_parkingPlaces);
+  }
+
+  final List<CameraEntity> _cameras;
+  @override
+  @JsonKey()
+  List<CameraEntity> get cameras {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_cameras);
+  }
 
   @override
   String toString() {
-    return 'ParkingEntity(id: $id, parkingUid: $parkingUid, address: $address, latitude: $latitude, longitude: $longitude, freePlacesCount: $freePlacesCount, occupiedPlacesCount: $occupiedPlacesCount, unknownPlacesCount: $unknownPlacesCount, favoriteName: $favoriteName, name: $name)';
+    return 'ParkingItemEntity(id: $id, parkingUid: $parkingUid, address: $address, latitude: $latitude, longitude: $longitude, freePlacesCount: $freePlacesCount, occupiedPlacesCount: $occupiedPlacesCount, unknownPlacesCount: $unknownPlacesCount, favoriteName: $favoriteName, name: $name, parkingPlaces: $parkingPlaces, cameras: $cameras)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ParkingEntity &&
+            other is _$_ParkingItemEntity &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.parkingUid, parkingUid) ||
                 other.parkingUid == parkingUid) &&
@@ -287,7 +333,10 @@ class _$_ParkingEntity implements _ParkingEntity {
                 other.unknownPlacesCount == unknownPlacesCount) &&
             (identical(other.favoriteName, favoriteName) ||
                 other.favoriteName == favoriteName) &&
-            (identical(other.name, name) || other.name == name));
+            (identical(other.name, name) || other.name == name) &&
+            const DeepCollectionEquality()
+                .equals(other._parkingPlaces, _parkingPlaces) &&
+            const DeepCollectionEquality().equals(other._cameras, _cameras));
   }
 
   @override
@@ -302,17 +351,20 @@ class _$_ParkingEntity implements _ParkingEntity {
       occupiedPlacesCount,
       unknownPlacesCount,
       favoriteName,
-      name);
+      name,
+      const DeepCollectionEquality().hash(_parkingPlaces),
+      const DeepCollectionEquality().hash(_cameras));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ParkingEntityCopyWith<_$_ParkingEntity> get copyWith =>
-      __$$_ParkingEntityCopyWithImpl<_$_ParkingEntity>(this, _$identity);
+  _$$_ParkingItemEntityCopyWith<_$_ParkingItemEntity> get copyWith =>
+      __$$_ParkingItemEntityCopyWithImpl<_$_ParkingItemEntity>(
+          this, _$identity);
 }
 
-abstract class _ParkingEntity implements ParkingEntity {
-  const factory _ParkingEntity(
+abstract class _ParkingItemEntity implements ParkingItemEntity {
+  const factory _ParkingItemEntity(
       {required final int id,
       @JsonKey(name: 'parking_uid')
           required final String parkingUid,
@@ -330,7 +382,9 @@ abstract class _ParkingEntity implements ParkingEntity {
           required final int unknownPlacesCount,
       @JsonKey(name: 'favorite_name')
           final String favoriteName,
-      final String name}) = _$_ParkingEntity;
+      final String name,
+      final List<ParkingPlaceEntity> parkingPlaces,
+      final List<CameraEntity> cameras}) = _$_ParkingItemEntity;
 
   @override
   int get id;
@@ -361,7 +415,11 @@ abstract class _ParkingEntity implements ParkingEntity {
   @override
   String get name;
   @override
+  List<ParkingPlaceEntity> get parkingPlaces;
+  @override
+  List<CameraEntity> get cameras;
+  @override
   @JsonKey(ignore: true)
-  _$$_ParkingEntityCopyWith<_$_ParkingEntity> get copyWith =>
+  _$$_ParkingItemEntityCopyWith<_$_ParkingItemEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }

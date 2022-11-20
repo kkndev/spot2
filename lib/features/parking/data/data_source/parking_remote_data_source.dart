@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../models/exception.dart';
 import '../models/models.dart';
+import '../models/parking_item_model/parking_item_model.dart';
 import 'parking_remote_data_source_interface.dart';
 
 class ParkingDataSourceImpl implements ParkingDataSource {
@@ -85,9 +86,10 @@ class ParkingDataSourceImpl implements ParkingDataSource {
   }
 
   @override
-  Future<ParkingModel> getItem({required int id}) async {
+  Future<ParkingItemModel> getItem({required int id}) async {
     var box = await Hive.openBox('tokens');
     var spotToken = box.get('userSpotToken');
+    var freeParkingId = box.get('freeParkingId');
     client.options.headers = {
       'Authorization': '$spotToken',
       'Content-Type': 'application/json',
@@ -95,13 +97,19 @@ class ParkingDataSourceImpl implements ParkingDataSource {
 
     try {
       final response = await client.post(
-        '$BASE_API_URL/spot/Parking/getItems',
-        data: {"id": id},
+        '$BASE_API_URL/spot/Parking/getItem',
+        data: {
+          "id": freeParkingId,
+          "withs": [
+            "parking_places",
+            "cameras",
+          ]
+        },
       );
 
       if (response.statusCode == 200) {
         final jsonMap = response.data as Map<String, dynamic>;
-        return ParkingModel.fromJson(jsonMap['action_result']['data']);
+        return ParkingItemModel.fromJson(jsonMap['action_result']['data']);
       }
     } on DioError catch (e) {
       if (e.type == DioErrorType.response) {

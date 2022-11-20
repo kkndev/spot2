@@ -35,6 +35,11 @@ class FreeParkingDataSourceImpl implements FreeParkingDataSource {
       print(response);
       if (response.statusCode == 200) {
         final jsonMap = response.data as Map<String, dynamic>;
+        box.put(
+            'freeParkingId',
+            (jsonMap['action_result']['data']['items'] as List)[0]
+                ['parking_id']);
+
         return (jsonMap['action_result']['data']['items'] as List)
             .map((parking) => FreeParkingModel.fromJson(parking))
             .toList();

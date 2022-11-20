@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:spot2/features/parking/presentation/bloc/parking/parking_bloc.dart';
+import 'package:spot2/features/parking/presentation/bloc/parking/parking_event.dart';
 
 import '../../../../consts/app_images.dart';
 import '../../../../extensions/extensions.dart';
@@ -10,15 +13,31 @@ import '../../../free_parking/presentation/bloc/free_parking/free_parking_state.
 class FreeParking extends StatelessWidget {
   const FreeParking({
     Key? key,
-    required this.onTap,
   }) : super(key: key);
-
-  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
+    var freeParkingList =
+        context.watch<FreeParkingBloc>().state.freeParkingList;
+    bool hasFreeParking = freeParkingList.isEmpty;
     var appColors = Theme.of(context).extension<AppColors>()!;
     var textStyles = Theme.of(context).extension<AppTextStyles>()!;
+
+    onTap() {
+      context
+          .read<ParkingBloc>()
+          .add(GetParkingItemEvent(parkingId: freeParkingList[0].parkingId));
+      // _mapController.animateCamera(
+      //   CameraUpdate.newLatLngZoom(
+      //     LatLng(
+      //       freeParkingList[0].latitude ?? 0,
+      //       locationCoords.longitude ?? 0,
+      //     ),
+      //     15,
+      //   ),
+      // );
+    }
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -38,7 +57,9 @@ class FreeParking extends StatelessWidget {
               width: 8,
             ),
             Text(
-              'Нет мест',
+              context.watch<FreeParkingBloc>().state.freeParkingList.isEmpty
+                  ? 'Добавить'
+                  : 'Нет мест',
               style: textStyles.subtitle1,
             ),
           ],

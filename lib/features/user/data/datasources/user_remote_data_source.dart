@@ -81,6 +81,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   }) async {
     var box = await Hive.openBox('tokens');
     var spotToken = box.get('spotMasterToken');
+    var userId = box.get('userId');
     client.options.headers = {
       'Authorization': '$spotToken',
       'Content-Type': 'application/json',
@@ -90,7 +91,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
         '$BASE_API_URL/spot/User/update',
         data: {
           "attributes": {
-            "id": 609,
+            "id": userId,
             "name": name,
             "device_token": deviceToken,
           }
@@ -118,6 +119,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   }) async {
     var box = await Hive.openBox('tokens');
     var spotToken = box.get('spotMasterToken');
+    var userId = box.get('userId');
     client.options.headers = {
       'Authorization': '$spotToken',
       'Content-Type': 'application/json',
@@ -127,7 +129,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
         '$BASE_API_URL/spot/User/update',
         data: {
           "attributes": {
-            "id": 609,
+            "id": userId,
             "name": name,
           }
         },
@@ -163,6 +165,9 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       );
       if (response.statusCode == 200) {
         final jsonMap = response.data as Map<String, dynamic>;
+
+        var box = await Hive.openBox('tokens');
+        box.put('userId', jsonMap['action_result']['data']['id']);
         return UserInfoModel.fromJson(jsonMap['action_result']['data']);
       }
     } on DioError catch (e) {

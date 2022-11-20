@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ParkingState {
-  RequestStatus<ParkingEntity> get getParkingItemRequestStatus =>
+  RequestStatus<ParkingItemEntity> get getParkingItemRequestStatus =>
       throw _privateConstructorUsedError;
   RequestStatus<List<ParkingEntity>> get getParkingRequestStatus =>
       throw _privateConstructorUsedError;
@@ -25,6 +25,7 @@ mixin _$ParkingState {
   List<ParkingEntity> get searchedParkingList =>
       throw _privateConstructorUsedError;
   List<ParkingEntity> get parkingList => throw _privateConstructorUsedError;
+  ParkingItemEntity get parkingItem => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ParkingStateCopyWith<ParkingState> get copyWith =>
@@ -38,16 +39,19 @@ abstract class $ParkingStateCopyWith<$Res> {
       _$ParkingStateCopyWithImpl<$Res, ParkingState>;
   @useResult
   $Res call(
-      {RequestStatus<ParkingEntity> getParkingItemRequestStatus,
+      {RequestStatus<ParkingItemEntity> getParkingItemRequestStatus,
       RequestStatus<List<ParkingEntity>> getParkingRequestStatus,
       RequestStatus<List<ParkingEntity>> getParkingByAddressRequestStatus,
       List<ParkingEntity> searchedParkingList,
-      List<ParkingEntity> parkingList});
+      List<ParkingEntity> parkingList,
+      ParkingItemEntity parkingItem});
 
-  $RequestStatusCopyWith<ParkingEntity, $Res> get getParkingItemRequestStatus;
+  $RequestStatusCopyWith<ParkingItemEntity, $Res>
+      get getParkingItemRequestStatus;
   $RequestStatusCopyWith<List<ParkingEntity>, $Res> get getParkingRequestStatus;
   $RequestStatusCopyWith<List<ParkingEntity>, $Res>
       get getParkingByAddressRequestStatus;
+  $ParkingItemEntityCopyWith<$Res> get parkingItem;
 }
 
 /// @nodoc
@@ -68,12 +72,13 @@ class _$ParkingStateCopyWithImpl<$Res, $Val extends ParkingState>
     Object? getParkingByAddressRequestStatus = null,
     Object? searchedParkingList = null,
     Object? parkingList = null,
+    Object? parkingItem = null,
   }) {
     return _then(_value.copyWith(
       getParkingItemRequestStatus: null == getParkingItemRequestStatus
           ? _value.getParkingItemRequestStatus
           : getParkingItemRequestStatus // ignore: cast_nullable_to_non_nullable
-              as RequestStatus<ParkingEntity>,
+              as RequestStatus<ParkingItemEntity>,
       getParkingRequestStatus: null == getParkingRequestStatus
           ? _value.getParkingRequestStatus
           : getParkingRequestStatus // ignore: cast_nullable_to_non_nullable
@@ -90,13 +95,18 @@ class _$ParkingStateCopyWithImpl<$Res, $Val extends ParkingState>
           ? _value.parkingList
           : parkingList // ignore: cast_nullable_to_non_nullable
               as List<ParkingEntity>,
+      parkingItem: null == parkingItem
+          ? _value.parkingItem
+          : parkingItem // ignore: cast_nullable_to_non_nullable
+              as ParkingItemEntity,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $RequestStatusCopyWith<ParkingEntity, $Res> get getParkingItemRequestStatus {
-    return $RequestStatusCopyWith<ParkingEntity, $Res>(
+  $RequestStatusCopyWith<ParkingItemEntity, $Res>
+      get getParkingItemRequestStatus {
+    return $RequestStatusCopyWith<ParkingItemEntity, $Res>(
         _value.getParkingItemRequestStatus, (value) {
       return _then(_value.copyWith(getParkingItemRequestStatus: value) as $Val);
     });
@@ -122,6 +132,14 @@ class _$ParkingStateCopyWithImpl<$Res, $Val extends ParkingState>
           _value.copyWith(getParkingByAddressRequestStatus: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ParkingItemEntityCopyWith<$Res> get parkingItem {
+    return $ParkingItemEntityCopyWith<$Res>(_value.parkingItem, (value) {
+      return _then(_value.copyWith(parkingItem: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -133,19 +151,23 @@ abstract class _$$_ParkingStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {RequestStatus<ParkingEntity> getParkingItemRequestStatus,
+      {RequestStatus<ParkingItemEntity> getParkingItemRequestStatus,
       RequestStatus<List<ParkingEntity>> getParkingRequestStatus,
       RequestStatus<List<ParkingEntity>> getParkingByAddressRequestStatus,
       List<ParkingEntity> searchedParkingList,
-      List<ParkingEntity> parkingList});
+      List<ParkingEntity> parkingList,
+      ParkingItemEntity parkingItem});
 
   @override
-  $RequestStatusCopyWith<ParkingEntity, $Res> get getParkingItemRequestStatus;
+  $RequestStatusCopyWith<ParkingItemEntity, $Res>
+      get getParkingItemRequestStatus;
   @override
   $RequestStatusCopyWith<List<ParkingEntity>, $Res> get getParkingRequestStatus;
   @override
   $RequestStatusCopyWith<List<ParkingEntity>, $Res>
       get getParkingByAddressRequestStatus;
+  @override
+  $ParkingItemEntityCopyWith<$Res> get parkingItem;
 }
 
 /// @nodoc
@@ -164,12 +186,13 @@ class __$$_ParkingStateCopyWithImpl<$Res>
     Object? getParkingByAddressRequestStatus = null,
     Object? searchedParkingList = null,
     Object? parkingList = null,
+    Object? parkingItem = null,
   }) {
     return _then(_$_ParkingState(
       null == getParkingItemRequestStatus
           ? _value.getParkingItemRequestStatus
           : getParkingItemRequestStatus // ignore: cast_nullable_to_non_nullable
-              as RequestStatus<ParkingEntity>,
+              as RequestStatus<ParkingItemEntity>,
       null == getParkingRequestStatus
           ? _value.getParkingRequestStatus
           : getParkingRequestStatus // ignore: cast_nullable_to_non_nullable
@@ -186,6 +209,10 @@ class __$$_ParkingStateCopyWithImpl<$Res>
           ? _value._parkingList
           : parkingList // ignore: cast_nullable_to_non_nullable
               as List<ParkingEntity>,
+      null == parkingItem
+          ? _value.parkingItem
+          : parkingItem // ignore: cast_nullable_to_non_nullable
+              as ParkingItemEntity,
     ));
   }
 }
@@ -198,13 +225,14 @@ class _$_ParkingState implements _ParkingState {
       this.getParkingRequestStatus = const RequestStatus.init(),
       this.getParkingByAddressRequestStatus = const RequestStatus.init(),
       final List<ParkingEntity> searchedParkingList = const [],
-      final List<ParkingEntity> parkingList = const []])
+      final List<ParkingEntity> parkingList = const [],
+      this.parkingItem = ParkingItemEntity.emptyParkingItem])
       : _searchedParkingList = searchedParkingList,
         _parkingList = parkingList;
 
   @override
   @JsonKey()
-  final RequestStatus<ParkingEntity> getParkingItemRequestStatus;
+  final RequestStatus<ParkingItemEntity> getParkingItemRequestStatus;
   @override
   @JsonKey()
   final RequestStatus<List<ParkingEntity>> getParkingRequestStatus;
@@ -228,8 +256,12 @@ class _$_ParkingState implements _ParkingState {
   }
 
   @override
+  @JsonKey()
+  final ParkingItemEntity parkingItem;
+
+  @override
   String toString() {
-    return 'ParkingState(getParkingItemRequestStatus: $getParkingItemRequestStatus, getParkingRequestStatus: $getParkingRequestStatus, getParkingByAddressRequestStatus: $getParkingByAddressRequestStatus, searchedParkingList: $searchedParkingList, parkingList: $parkingList)';
+    return 'ParkingState(getParkingItemRequestStatus: $getParkingItemRequestStatus, getParkingRequestStatus: $getParkingRequestStatus, getParkingByAddressRequestStatus: $getParkingByAddressRequestStatus, searchedParkingList: $searchedParkingList, parkingList: $parkingList, parkingItem: $parkingItem)';
   }
 
   @override
@@ -251,7 +283,9 @@ class _$_ParkingState implements _ParkingState {
             const DeepCollectionEquality()
                 .equals(other._searchedParkingList, _searchedParkingList) &&
             const DeepCollectionEquality()
-                .equals(other._parkingList, _parkingList));
+                .equals(other._parkingList, _parkingList) &&
+            (identical(other.parkingItem, parkingItem) ||
+                other.parkingItem == parkingItem));
   }
 
   @override
@@ -261,7 +295,8 @@ class _$_ParkingState implements _ParkingState {
       getParkingRequestStatus,
       getParkingByAddressRequestStatus,
       const DeepCollectionEquality().hash(_searchedParkingList),
-      const DeepCollectionEquality().hash(_parkingList));
+      const DeepCollectionEquality().hash(_parkingList),
+      parkingItem);
 
   @JsonKey(ignore: true)
   @override
@@ -272,14 +307,15 @@ class _$_ParkingState implements _ParkingState {
 
 abstract class _ParkingState implements ParkingState {
   factory _ParkingState(
-      [final RequestStatus<ParkingEntity> getParkingItemRequestStatus,
+      [final RequestStatus<ParkingItemEntity> getParkingItemRequestStatus,
       final RequestStatus<List<ParkingEntity>> getParkingRequestStatus,
       final RequestStatus<List<ParkingEntity>> getParkingByAddressRequestStatus,
       final List<ParkingEntity> searchedParkingList,
-      final List<ParkingEntity> parkingList]) = _$_ParkingState;
+      final List<ParkingEntity> parkingList,
+      final ParkingItemEntity parkingItem]) = _$_ParkingState;
 
   @override
-  RequestStatus<ParkingEntity> get getParkingItemRequestStatus;
+  RequestStatus<ParkingItemEntity> get getParkingItemRequestStatus;
   @override
   RequestStatus<List<ParkingEntity>> get getParkingRequestStatus;
   @override
@@ -288,6 +324,8 @@ abstract class _ParkingState implements ParkingState {
   List<ParkingEntity> get searchedParkingList;
   @override
   List<ParkingEntity> get parkingList;
+  @override
+  ParkingItemEntity get parkingItem;
   @override
   @JsonKey(ignore: true)
   _$$_ParkingStateCopyWith<_$_ParkingState> get copyWith =>

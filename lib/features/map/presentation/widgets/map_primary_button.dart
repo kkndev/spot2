@@ -6,10 +6,12 @@ class MapPrimaryButton extends StatelessWidget {
   const MapPrimaryButton({
     Key? key,
     required this.label,
+    this.isDisabled = false,
     this.onTap,
   }) : super(key: key);
 
   final String label;
+  final bool isDisabled;
   final Function()? onTap;
 
   @override
@@ -20,7 +22,9 @@ class MapPrimaryButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: appColors.buttonPrimaryDefault,
+          color: isDisabled
+              ? appColors.buttonPrimaryDisabled
+              : appColors.buttonPrimaryDefault,
           borderRadius: BorderRadius.circular(8),
         ),
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),

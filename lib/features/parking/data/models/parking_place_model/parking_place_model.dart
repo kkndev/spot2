@@ -4,8 +4,8 @@ part 'parking_place_model.freezed.dart';
 part 'parking_place_model.g.dart';
 
 @freezed
-class ParkingModel with _$ParkingModel {
-  const factory ParkingModel({
+class ParkingPlaceModel with _$ParkingPlaceModel {
+  const factory ParkingPlaceModel({
     required int id,
     @Default('parking_place_uid')
     @JsonKey(name: 'parking_place_uid')
@@ -22,8 +22,8 @@ class ParkingModel with _$ParkingModel {
     required String status,
     @Default('created_at') @JsonKey(name: 'created_at') String createdAt,
     @Default('updated_at') @JsonKey(name: 'updated_at') String updatedAt,
-  }) = _ParkingModel;
+  }) = _ParkingPlaceModel;
 
-  factory ParkingModel.fromJson(Map<String, dynamic> json) =>
-      _$ParkingModelFromJson(json);
+  factory ParkingPlaceModel.fromJson(Map<String, dynamic> json) =>
+      _$ParkingPlaceModelFromJson(json);
 }

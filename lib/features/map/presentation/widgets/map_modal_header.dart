@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:spot2/features/map/presentation/bloc/map/map.dart';
 
 import '../../../../consts/app_images.dart';
 import '../../../../extensions/extensions.dart';
@@ -23,7 +25,9 @@ class MapModalHeader extends StatelessWidget {
           style: textStyles.subtitle1,
         ),
         GestureDetector(
-          onTap: () => Navigator.of(context).pop(),
+          onTap: () => context
+              .read<MapBloc>()
+              .add(SetBottomSheetEvent(bottomSheet: null)),
           child: SvgPicture.asset(
             AppImages.closeCircle,
             width: 28,

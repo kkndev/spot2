@@ -35,9 +35,9 @@ class _ParkingPageState extends State<ParkingPage> {
                   const SizedBox(
                     height: 16,
                   ),
-                  state.getParkingItemRequestStatus.when(
+                  state.getParkingRequestStatus.when(
                     loading: () => const CircularProgressIndicator(),
-                    success: (data) => HomeListItem(parking: data),
+                    success: (data) => HomeListItem(parking: data[0]),
                     failure: (error) {
                       if (error is UserFailure) {
                         return Text(error.message);

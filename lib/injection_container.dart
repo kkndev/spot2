@@ -46,6 +46,7 @@ import 'features/parking/data/data_source/parking_remote_data_source.dart';
 import 'features/parking/data/data_source/parking_remote_data_source_interface.dart';
 import 'features/parking/data/repository/parking_repository_impl.dart';
 import 'features/parking/domain/repository/parking_repository.dart';
+import 'features/parking/domain/usecase/get_parking_item_usecase.dart';
 import 'features/parking/domain/usecase/get_parking_usecase.dart';
 import 'features/parking/presentation/bloc/parking/parking_bloc.dart';
 import 'features/parking_camera/data/data_source/parking_camera_remote_data_source.dart';
@@ -97,10 +98,12 @@ Future<void> init() async {
   sl.registerFactory(
     () => ParkingBloc(
       getParkingUsecase: sl(),
+      getParkingItemUsecase: sl(),
       getParkingByAddressUsecase: sl(),
     ),
   );
   sl.registerLazySingleton(() => GetParkingUsecase(sl()));
+  sl.registerLazySingleton(() => GetParkingItemUsecase(sl()));
   sl.registerLazySingleton(() => GetParkingByAddressUsecase(sl()));
   sl.registerLazySingleton<ParkingRepository>(
     () => ParkingRepositoryImpl(

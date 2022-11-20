@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 
 import '../models/models.dart';
+import '../models/parking_item_model/parking_item_model.dart';
 import 'parking_remote_data_source_interface.dart';
 
 class ParkingDataSourceMock implements ParkingDataSource {
@@ -56,7 +57,7 @@ class ParkingDataSourceMock implements ParkingDataSource {
   }
 
   @override
-  Future<ParkingModel> getItem({required int id}) async {
+  Future<ParkingItemModel> getItem({required int id}) async {
     await Future.delayed(const Duration(seconds: 3));
     final Map<String, dynamic> jsonMap = {
       "action": {
@@ -94,6 +95,6 @@ class ParkingDataSourceMock implements ParkingDataSource {
       },
       "action_error": null
     };
-    return ParkingModel.fromJson(jsonMap['action_result']['data']);
+    return ParkingItemModel.fromJson(jsonMap['action_result']['data']);
   }
 }

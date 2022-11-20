@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'parking_model.dart';
+part of 'parking_item_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ParkingModel _$$_ParkingModelFromJson(Map<String, dynamic> json) =>
-    _$_ParkingModel(
+_$_ParkingItemModel _$$_ParkingItemModelFromJson(Map<String, dynamic> json) =>
+    _$_ParkingItemModel(
       id: json['id'] as int,
       parkingUid: json['parking_uid'] as String,
       address: json['address'] as String,
@@ -20,9 +20,18 @@ _$_ParkingModel _$$_ParkingModelFromJson(Map<String, dynamic> json) =>
       updatedAt: json['updated_at'] as String? ?? 'updated_at',
       favoriteName: json['favorite_name'] as String? ?? 'favorite_name',
       name: json['name'] as String? ?? 'name',
+      parkingPlaces: (json['parkingPlaces'] as List<dynamic>?)
+              ?.map(
+                  (e) => ParkingPlaceModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      cameras: (json['cameras'] as List<dynamic>?)
+              ?.map((e) => CameraModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
-Map<String, dynamic> _$$_ParkingModelToJson(_$_ParkingModel instance) =>
+Map<String, dynamic> _$$_ParkingItemModelToJson(_$_ParkingItemModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'parking_uid': instance.parkingUid,
@@ -36,4 +45,6 @@ Map<String, dynamic> _$$_ParkingModelToJson(_$_ParkingModel instance) =>
       'updated_at': instance.updatedAt,
       'favorite_name': instance.favoriteName,
       'name': instance.name,
+      'parkingPlaces': instance.parkingPlaces,
+      'cameras': instance.cameras,
     };

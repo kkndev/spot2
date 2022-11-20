@@ -1,11 +1,14 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'parking_model.freezed.dart';
-part 'parking_model.g.dart';
+import '../camera_model/camera_model.dart';
+import '../parking_place_model/parking_place_model.dart';
+
+part 'parking_item_model.freezed.dart';
+part 'parking_item_model.g.dart';
 
 @freezed
-class ParkingModel with _$ParkingModel {
-  const factory ParkingModel({
+class ParkingItemModel with _$ParkingItemModel {
+  const factory ParkingItemModel({
     required int id,
     @JsonKey(name: 'parking_uid') required String parkingUid,
     @JsonKey(name: 'address') required String address,
@@ -20,8 +23,10 @@ class ParkingModel with _$ParkingModel {
     @JsonKey(name: 'favorite_name')
         String favoriteName,
     @Default('name') String name,
-  }) = _ParkingModel;
+    @Default([]) List<ParkingPlaceModel> parkingPlaces,
+    @Default([]) List<CameraModel> cameras,
+  }) = _ParkingItemModel;
 
-  factory ParkingModel.fromJson(Map<String, dynamic> json) =>
-      _$ParkingModelFromJson(json);
+  factory ParkingItemModel.fromJson(Map<String, dynamic> json) =>
+      _$ParkingItemModelFromJson(json);
 }

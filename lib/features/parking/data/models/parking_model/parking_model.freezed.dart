@@ -254,26 +254,16 @@ class __$$_ParkingModelCopyWithImpl<$Res>
 class _$_ParkingModel implements _ParkingModel {
   const _$_ParkingModel(
       {required this.id,
-      @JsonKey(name: 'parking_uid')
-          required this.parkingUid,
-      @JsonKey(name: 'address')
-          required this.address,
-      @JsonKey(name: 'latitude')
-          required this.latitude,
-      @JsonKey(name: 'longitude')
-          required this.longitude,
-      @JsonKey(name: 'free_places_count')
-          required this.freePlacesCount,
-      @JsonKey(name: 'occupied_places_count')
-          required this.occupiedPlacesCount,
-      @JsonKey(name: 'unknown_places_count')
-          required this.unknownPlacesCount,
-      @JsonKey(name: 'created_at')
-          this.createdAt = 'created_at',
-      @JsonKey(name: 'updated_at')
-          this.updatedAt = 'updated_at',
-      @JsonKey(name: 'favorite_name')
-          this.favoriteName = 'favorite_parking_name',
+      @JsonKey(name: 'parking_uid') required this.parkingUid,
+      @JsonKey(name: 'address') required this.address,
+      @JsonKey(name: 'latitude') required this.latitude,
+      @JsonKey(name: 'longitude') required this.longitude,
+      @JsonKey(name: 'free_places_count') required this.freePlacesCount,
+      @JsonKey(name: 'occupied_places_count') required this.occupiedPlacesCount,
+      @JsonKey(name: 'unknown_places_count') required this.unknownPlacesCount,
+      @JsonKey(name: 'created_at') this.createdAt = 'created_at',
+      @JsonKey(name: 'updated_at') this.updatedAt = 'updated_at',
+      @JsonKey(name: 'favorite_name') this.favoriteName = 'favorite_name',
       this.name = 'name'});
 
   factory _$_ParkingModel.fromJson(Map<String, dynamic> json) =>

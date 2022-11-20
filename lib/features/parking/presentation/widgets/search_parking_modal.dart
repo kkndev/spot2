@@ -63,6 +63,9 @@ class _SearchParkingModalState extends State<SearchParkingModal> {
                     ),
                   ],
                 ),
+                SizedBox(
+                  height: 16,
+                ),
                 state.getParkingByAddressRequestStatus.when(
                   loading: () => const CircularProgressIndicator(),
                   success: (data) => Column(

@@ -29,7 +29,6 @@ class MapSecondaryButton extends StatelessWidget {
           iconName,
           width: 24,
           height: 24,
-          color: appColors.iconsPrimary,
         ),
       ),
     );

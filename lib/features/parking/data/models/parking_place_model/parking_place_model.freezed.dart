@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-ParkingModel _$ParkingModelFromJson(Map<String, dynamic> json) {
-  return _ParkingModel.fromJson(json);
+ParkingPlaceModel _$ParkingPlaceModelFromJson(Map<String, dynamic> json) {
+  return _ParkingPlaceModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$ParkingModel {
+mixin _$ParkingPlaceModel {
   int get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'parking_place_uid')
   String get parkingPlaceUid => throw _privateConstructorUsedError;
@@ -48,15 +48,15 @@ mixin _$ParkingModel {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ParkingModelCopyWith<ParkingModel> get copyWith =>
+  $ParkingPlaceModelCopyWith<ParkingPlaceModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ParkingModelCopyWith<$Res> {
-  factory $ParkingModelCopyWith(
-          ParkingModel value, $Res Function(ParkingModel) then) =
-      _$ParkingModelCopyWithImpl<$Res, ParkingModel>;
+abstract class $ParkingPlaceModelCopyWith<$Res> {
+  factory $ParkingPlaceModelCopyWith(
+          ParkingPlaceModel value, $Res Function(ParkingPlaceModel) then) =
+      _$ParkingPlaceModelCopyWithImpl<$Res, ParkingPlaceModel>;
   @useResult
   $Res call(
       {int id,
@@ -76,9 +76,9 @@ abstract class $ParkingModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ParkingModelCopyWithImpl<$Res, $Val extends ParkingModel>
-    implements $ParkingModelCopyWith<$Res> {
-  _$ParkingModelCopyWithImpl(this._value, this._then);
+class _$ParkingPlaceModelCopyWithImpl<$Res, $Val extends ParkingPlaceModel>
+    implements $ParkingPlaceModelCopyWith<$Res> {
+  _$ParkingPlaceModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -165,11 +165,11 @@ class _$ParkingModelCopyWithImpl<$Res, $Val extends ParkingModel>
 }
 
 /// @nodoc
-abstract class _$$_ParkingModelCopyWith<$Res>
-    implements $ParkingModelCopyWith<$Res> {
-  factory _$$_ParkingModelCopyWith(
-          _$_ParkingModel value, $Res Function(_$_ParkingModel) then) =
-      __$$_ParkingModelCopyWithImpl<$Res>;
+abstract class _$$_ParkingPlaceModelCopyWith<$Res>
+    implements $ParkingPlaceModelCopyWith<$Res> {
+  factory _$$_ParkingPlaceModelCopyWith(_$_ParkingPlaceModel value,
+          $Res Function(_$_ParkingPlaceModel) then) =
+      __$$_ParkingPlaceModelCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -190,11 +190,11 @@ abstract class _$$_ParkingModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ParkingModelCopyWithImpl<$Res>
-    extends _$ParkingModelCopyWithImpl<$Res, _$_ParkingModel>
-    implements _$$_ParkingModelCopyWith<$Res> {
-  __$$_ParkingModelCopyWithImpl(
-      _$_ParkingModel _value, $Res Function(_$_ParkingModel) _then)
+class __$$_ParkingPlaceModelCopyWithImpl<$Res>
+    extends _$ParkingPlaceModelCopyWithImpl<$Res, _$_ParkingPlaceModel>
+    implements _$$_ParkingPlaceModelCopyWith<$Res> {
+  __$$_ParkingPlaceModelCopyWithImpl(
+      _$_ParkingPlaceModel _value, $Res Function(_$_ParkingPlaceModel) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -215,7 +215,7 @@ class __$$_ParkingModelCopyWithImpl<$Res>
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
-    return _then(_$_ParkingModel(
+    return _then(_$_ParkingPlaceModel(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -278,8 +278,8 @@ class __$$_ParkingModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ParkingModel implements _ParkingModel {
-  const _$_ParkingModel(
+class _$_ParkingPlaceModel implements _ParkingPlaceModel {
+  const _$_ParkingPlaceModel(
       {required this.id,
       @JsonKey(name: 'parking_place_uid')
           this.parkingPlaceUid = 'parking_place_uid',
@@ -306,8 +306,8 @@ class _$_ParkingModel implements _ParkingModel {
       @JsonKey(name: 'updated_at')
           this.updatedAt = 'updated_at'});
 
-  factory _$_ParkingModel.fromJson(Map<String, dynamic> json) =>
-      _$$_ParkingModelFromJson(json);
+  factory _$_ParkingPlaceModel.fromJson(Map<String, dynamic> json) =>
+      _$$_ParkingPlaceModelFromJson(json);
 
   @override
   final int id;
@@ -351,14 +351,14 @@ class _$_ParkingModel implements _ParkingModel {
 
   @override
   String toString() {
-    return 'ParkingModel(id: $id, parkingPlaceUid: $parkingPlaceUid, parkingId: $parkingId, cameraId: $cameraId, latitude: $latitude, longitude: $longitude, angle: $angle, startPixelXCoord: $startPixelXCoord, startPixelYCoord: $startPixelYCoord, endPixelXCoord: $endPixelXCoord, endPixelYCoord: $endPixelYCoord, status: $status, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'ParkingPlaceModel(id: $id, parkingPlaceUid: $parkingPlaceUid, parkingId: $parkingId, cameraId: $cameraId, latitude: $latitude, longitude: $longitude, angle: $angle, startPixelXCoord: $startPixelXCoord, startPixelYCoord: $startPixelYCoord, endPixelXCoord: $endPixelXCoord, endPixelYCoord: $endPixelYCoord, status: $status, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ParkingModel &&
+            other is _$_ParkingPlaceModel &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.parkingPlaceUid, parkingPlaceUid) ||
                 other.parkingPlaceUid == parkingPlaceUid) &&
@@ -408,36 +408,38 @@ class _$_ParkingModel implements _ParkingModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ParkingModelCopyWith<_$_ParkingModel> get copyWith =>
-      __$$_ParkingModelCopyWithImpl<_$_ParkingModel>(this, _$identity);
+  _$$_ParkingPlaceModelCopyWith<_$_ParkingPlaceModel> get copyWith =>
+      __$$_ParkingPlaceModelCopyWithImpl<_$_ParkingPlaceModel>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ParkingModelToJson(
+    return _$$_ParkingPlaceModelToJson(
       this,
     );
   }
 }
 
-abstract class _ParkingModel implements ParkingModel {
-  const factory _ParkingModel(
-      {required final int id,
-      @JsonKey(name: 'parking_place_uid') final String parkingPlaceUid,
-      @JsonKey(name: 'parking_id') final int parkingId,
-      @JsonKey(name: 'camera_id') final int cameraId,
-      @JsonKey(name: 'latitude') final double latitude,
-      @JsonKey(name: 'longitude') final double longitude,
-      required final double angle,
-      @JsonKey(name: 'start_pixel_x_coord') final double startPixelXCoord,
-      @JsonKey(name: 'start_pixel_y_coord') final double startPixelYCoord,
-      @JsonKey(name: 'end_pixel_x_coord') final double endPixelXCoord,
-      @JsonKey(name: 'ens_pixel_y_coord') final double endPixelYCoord,
-      required final String status,
-      @JsonKey(name: 'created_at') final String createdAt,
-      @JsonKey(name: 'updated_at') final String updatedAt}) = _$_ParkingModel;
+abstract class _ParkingPlaceModel implements ParkingPlaceModel {
+  const factory _ParkingPlaceModel(
+          {required final int id,
+          @JsonKey(name: 'parking_place_uid') final String parkingPlaceUid,
+          @JsonKey(name: 'parking_id') final int parkingId,
+          @JsonKey(name: 'camera_id') final int cameraId,
+          @JsonKey(name: 'latitude') final double latitude,
+          @JsonKey(name: 'longitude') final double longitude,
+          required final double angle,
+          @JsonKey(name: 'start_pixel_x_coord') final double startPixelXCoord,
+          @JsonKey(name: 'start_pixel_y_coord') final double startPixelYCoord,
+          @JsonKey(name: 'end_pixel_x_coord') final double endPixelXCoord,
+          @JsonKey(name: 'ens_pixel_y_coord') final double endPixelYCoord,
+          required final String status,
+          @JsonKey(name: 'created_at') final String createdAt,
+          @JsonKey(name: 'updated_at') final String updatedAt}) =
+      _$_ParkingPlaceModel;
 
-  factory _ParkingModel.fromJson(Map<String, dynamic> json) =
-      _$_ParkingModel.fromJson;
+  factory _ParkingPlaceModel.fromJson(Map<String, dynamic> json) =
+      _$_ParkingPlaceModel.fromJson;
 
   @override
   int get id;
@@ -480,6 +482,6 @@ abstract class _ParkingModel implements ParkingModel {
   String get updatedAt;
   @override
   @JsonKey(ignore: true)
-  _$$_ParkingModelCopyWith<_$_ParkingModel> get copyWith =>
+  _$$_ParkingPlaceModelCopyWith<_$_ParkingPlaceModel> get copyWith =>
       throw _privateConstructorUsedError;
 }

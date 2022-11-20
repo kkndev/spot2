@@ -4,11 +4,21 @@ import 'package:spot2/consts/app_images.dart';
 import 'package:spot2/core/presentation/components/circle_icon_button.dart';
 import 'package:spot2/core/presentation/components/components.dart';
 import 'package:spot2/extensions/extensions.dart';
+import 'package:spot2/features/map/presentation/widgets/map_primary_button.dart';
+import 'package:spot2/features/parking/domain/entity/parking_entity/parking_entity.dart';
+import 'package:spot2/features/user/presentation/bloc/user/user.dart';
 
+import '../../../free_parking/presentation/bloc/free_parking/free_parking_bloc.dart';
+import '../../../free_parking/presentation/bloc/free_parking/free_parking_event.dart';
 import '../bloc/map/map.dart';
 
 class ChooseHomeParkingBottomSheet extends StatelessWidget {
-  const ChooseHomeParkingBottomSheet({Key? key}) : super(key: key);
+  const ChooseHomeParkingBottomSheet({
+    Key? key,
+    this.parking,
+  }) : super(key: key);
+
+  final ParkingEntity? parking;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +27,7 @@ class ChooseHomeParkingBottomSheet extends StatelessWidget {
 
     return Stack(clipBehavior: Clip.none, children: [
       Container(
-        height: 160,
+        height: 172,
         width: double.infinity,
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
@@ -31,23 +41,60 @@ class ChooseHomeParkingBottomSheet extends StatelessWidget {
               style: textStyle.body1,
             ),
             SizedBox(
-              height: 16,
+              height: parking != null ? 8 : 16,
             ),
-            Text(
-              'Парковка не выбрана',
-              style: textStyle.body2,
-            ),
-            SizedBox(
-              height: 28,
-            ),
-            TertiaryButton(
-              label: 'Изменить',
-              onTap: () => context.read<MapBloc>().add(
-                    SetBottomSheetEvent(
-                      bottomSheet: null,
-                    ),
+            parking != null
+                ? Column(
+                    children: [
+                      Text(
+                        parking?.address ?? '',
+                        style: textStyle.subtitle1,
+                      ),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      Text(
+                        parking?.favoriteName ?? '',
+                        style: textStyle.caption.copyWith(
+                          color: appColors.textSecondary,
+                        ),
+                      ),
+                    ],
+                  )
+                : Text(
+                    'Парковка не выбрана',
+                    style: textStyle.body2,
                   ),
+            SizedBox(
+              height: parking != null ? 16 : 28,
             ),
+            parking != null
+                ? MapPrimaryButton(
+                    label: 'Сохранить парковку',
+                    onTap: () {
+                      var userId = context.read<UserBloc>().state.userInfo.id;
+                      context.read<FreeParkingBloc>().add(
+                            CreateFreeParkingEvent(
+                              userId: userId,
+                              parkingId: parking?.id ?? 0,
+                            ),
+                          );
+                      context.read<MapBloc>().add(
+                            SetBottomSheetEvent(
+                              bottomSheet: null,
+                            ),
+                          );
+                    },
+                  )
+                : MapPrimaryButton(
+                    label: 'Изменить',
+                    isDisabled: true,
+                    onTap: () => context.read<MapBloc>().add(
+                          SetBottomSheetEvent(
+                            bottomSheet: null,
+                          ),
+                        ),
+                  ),
           ],
         ),
       ),

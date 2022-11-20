@@ -53,14 +53,26 @@ class _MapPageState extends State<MapPage> {
         .parkingList
         .firstWhere((element) =>
             element.longitude == symbol.options.geometry?.latitude);
+    var freeParking =
+        context.read<FreeParkingBloc>().state.freeParkingList.isNotEmpty;
 
-    context.read<MapBloc>().add(
-          SetBottomSheetEvent(
-            bottomSheet: ParkingInfoBottomSheet(
-              parking: pressedParking,
+    if (freeParking) {
+      context.read<MapBloc>().add(
+            SetBottomSheetEvent(
+              bottomSheet: ParkingInfoBottomSheet(
+                parking: pressedParking,
+              ),
             ),
-          ),
-        );
+          );
+    } else {
+      context.read<MapBloc>().add(
+            SetBottomSheetEvent(
+              bottomSheet: ChooseHomeParkingBottomSheet(
+                parking: pressedParking,
+              ),
+            ),
+          );
+    }
   }
 
   _toMyLocation() async {
@@ -119,6 +131,12 @@ class _MapPageState extends State<MapPage> {
                     next.getParkingRequestStatus;
               },
               listener: (_, state) {
+                var userId = context.read<UserBloc>().state.userInfo.id;
+
+                context
+                    .read<FreeParkingBloc>()
+                    .add(GetFreeParkingEvent(userId: userId));
+
                 var symbols = <SymbolOptions>[];
 
                 state.parkingList.forEach((element) {
@@ -205,14 +223,7 @@ class _MapPageState extends State<MapPage> {
                   Positioned(
                     left: 16,
                     bottom: 72,
-                    child: FreeParking(onTap: () {
-                      var userId = context.read<UserBloc>().state.user.id;
-                      context.read<MapBloc>().add(
-                            SetBottomSheetEvent(
-                              bottomSheet: ChooseHomeParkingBottomSheet(),
-                            ),
-                          );
-                    }),
+                    child: FreeParking(),
                   ),
                 ]);
               },
