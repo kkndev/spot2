@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:spot2/features/auth/domain/entities/parking_place_entity.dart';
-import 'package:spot2/features/map/domain/entities/parking_entity.dart';
 
 import '../repositories/auth_repository.dart';
 import '/core/data/dto/error/failure.dart';

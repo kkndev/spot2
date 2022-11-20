@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:hive/hive.dart';
 import 'package:spot2/features/auth/domain/entities/parking_place_entity.dart';
-import 'package:spot2/features/map/domain/entities/parking_entity.dart';
 
+import '../../../parking/domain/entity/parking_entity/parking_entity.dart';
 import '/features/auth/domain/entities/user_tokens.dart';
 import '/core/data/dto/error/exception.dart';
 
@@ -109,7 +109,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       box.put('userMasterToken', data['user_master_token']);
       box.put('userMasterRefreshToken', data['user_master_refresh_token']);
-      box.put('userSpotToken', data2);
+      box.put('spotMasterToken', data2);
       return UserTokens(
           userMasterToken: data['user_master_token'],
           userMasterRefreshToken: data['user_master_refresh_token'],

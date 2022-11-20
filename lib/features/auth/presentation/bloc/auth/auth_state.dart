@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spot2/features/auth/domain/entities/parking_place_entity.dart';
-import 'package:spot2/features/map/domain/entities/parking_entity.dart';
 
+import '../../../../parking/domain/entity/parking_entity/parking_entity.dart';
 import '/core/data/dto/request_status/request_status.dart';
 
 part 'auth_state.freezed.dart';

@@ -122,10 +122,10 @@ class _Auth2PageState extends State<Auth2Page> {
                           ),
                     ),
                     TertiaryButton(
-                      label: 'set masterRefreshToken',
+                      label: 'set userMasterRefreshToken',
                       onTap: () async {
                         var box = await Hive.openBox('tokens');
-                        box.put('masterRefreshToken',
+                        box.put('userMasterRefreshToken',
                             'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW1ydCIsImF1dGhfaWRlbnRpZmljYXRpb24iOiI4N2FkYWZjZi0zOGZhLTRlMjItOWFiMC0yZjZjOGZiZmZlZmMiLCJhbGl2ZV91bnRpbCI6IjIwMjMtMTEtMTdUMTM6Mzk6MTguODYyNTY1WiJ9.HjNWnKAtAZmen2-mJ11OuMjQajk2oE5K88xhPinlZiE');
                       },
                     ),
@@ -133,7 +133,7 @@ class _Auth2PageState extends State<Auth2Page> {
                       label: 'reset master token',
                       onTap: () async {
                         var box = await Hive.openBox('tokens');
-                        box.put('masterToken',
+                        box.put('userMasterToken',
                             'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW10IiwiYXV0aF9pZGVudGlmaWNhdGlvbiI6Ijg3YWRhZmNmLTM4ZmEtNGUyMi05YWIwLTJmNmM4ZmJmZmVmYyIsImFsaXZlX3VudGlsIjoiMjAyMi0xMS0xNlQxODo0ODoyMC43NTc3OTFaIn0.t_r2JBEqv3w5KQLvqeFEPKI2D7AVYJUQMeS1wNqR7cU');
                       },
                     ),

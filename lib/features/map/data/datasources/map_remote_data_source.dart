@@ -2,18 +2,18 @@ import 'package:dio/dio.dart';
 
 import '/core/data/dto/error/exception.dart';
 
-abstract class AuthRemoteDataSource {
+abstract class MapRemoteDataSource {
   Future<String> getCodeByEmail(String email);
   Future<String> getCodeByPhone(String phone);
 }
 
-class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
+class MapRemoteDataSourceImpl implements MapRemoteDataSource {
   var BASE_API_URL = 'https://api.spot-parking-develop.sputnikfund.ru';
   var BASE_SOCKET_URL =
       'wss://api.spot-parking-develop.sputnikfund.ru/connection/websocket';
   final Dio client;
 
-  AuthRemoteDataSourceImpl({required this.client});
+  MapRemoteDataSourceImpl({required this.client});
 
   @override
   Future<String> getCodeByEmail(String email) async {

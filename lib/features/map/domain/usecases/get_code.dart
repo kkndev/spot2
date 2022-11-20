@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
-import '../repositories/auth_repository.dart';
+import '../repositories/map_repository.dart';
 import '/core/data/dto/error/failure.dart';
 import '/core/domain/usecase/usecase.dart';
 
 class GetCode extends UseCase<String, GetCodeParams> {
-  final AuthRepository authRepository;
+  final MapRepository authRepository;
 
   GetCode(this.authRepository);
 

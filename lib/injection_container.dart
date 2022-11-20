@@ -7,6 +7,8 @@ import 'package:spot2/features/favorite_parking/data/data_source/favorite_parkin
 import 'package:spot2/features/favorite_parking/data/repository/favorite_parking_repository_impl.dart';
 import 'package:spot2/features/favorite_parking/domain/repository/favorite_parking_repository.dart';
 import 'package:spot2/features/favorite_parking/presentation/bloc/favorite_parking/favorite_parking.dart';
+import 'package:spot2/features/map/data/datasources/map_remote_data_source.dart';
+import 'package:spot2/features/map/data/repositories/map_repository_impl.dart';
 import 'package:spot2/features/parking/domain/usecase/get_parking_by_address_usecase.dart';
 import 'package:spot2/features/parking_camera/domain/repository/parking_camera_repository.dart';
 import 'package:spot2/features/parking_camera/domain/usecase/get_parking_camera_usecase.dart';
@@ -38,6 +40,8 @@ import 'features/free_parking/domain/usecase/delete_free_parking_usecase.dart';
 import 'features/free_parking/domain/usecase/get_free_parking_usecase.dart';
 import 'features/free_parking/domain/usecase/update_free_parking_usecase.dart';
 import 'features/free_parking/presentation/bloc/free_parking/free_parking_bloc.dart';
+import 'features/map/domain/repositories/map_repository.dart';
+import 'features/map/presentation/bloc/map/map_bloc.dart';
 import 'features/parking/data/data_source/parking_remote_data_source.dart';
 import 'features/parking/data/data_source/parking_remote_data_source_interface.dart';
 import 'features/parking/data/repository/parking_repository_impl.dart';
@@ -210,6 +214,27 @@ Future<void> init() async {
   sl.registerLazySingleton<AuthRemoteDataSource>(
     // () => AuthDataSourceMock(
     () => AuthRemoteDataSourceImpl(
+      client: sl(),
+    ),
+  );
+  //----------------------------------------------------------------------------
+
+  // Map feature ---------------------------------------------------
+  sl.registerFactory(
+    () => MapBloc(
+      mapRepository: sl(),
+    ),
+  );
+
+  sl.registerLazySingleton<MapRepository>(
+    () => MapRepositoryImpl(
+      remoteDataSource: sl(),
+      networkInfo: sl(),
+    ),
+  );
+  sl.registerLazySingleton<MapRemoteDataSource>(
+    // () => AuthDataSourceMock(
+    () => MapRemoteDataSourceImpl(
       client: sl(),
     ),
   );

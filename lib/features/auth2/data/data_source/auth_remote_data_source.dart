@@ -18,17 +18,17 @@ class AuthDataSourceImpl implements AuthDataSource {
     try {
       final response = await client.post(
         '$BASE_API_URL/auth/User/refreshUserMasterToken',
-        data: {"token": box.get('masterRefreshToken')},
+        data: {"token": box.get('userMasterRefreshToken')},
       );
       if (response.statusCode == 200) {
         final jsonMap = response.data as Map<String, dynamic>;
-        final masterToken =
+        final userMasterToken =
             jsonMap['action_result']['data']['user_master_token'];
-        final masterRefreshToken =
+        final userMasterRefreshToken =
             jsonMap['action_result']['data']['user_master_refresh_token'];
-        box.put('masterToken', masterToken);
-        box.put('masterRefreshToken', masterRefreshToken);
-        return masterToken;
+        box.put('userMasterToken', userMasterToken);
+        box.put('userMasterRefreshToken', userMasterRefreshToken);
+        return userMasterToken;
       }
     } on DioError catch (e) {
       if (e.type == DioErrorType.response) {
@@ -46,14 +46,14 @@ class AuthDataSourceImpl implements AuthDataSource {
   @override
   Future<String> loginToService({required String serviceName}) async {
     var box = await Hive.openBox('tokens');
-    var masterToken = box.get('masterToken');
-    print(masterToken);
+    var userMasterToken = box.get('userMasterToken');
+    print(userMasterToken);
     try {
       final response = await client.post(
         '$BASE_API_URL/auth/User/loginToService',
         data: {
           'service_name': serviceName,
-          "token": masterToken,
+          "token": userMasterToken,
         },
       );
       if (response.statusCode == 200) {

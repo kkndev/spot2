@@ -5,10 +5,9 @@ import 'package:location/location.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:spot2/consts/app_images.dart';
-import 'package:spot2/features/auth/domain/entities/parking_place_entity.dart';
-import 'package:spot2/features/auth/presentation/bloc/auth/auth.dart';
-import 'dart:io';
-import 'dart:math';
+import 'package:spot2/features/free_parking/presentation/bloc/free_parking/free_parking.dart';
+import 'package:spot2/features/map/presentation/bloc/map/map_event.dart';
+import 'package:spot2/features/user/presentation/bloc/user/user.dart';
 
 import '../../../../core/presentation/components/circle_icon_button.dart';
 import '../../../../extensions/extensions.dart';
@@ -16,11 +15,15 @@ import '../../../parking/presentation/bloc/parking/parking_bloc.dart';
 import '../../../parking/presentation/bloc/parking/parking_event.dart';
 import '../../../parking/presentation/bloc/parking/parking_state.dart';
 import '../../../parking/presentation/widgets/filter_parking_modal.dart';
+import '../bloc/map/map_bloc.dart';
+import '../bloc/map/map_state.dart';
 import '../widgets/bottom_tabs.dart';
+import '../widgets/choose_home_parking_bottom_sheet.dart';
+import '../widgets/free_parking.dart';
+import '../widgets/parking_info_bottom_sheet.dart';
 
-Future<Uint8List> loadMarkerImage() async {
-  var byteData =
-      await rootBundle.load("assets/images/png/place_unavailable.png");
+Future<Uint8List> loadMarkerImage(String imageName) async {
+  var byteData = await rootBundle.load(imageName);
   return byteData.buffer.asUint8List();
 }
 
@@ -33,61 +36,31 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
   late MapboxMapController _mapController;
-  List<Marker> _markers = [];
-  final Random _rnd = new Random();
-  List<_MarkerState> _markerStates = [];
-
-  void _addMarkerStates(_MarkerState markerState) {
-    _markerStates.add(markerState);
-  }
-
-  int counter = 0;
 
   @override
   void initState() {
     context.read<ParkingBloc>().add(GetParkingEvent());
+    context.read<UserBloc>().add(WhoamiEvent());
     super.initState();
   }
 
-  Future<void> addGeojsonCluster(MapboxMapController controller) async {
-    var markerImage = await loadMarkerImage();
+  void _onSymbolTapped(Symbol symbol) {
+    print(123000);
+    print(symbol.options.textField);
+    var pressedParking = context
+        .read<ParkingBloc>()
+        .state
+        .parkingList
+        .firstWhere(
+            (element) => element.latitude == symbol.options.geometry?.latitude);
 
-    controller.addImage('marker', markerImage);
-    var geojson = GeojsonSourceProperties(
-        data: 'https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson',
-        cluster: true,
-        clusterMaxZoom: 14, // Max zoom to cluster points on
-        clusterRadius:
-            50 // Radius of each cluster when clustering points (defaults to 50)
+    context.read<MapBloc>().add(
+          SetBottomSheetEvent(
+            bottomSheet: ParkingInfoBottomSheet(
+              parking: pressedParking,
+            ),
+          ),
         );
-    await controller.addSource(
-        "earthquakes",
-        GeojsonSourceProperties(
-            data:
-                'https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson',
-            cluster: true,
-            clusterMaxZoom: 14, // Max zoom to cluster points on
-            clusterRadius:
-                50 // Radius of each cluster when clustering points (defaults to 50)
-            ));
-
-    await controller.addSymbolLayer(
-        "earthquakes",
-        "earthquakes-count",
-        SymbolLayerProperties(
-          // iconSize: 2,
-          iconAllowOverlap: true,
-          iconImage: 'marker',
-          // iconColor: '#FF00FF',
-          textField: [Expressions.get, 'point_count_abbreviated'],
-          textFont: ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-          textSize: 12,
-        ));
-    // await controller.addSymbol(
-    //   SymbolOptions(
-    //     iconImage: 'beer',
-    //   ),
-    // );
   }
 
   _toMyLocation() async {
@@ -96,79 +69,48 @@ class _MapPageState extends State<MapPage> {
     if (hasPermissions != PermissionStatus.granted) {
       await location.requestPermission();
     }
-  }
-
-  void _onMapCreated(MapboxMapController controller) {
-    _mapController = controller;
-    // _updateMarkerPosition();
-  }
-
-  void setMarkers() {
-    var param = <LatLng>[];
-    for (var i = 0; i < 100; i++) {
-      final lat = _rnd.nextDouble() * 20 + 30;
-      final lng = _rnd.nextDouble() * 20 + 125;
-      param.add(LatLng(lat, lng));
-    }
-
-    _mapController.toScreenLocationBatch(param).then((value) {
-      for (var i = 0; i < 100; i++) {
-        var point = Point<double>(value[i].x as double, value[i].y as double);
-        _addMarker(point, param[i]);
-      }
-    });
-  }
-
-  void _addMarker(Point<double> point, LatLng coordinates) {
-    setState(() {
-      _markers.add(Marker(_rnd.nextInt(100000).toString(), coordinates, point,
-          _addMarkerStates));
-    });
-  }
-
-  void _updateMarkerPosition(
-      List<ParkingPlaceEntity> parkingPlaceEntityList) async {
-    List<SymbolOptions> items = [];
-    for (var element in parkingPlaceEntityList) {
-      var iconImage = AppImages.placeUnavailablePng;
-      if (element.status == 'free') {
-        iconImage = AppImages.placeAvailablePng;
-      }
-      items.add(
-        SymbolOptions(
-          iconRotate: element.angle,
-          iconSize: 1,
-          geometry: LatLng(element.longitude, element.latitude),
-          iconImage: iconImage,
+    var locationCoords = await location.getLocation();
+    _mapController.animateCamera(
+      CameraUpdate.newLatLngZoom(
+        LatLng(
+          locationCoords.latitude ?? 0,
+          locationCoords.longitude ?? 0,
         ),
-      );
-    }
-    print(items[0].iconImage);
-    _mapController.clearSymbols();
-    _mapController.addSymbols(
-      items,
+        15,
+      ),
     );
+  }
+
+  _updateParkingsOnMap(MapboxMapController controller, symbols) async {
+    await controller.addSymbols(
+      symbols,
+    );
+  }
+
+  void _onMapCreated(MapboxMapController controller) async {
+    _mapController = controller;
+    context
+        .read<MapBloc>()
+        .add(SetMapControllerEvent(mapController: _mapController));
+    var pinPrivateImage = await loadMarkerImage(AppImages.pinPrivatePng);
+    var pinAvailableImage = await loadMarkerImage(AppImages.pinAvailablePng);
+    var pinDisabledImage = await loadMarkerImage(AppImages.pinDisabledPng);
+
+    _mapController.addImage('pinPrivate', pinPrivateImage);
+    _mapController.addImage('pinAvailable', pinAvailableImage);
+    _mapController.addImage('pinDisabled', pinDisabledImage);
+    _mapController.setSymbolIconAllowOverlap(true);
+    _mapController.onSymbolTapped.add(_onSymbolTapped);
   }
 
   @override
   Widget build(BuildContext context) {
     var appColors = Theme.of(context).extension<AppColors>()!;
 
-    return Scaffold(
-      // bottomSheet: Container(
-      //   height: 300,
-      //   color: Colors.red,
-      // ),
-      body: BlocConsumer<AuthBloc, AuthState>(
-        listenWhen: (prev, next) {
-          return prev.parkingPlaceEntityList.length !=
-              next.parkingPlaceEntityList.length;
-        },
-        listener: (_, state) {
-          // openPlaces(state.parkingPlaceEntityList);
-        },
-        builder: (_, state) {
-          return SizedBox(
+    return BlocBuilder<MapBloc, MapState>(builder: (_, state) {
+      return Scaffold(
+        bottomSheet: state.bottomSheet,
+        body: SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: BlocConsumer<ParkingBloc, ParkingState>(
@@ -177,7 +119,19 @@ class _MapPageState extends State<MapPage> {
                     next.getParkingRequestStatus;
               },
               listener: (_, state) {
-                // _mapController.addRasterLayer(sourceId, layerId, properties)
+                var symbols = <SymbolOptions>[];
+
+                state.parkingList.forEach((element) {
+                  symbols.add(
+                    SymbolOptions(
+                        iconImage: 'pinAvailable',
+                        geometry: LatLng(element.longitude, element.latitude),
+                        textSize: 16,
+                        textField: '0',
+                        textColor: '#FFFFFF'),
+                  );
+                });
+                _updateParkingsOnMap(_mapController, symbols);
               },
               builder: (_, state) {
                 return Stack(children: [
@@ -195,11 +149,6 @@ class _MapPageState extends State<MapPage> {
                     ),
                     onMapCreated: _onMapCreated,
                   ),
-                  IgnorePointer(
-                      ignoring: true,
-                      child: Stack(
-                        children: _markers,
-                      )),
                   const Align(
                     alignment: Alignment.bottomCenter,
                     child: BottomTabs(),
@@ -231,11 +180,11 @@ class _MapPageState extends State<MapPage> {
                             ),
                           ),
                           const SizedBox(
-                            height: 16,
+                            height: 44,
                           ),
                           CircleIconButton(
                             iconName: AppImages.navigation,
-                            onTap: () => addGeojsonCluster(_mapController),
+                            onTap: _toMyLocation,
                           ),
                         ],
                       ),
@@ -253,104 +202,20 @@ class _MapPageState extends State<MapPage> {
                       ),
                     ),
                   ),
+                  Positioned(
+                    left: 16,
+                    bottom: 72,
+                    child: FreeParking(onTap: () {
+                      var userId = context.read<UserBloc>().state.user.id;
+                      context
+                          .read<FreeParkingBloc>()
+                          .add(GetFreeParkingEvent(userId: userId));
+                    }),
+                  ),
                 ]);
-                // return GisMap(
-                //   directoryKey: 'rubyqf9316',
-                //   mapKey: 'b7272230-6bc3-47e9-b24b-0eba73b12fe1',
-                //   useHybridComposition: true,
-                //   controller: controller,
-                //   onTapMarker: (marker) async {
-                //     // ignore: avoid_print
-                //     print(marker);
-                //     context.read<AuthBloc>().add(GetParkingPlacesEvent(
-                //         code: 'code', id: int.parse(marker.id)));
-                //   },
-                //   startCameraPosition: const GisCameraPosition(
-                //     latitude: 56.455114546767,
-                //     longitude: 84.985119293168,
-                //     bearing: 85.0,
-                //     tilt: 25.0,
-                //     zoom: 14.0,
-                //   ),
-                // );
               },
-            ),
-          );
-        },
-      ),
-    );
-  }
-}
-
-class Marker extends StatefulWidget {
-  final Point _initialPosition;
-  final LatLng _coordinate;
-  final void Function(_MarkerState) _addMarkerState;
-
-  Marker(
-      String key, this._coordinate, this._initialPosition, this._addMarkerState)
-      : super(key: Key(key));
-
-  @override
-  State<StatefulWidget> createState() {
-    final state = _MarkerState(_initialPosition);
-    _addMarkerState(state);
-    return state;
-  }
-}
-
-class _MarkerState extends State with TickerProviderStateMixin {
-  final _iconSize = 20.0;
-
-  Point _position;
-
-  late AnimationController _controller;
-  late Animation<double> _animation;
-
-  _MarkerState(this._position);
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: const Duration(seconds: 2),
-      vsync: this,
-    )..repeat(reverse: true);
-    _animation = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.elasticOut,
-    );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    var ratio = 1.0;
-
-    //web does not support Platform._operatingSystem
-    ratio = Platform.isIOS ? 1.0 : MediaQuery.of(context).devicePixelRatio;
-
-    return Positioned(
-        left: _position.x / ratio - _iconSize / 2,
-        top: _position.y / ratio - _iconSize / 2,
-        child: RotationTransition(
-            turns: _animation,
-            child: Image.asset('assets/images/png/place_unavailable.png',
-                height: _iconSize)));
-  }
-
-  void updatePosition(Point<num> point) {
-    setState(() {
-      _position = point;
+            )),
+      );
     });
-  }
-
-  LatLng getCoordinate() {
-    return (widget as Marker)._coordinate;
   }
 }

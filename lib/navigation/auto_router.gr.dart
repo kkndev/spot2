@@ -154,7 +154,7 @@ class AppRouter extends _i18.RootStackRouter {
               '#redirect',
               path: '',
               parent: RootScreenRoute.name,
-              redirectTo: 'map',
+              redirectTo: 'auth',
               fullMatch: true,
             ),
             _i18.RouteConfig(

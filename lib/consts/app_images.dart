@@ -14,6 +14,9 @@ class AppImages {
   static const placeErrorPng = 'assets/images/png/place_error.png';
   static const userCar = 'assets/images/svg/user_car.svg';
   static const notFound = 'assets/images/svg/not_found.svg';
+  static const pinAvailablePng = 'assets/images/png/pin_available.png';
+  static const pinDisabledPng = 'assets/images/png/pin_disabled.png';
+  static const pinPrivatePng = 'assets/images/png/pin_private.png';
   // bottom tab icons
   static const parkingTab = 'assets/images/icons/parking_tab.svg';
   static const parkingTabActive = 'assets/images/icons/parking_tab_active.svg';

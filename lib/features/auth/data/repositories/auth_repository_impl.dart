@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:spot2/features/auth/domain/entities/parking_place_entity.dart';
 import 'package:spot2/features/auth/domain/entities/user_tokens.dart';
-import 'package:spot2/features/map/domain/entities/parking_entity.dart';
 
+import '../../../parking/domain/entity/parking_entity/parking_entity.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../datasources/auth_remote_data_source.dart';
 import '/core/data/dto/error/exception.dart';
@@ -70,6 +70,7 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(ServerFailure());
     }
   }
+
   @override
   Future<Either<Failure, List<ParkingPlaceEntity>>> getParkingPlaces(
       String code, int id) async {

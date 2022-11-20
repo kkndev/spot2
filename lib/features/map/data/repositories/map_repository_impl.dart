@@ -1,16 +1,16 @@
 import 'package:dartz/dartz.dart';
 
-import '../../domain/repositories/auth_repository.dart';
-import '../datasources/auth_remote_data_source.dart';
+import '../../domain/repositories/map_repository.dart';
+import '../datasources/map_remote_data_source.dart';
 import '/core/data/dto/error/exception.dart';
 import '/core/data/dto/error/failure.dart';
 import '/core/platform/network_info.dart';
 
-class AuthRepositoryImpl implements AuthRepository {
-  final AuthRemoteDataSource remoteDataSource;
+class MapRepositoryImpl implements MapRepository {
+  final MapRemoteDataSource remoteDataSource;
   final NetworkInfo networkInfo;
 
-  AuthRepositoryImpl({
+  MapRepositoryImpl({
     required this.remoteDataSource,
     required this.networkInfo,
   });

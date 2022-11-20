@@ -30,7 +30,7 @@ Dio dio = Dio(options)
               var response = await Dio(options).post(
                 '$BASE_API_URL/auth/User/loginToService',
                 data: {
-                  "token": box.get('masterToken'),
+                  "token": box.get('userMasterToken'),
                   "service_name": serviceName,
                 },
                 options: Options(
@@ -62,7 +62,7 @@ Dio dio = Dio(options)
                 var response2 = await dio.post(
                   '$BASE_API_URL/auth/User/refreshUserMasterToken',
                   data: {
-                    "token": box.get('masterRefreshToken'),
+                    "token": box.get('userMasterRefreshToken'),
                   },
                   options: Options(
                     headers: {
@@ -72,16 +72,16 @@ Dio dio = Dio(options)
                 );
                 if (response2.statusCode == 200) {
                   final jsonMap = response2.data as Map<String, dynamic>;
-                  final masterToken =
+                  final userMasterToken =
                       jsonMap['action_result']['data']['user_master_token'];
-                  final masterRefreshToken = jsonMap['action_result']['data']
+                  final userMasterRefreshToken = jsonMap['action_result']['data']
                       ['user_master_refresh_token'];
-                  box.put('masterToken', masterToken);
-                  box.put('masterRefreshToken', masterRefreshToken);
+                  box.put('userMasterToken', userMasterToken);
+                  box.put('userMasterRefreshToken', userMasterRefreshToken);
                   var response = await dio.post(
                     '$BASE_API_URL/auth/User/loginToService',
                     data: {
-                      "token": masterToken,
+                      "token": userMasterToken,
                       "service_name": serviceName,
                     },
                     options: Options(
@@ -118,7 +118,7 @@ Dio dio = Dio(options)
               var response = await dio.post(
                 '$BASE_API_URL/auth/User/refreshUserMasterToken',
                 data: {
-                  "token": box.get('masterRefreshToken'),
+                  "token": box.get('userMasterRefreshToken'),
                 },
                 options: Options(
                   headers: {
@@ -128,14 +128,14 @@ Dio dio = Dio(options)
               );
               if (response.statusCode == 200) {
                 final jsonMap = response.data as Map<String, dynamic>;
-                final masterToken =
+                final userMasterToken =
                     jsonMap['action_result']['data']['user_master_token'];
-                final masterRefreshToken = jsonMap['action_result']['data']
+                final userMasterRefreshToken = jsonMap['action_result']['data']
                     ['user_master_refresh_token'];
-                box.put('masterToken', masterToken);
-                box.put('masterRefreshToken', masterRefreshToken);
+                box.put('userMasterToken', userMasterToken);
+                box.put('userMasterRefreshToken', userMasterRefreshToken);
                 Map<String, dynamic> data2 = e.requestOptions.data;
-                data2['token'] = masterToken;
+                data2['token'] = userMasterToken;
                 final opts = Options(
                   method: e.requestOptions.method,
                   headers: {
