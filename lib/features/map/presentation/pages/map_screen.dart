@@ -51,8 +51,8 @@ class _MapPageState extends State<MapPage> {
         .read<ParkingBloc>()
         .state
         .parkingList
-        .firstWhere(
-            (element) => element.latitude == symbol.options.geometry?.latitude);
+        .firstWhere((element) =>
+            element.longitude == symbol.options.geometry?.latitude);
 
     context.read<MapBloc>().add(
           SetBottomSheetEvent(
@@ -207,9 +207,11 @@ class _MapPageState extends State<MapPage> {
                     bottom: 72,
                     child: FreeParking(onTap: () {
                       var userId = context.read<UserBloc>().state.user.id;
-                      context
-                          .read<FreeParkingBloc>()
-                          .add(GetFreeParkingEvent(userId: userId));
+                      context.read<MapBloc>().add(
+                            SetBottomSheetEvent(
+                              bottomSheet: ChooseHomeParkingBottomSheet(),
+                            ),
+                          );
                     }),
                   ),
                 ]);

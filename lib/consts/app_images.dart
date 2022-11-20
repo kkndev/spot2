@@ -41,6 +41,8 @@ class AppImages {
   static const search = 'assets/images/icons/search.svg';
   static const roll = 'assets/images/icons/roll.svg';
   static const searchInput = 'assets/images/icons/search_input.svg';
+  static const camera = 'assets/images/icons/camera.svg';
+  static const mapRoute = 'assets/images/icons/map_route.svg';
   //
   static const alertCheck = 'assets/images/icons/alert_check.svg';
   static const alertError = 'assets/images/icons/alert_error.svg';

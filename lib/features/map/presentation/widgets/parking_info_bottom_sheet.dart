@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:spot2/consts/app_images.dart';
-import 'package:spot2/core/presentation/components/circle_icon_button.dart';
-import 'package:spot2/core/presentation/components/components.dart';
 import 'package:spot2/extensions/extensions.dart';
 import 'package:spot2/features/parking/domain/entity/parking_entity/parking_entity.dart';
 
-import '../bloc/map/map.dart';
+import '../../../favorite_parking/presentation/widgets/modal_header.dart';
+import 'map_modal_header.dart';
+import 'map_primary_button.dart';
+import 'map_secondary_button.dart';
 
 class ParkingInfoBottomSheet extends StatelessWidget {
   const ParkingInfoBottomSheet({
@@ -19,55 +20,67 @@ class ParkingInfoBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var textStyle = Theme.of(context).extension<AppTextStyles>()!;
-    return Stack(clipBehavior: Clip.none, children: [
-      Container(
-        height: 160,
-        width: double.infinity,
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-        ),
+    var appColors = Theme.of(context).extension<AppColors>()!;
+
+    return Container(
+      height: 144,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           children: [
-            Text(
-              parking.address,
-              style: textStyle.body1,
+            SvgPicture.asset(
+              AppImages.roll,
+              width: 36,
+              height: 12,
             ),
+            const SizedBox(
+              height: 8,
+            ),
+            MapModalHeader(label: parking.address),
             SizedBox(
-              height: 16,
+              height: 6,
             ),
-            Text(
-              'Парковка не выбрана',
-              style: textStyle.body2,
-            ),
-            SizedBox(
-              height: 28,
-            ),
-            TertiaryButton(
-              label: 'Изменить',
-              onTap: () => context.read<MapBloc>().add(
-                    SetBottomSheetEvent(
-                      bottomSheet: null,
-                    ),
+            Row(
+              children: [
+                Text(
+                  parking.favoriteName,
+                  style: textStyle.caption.copyWith(
+                    color: appColors.textSecondary,
                   ),
+                ),
+              ],
             ),
+            const SizedBox(
+              height: 24,
+            ),
+            Row(
+              children: [
+                MapPrimaryButton(
+                  label: 'Smart-охрана',
+                ),
+                SizedBox(
+                  width: 8,
+                ),
+                MapPrimaryButton(
+                  label: 'Трафик',
+                ),
+                SizedBox(
+                  width: 8,
+                ),
+                MapSecondaryButton(
+                  iconName: AppImages.mapRoute,
+                ),
+                SizedBox(
+                  width: 8,
+                ),
+                MapSecondaryButton(
+                  iconName: AppImages.camera,
+                ),
+              ],
+            )
           ],
         ),
       ),
-      Positioned(
-          left: 16,
-          top: -60,
-          child: Visibility(
-            visible: true,
-            child: CircleIconButton(
-              iconName: AppImages.chevron,
-              onTap: () => context.read<MapBloc>().add(
-                    SetBottomSheetEvent(
-                      bottomSheet: null,
-                    ),
-                  ),
-            ),
-          ))
-    ]);
+    );
   }
 }

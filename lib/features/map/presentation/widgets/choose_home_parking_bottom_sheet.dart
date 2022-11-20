@@ -13,6 +13,8 @@ class ChooseHomeParkingBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var textStyle = Theme.of(context).extension<AppTextStyles>()!;
+    var appColors = Theme.of(context).extension<AppColors>()!;
+
     return Stack(clipBehavior: Clip.none, children: [
       Container(
         height: 160,
@@ -20,6 +22,7 @@ class ChooseHomeParkingBottomSheet extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
+          color: appColors.backgroundGlobe,
         ),
         child: Column(
           children: [
@@ -49,19 +52,20 @@ class ChooseHomeParkingBottomSheet extends StatelessWidget {
         ),
       ),
       Positioned(
-          left: 16,
-          top: -60,
-          child: Visibility(
-            visible: true,
-            child: CircleIconButton(
-              iconName: AppImages.chevron,
-              onTap: () => context.read<MapBloc>().add(
-                    SetBottomSheetEvent(
-                      bottomSheet: null,
-                    ),
+        left: 16,
+        top: -60,
+        child: Visibility(
+          visible: true,
+          child: CircleIconButton(
+            iconName: AppImages.chevron,
+            onTap: () => context.read<MapBloc>().add(
+                  SetBottomSheetEvent(
+                    bottomSheet: null,
                   ),
-            ),
-          ))
+                ),
+          ),
+        ),
+      ),
     ]);
   }
 }
