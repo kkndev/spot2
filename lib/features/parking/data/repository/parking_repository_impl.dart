@@ -46,6 +46,8 @@ class ParkingRepositoryImpl implements ParkingRepository {
       final result = await remoteDataSource.getItem(
         id: id,
       );
+      print(1111111111);
+      print(result.parkingPlaces);
       return Right(
         ParkingItemEntity(
           id: result.id,
@@ -64,12 +66,12 @@ class ParkingRepositoryImpl implements ParkingRepository {
           parkingPlaces: result.parkingPlaces
               .map((e) => ParkingPlaceEntity(
                     id: e.id,
-                    parkingPlaceUid: e.parkingPlaceUid,
-                    parkingId: e.parkingId,
-                    cameraId: e.cameraId,
-                    latitude: e.latitude,
-                    longitude: e.longitude,
-                    angle: e.angle,
+                    // parkingPlaceUid: e.parkingPlaceUid,
+                    // parkingId: e.parkingId,
+                    // cameraId: e.cameraId,
+                    latitude: double.parse(e.latitude),
+                    longitude: double.parse(e.longitude),
+                    angle: double.parse(e.angle),
                     status: e.status,
                   ))
               .toList(),

@@ -20,31 +20,22 @@ ParkingPlaceModel _$ParkingPlaceModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ParkingPlaceModel {
-  int get id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'parking_place_uid')
-  String get parkingPlaceUid => throw _privateConstructorUsedError;
-  @JsonKey(name: 'parking_id')
-  int get parkingId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'camera_id')
-  int get cameraId => throw _privateConstructorUsedError;
+  int get id =>
+      throw _privateConstructorUsedError; // @Default('parking_place_uid')
+// @JsonKey(name: 'parking_place_uid')
+//     String parkingPlaceUid,
+// @Default(0) @JsonKey(name: 'parking_id') int parkingId,
+// @Default(0) @JsonKey(name: 'camera_id') int cameraId,
   @JsonKey(name: 'latitude')
-  double get latitude => throw _privateConstructorUsedError;
+  String get latitude => throw _privateConstructorUsedError;
   @JsonKey(name: 'longitude')
-  double get longitude => throw _privateConstructorUsedError;
-  double get angle => throw _privateConstructorUsedError;
-  @JsonKey(name: 'start_pixel_x_coord')
-  double get startPixelXCoord => throw _privateConstructorUsedError;
-  @JsonKey(name: 'start_pixel_y_coord')
-  double get startPixelYCoord => throw _privateConstructorUsedError;
-  @JsonKey(name: 'end_pixel_x_coord')
-  double get endPixelXCoord => throw _privateConstructorUsedError;
-  @JsonKey(name: 'ens_pixel_y_coord')
-  double get endPixelYCoord => throw _privateConstructorUsedError;
+  String get longitude => throw _privateConstructorUsedError;
+  String get angle =>
+      throw _privateConstructorUsedError; // @Default(0) @JsonKey(name: 'start_pixel_x_coord') double startPixelXCoord,
+// @Default(0) @JsonKey(name: 'start_pixel_y_coord') double startPixelYCoord,
+// @Default(0) @JsonKey(name: 'end_pixel_x_coord') double endPixelXCoord,
+// @Default(0) @JsonKey(name: 'ens_pixel_y_coord') double endPixelYCoord,
   String get status => throw _privateConstructorUsedError;
-  @JsonKey(name: 'created_at')
-  String get createdAt => throw _privateConstructorUsedError;
-  @JsonKey(name: 'updated_at')
-  String get updatedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -60,19 +51,10 @@ abstract class $ParkingPlaceModelCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      @JsonKey(name: 'parking_place_uid') String parkingPlaceUid,
-      @JsonKey(name: 'parking_id') int parkingId,
-      @JsonKey(name: 'camera_id') int cameraId,
-      @JsonKey(name: 'latitude') double latitude,
-      @JsonKey(name: 'longitude') double longitude,
-      double angle,
-      @JsonKey(name: 'start_pixel_x_coord') double startPixelXCoord,
-      @JsonKey(name: 'start_pixel_y_coord') double startPixelYCoord,
-      @JsonKey(name: 'end_pixel_x_coord') double endPixelXCoord,
-      @JsonKey(name: 'ens_pixel_y_coord') double endPixelYCoord,
-      String status,
-      @JsonKey(name: 'created_at') String createdAt,
-      @JsonKey(name: 'updated_at') String updatedAt});
+      @JsonKey(name: 'latitude') String latitude,
+      @JsonKey(name: 'longitude') String longitude,
+      String angle,
+      String status});
 }
 
 /// @nodoc
@@ -89,76 +71,31 @@ class _$ParkingPlaceModelCopyWithImpl<$Res, $Val extends ParkingPlaceModel>
   @override
   $Res call({
     Object? id = null,
-    Object? parkingPlaceUid = null,
-    Object? parkingId = null,
-    Object? cameraId = null,
     Object? latitude = null,
     Object? longitude = null,
     Object? angle = null,
-    Object? startPixelXCoord = null,
-    Object? startPixelYCoord = null,
-    Object? endPixelXCoord = null,
-    Object? endPixelYCoord = null,
     Object? status = null,
-    Object? createdAt = null,
-    Object? updatedAt = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      parkingPlaceUid: null == parkingPlaceUid
-          ? _value.parkingPlaceUid
-          : parkingPlaceUid // ignore: cast_nullable_to_non_nullable
-              as String,
-      parkingId: null == parkingId
-          ? _value.parkingId
-          : parkingId // ignore: cast_nullable_to_non_nullable
-              as int,
-      cameraId: null == cameraId
-          ? _value.cameraId
-          : cameraId // ignore: cast_nullable_to_non_nullable
-              as int,
       latitude: null == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
-              as double,
+              as String,
       longitude: null == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
-              as double,
+              as String,
       angle: null == angle
           ? _value.angle
           : angle // ignore: cast_nullable_to_non_nullable
-              as double,
-      startPixelXCoord: null == startPixelXCoord
-          ? _value.startPixelXCoord
-          : startPixelXCoord // ignore: cast_nullable_to_non_nullable
-              as double,
-      startPixelYCoord: null == startPixelYCoord
-          ? _value.startPixelYCoord
-          : startPixelYCoord // ignore: cast_nullable_to_non_nullable
-              as double,
-      endPixelXCoord: null == endPixelXCoord
-          ? _value.endPixelXCoord
-          : endPixelXCoord // ignore: cast_nullable_to_non_nullable
-              as double,
-      endPixelYCoord: null == endPixelYCoord
-          ? _value.endPixelYCoord
-          : endPixelYCoord // ignore: cast_nullable_to_non_nullable
-              as double,
+              as String,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as String,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -174,19 +111,10 @@ abstract class _$$_ParkingPlaceModelCopyWith<$Res>
   @useResult
   $Res call(
       {int id,
-      @JsonKey(name: 'parking_place_uid') String parkingPlaceUid,
-      @JsonKey(name: 'parking_id') int parkingId,
-      @JsonKey(name: 'camera_id') int cameraId,
-      @JsonKey(name: 'latitude') double latitude,
-      @JsonKey(name: 'longitude') double longitude,
-      double angle,
-      @JsonKey(name: 'start_pixel_x_coord') double startPixelXCoord,
-      @JsonKey(name: 'start_pixel_y_coord') double startPixelYCoord,
-      @JsonKey(name: 'end_pixel_x_coord') double endPixelXCoord,
-      @JsonKey(name: 'ens_pixel_y_coord') double endPixelYCoord,
-      String status,
-      @JsonKey(name: 'created_at') String createdAt,
-      @JsonKey(name: 'updated_at') String updatedAt});
+      @JsonKey(name: 'latitude') String latitude,
+      @JsonKey(name: 'longitude') String longitude,
+      String angle,
+      String status});
 }
 
 /// @nodoc
@@ -201,76 +129,31 @@ class __$$_ParkingPlaceModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? parkingPlaceUid = null,
-    Object? parkingId = null,
-    Object? cameraId = null,
     Object? latitude = null,
     Object? longitude = null,
     Object? angle = null,
-    Object? startPixelXCoord = null,
-    Object? startPixelYCoord = null,
-    Object? endPixelXCoord = null,
-    Object? endPixelYCoord = null,
     Object? status = null,
-    Object? createdAt = null,
-    Object? updatedAt = null,
   }) {
     return _then(_$_ParkingPlaceModel(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      parkingPlaceUid: null == parkingPlaceUid
-          ? _value.parkingPlaceUid
-          : parkingPlaceUid // ignore: cast_nullable_to_non_nullable
-              as String,
-      parkingId: null == parkingId
-          ? _value.parkingId
-          : parkingId // ignore: cast_nullable_to_non_nullable
-              as int,
-      cameraId: null == cameraId
-          ? _value.cameraId
-          : cameraId // ignore: cast_nullable_to_non_nullable
-              as int,
       latitude: null == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
-              as double,
+              as String,
       longitude: null == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
-              as double,
+              as String,
       angle: null == angle
           ? _value.angle
           : angle // ignore: cast_nullable_to_non_nullable
-              as double,
-      startPixelXCoord: null == startPixelXCoord
-          ? _value.startPixelXCoord
-          : startPixelXCoord // ignore: cast_nullable_to_non_nullable
-              as double,
-      startPixelYCoord: null == startPixelYCoord
-          ? _value.startPixelYCoord
-          : startPixelYCoord // ignore: cast_nullable_to_non_nullable
-              as double,
-      endPixelXCoord: null == endPixelXCoord
-          ? _value.endPixelXCoord
-          : endPixelXCoord // ignore: cast_nullable_to_non_nullable
-              as double,
-      endPixelYCoord: null == endPixelYCoord
-          ? _value.endPixelYCoord
-          : endPixelYCoord // ignore: cast_nullable_to_non_nullable
-              as double,
+              as String,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as String,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -281,77 +164,39 @@ class __$$_ParkingPlaceModelCopyWithImpl<$Res>
 class _$_ParkingPlaceModel implements _ParkingPlaceModel {
   const _$_ParkingPlaceModel(
       {required this.id,
-      @JsonKey(name: 'parking_place_uid')
-          this.parkingPlaceUid = 'parking_place_uid',
-      @JsonKey(name: 'parking_id')
-          this.parkingId = 0,
-      @JsonKey(name: 'camera_id')
-          this.cameraId = 0,
-      @JsonKey(name: 'latitude')
-          this.latitude = 0,
-      @JsonKey(name: 'longitude')
-          this.longitude = 0,
+      @JsonKey(name: 'latitude') this.latitude = '0',
+      @JsonKey(name: 'longitude') this.longitude = '0',
       required this.angle,
-      @JsonKey(name: 'start_pixel_x_coord')
-          this.startPixelXCoord = 0,
-      @JsonKey(name: 'start_pixel_y_coord')
-          this.startPixelYCoord = 0,
-      @JsonKey(name: 'end_pixel_x_coord')
-          this.endPixelXCoord = 0,
-      @JsonKey(name: 'ens_pixel_y_coord')
-          this.endPixelYCoord = 0,
-      required this.status,
-      @JsonKey(name: 'created_at')
-          this.createdAt = 'created_at',
-      @JsonKey(name: 'updated_at')
-          this.updatedAt = 'updated_at'});
+      required this.status});
 
   factory _$_ParkingPlaceModel.fromJson(Map<String, dynamic> json) =>
       _$$_ParkingPlaceModelFromJson(json);
 
   @override
   final int id;
-  @override
-  @JsonKey(name: 'parking_place_uid')
-  final String parkingPlaceUid;
-  @override
-  @JsonKey(name: 'parking_id')
-  final int parkingId;
-  @override
-  @JsonKey(name: 'camera_id')
-  final int cameraId;
+// @Default('parking_place_uid')
+// @JsonKey(name: 'parking_place_uid')
+//     String parkingPlaceUid,
+// @Default(0) @JsonKey(name: 'parking_id') int parkingId,
+// @Default(0) @JsonKey(name: 'camera_id') int cameraId,
   @override
   @JsonKey(name: 'latitude')
-  final double latitude;
+  final String latitude;
   @override
   @JsonKey(name: 'longitude')
-  final double longitude;
+  final String longitude;
   @override
-  final double angle;
-  @override
-  @JsonKey(name: 'start_pixel_x_coord')
-  final double startPixelXCoord;
-  @override
-  @JsonKey(name: 'start_pixel_y_coord')
-  final double startPixelYCoord;
-  @override
-  @JsonKey(name: 'end_pixel_x_coord')
-  final double endPixelXCoord;
-  @override
-  @JsonKey(name: 'ens_pixel_y_coord')
-  final double endPixelYCoord;
+  final String angle;
+// @Default(0) @JsonKey(name: 'start_pixel_x_coord') double startPixelXCoord,
+// @Default(0) @JsonKey(name: 'start_pixel_y_coord') double startPixelYCoord,
+// @Default(0) @JsonKey(name: 'end_pixel_x_coord') double endPixelXCoord,
+// @Default(0) @JsonKey(name: 'ens_pixel_y_coord') double endPixelYCoord,
   @override
   final String status;
-  @override
-  @JsonKey(name: 'created_at')
-  final String createdAt;
-  @override
-  @JsonKey(name: 'updated_at')
-  final String updatedAt;
 
   @override
   String toString() {
-    return 'ParkingPlaceModel(id: $id, parkingPlaceUid: $parkingPlaceUid, parkingId: $parkingId, cameraId: $cameraId, latitude: $latitude, longitude: $longitude, angle: $angle, startPixelXCoord: $startPixelXCoord, startPixelYCoord: $startPixelYCoord, endPixelXCoord: $endPixelXCoord, endPixelYCoord: $endPixelYCoord, status: $status, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'ParkingPlaceModel(id: $id, latitude: $latitude, longitude: $longitude, angle: $angle, status: $status)';
   }
 
   @override
@@ -360,50 +205,18 @@ class _$_ParkingPlaceModel implements _ParkingPlaceModel {
         (other.runtimeType == runtimeType &&
             other is _$_ParkingPlaceModel &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.parkingPlaceUid, parkingPlaceUid) ||
-                other.parkingPlaceUid == parkingPlaceUid) &&
-            (identical(other.parkingId, parkingId) ||
-                other.parkingId == parkingId) &&
-            (identical(other.cameraId, cameraId) ||
-                other.cameraId == cameraId) &&
             (identical(other.latitude, latitude) ||
                 other.latitude == latitude) &&
             (identical(other.longitude, longitude) ||
                 other.longitude == longitude) &&
             (identical(other.angle, angle) || other.angle == angle) &&
-            (identical(other.startPixelXCoord, startPixelXCoord) ||
-                other.startPixelXCoord == startPixelXCoord) &&
-            (identical(other.startPixelYCoord, startPixelYCoord) ||
-                other.startPixelYCoord == startPixelYCoord) &&
-            (identical(other.endPixelXCoord, endPixelXCoord) ||
-                other.endPixelXCoord == endPixelXCoord) &&
-            (identical(other.endPixelYCoord, endPixelYCoord) ||
-                other.endPixelYCoord == endPixelYCoord) &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+            (identical(other.status, status) || other.status == status));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      parkingPlaceUid,
-      parkingId,
-      cameraId,
-      latitude,
-      longitude,
-      angle,
-      startPixelXCoord,
-      startPixelYCoord,
-      endPixelXCoord,
-      endPixelYCoord,
-      status,
-      createdAt,
-      updatedAt);
+  int get hashCode =>
+      Object.hash(runtimeType, id, latitude, longitude, angle, status);
 
   @JsonKey(ignore: true)
   @override
@@ -422,64 +235,34 @@ class _$_ParkingPlaceModel implements _ParkingPlaceModel {
 
 abstract class _ParkingPlaceModel implements ParkingPlaceModel {
   const factory _ParkingPlaceModel(
-          {required final int id,
-          @JsonKey(name: 'parking_place_uid') final String parkingPlaceUid,
-          @JsonKey(name: 'parking_id') final int parkingId,
-          @JsonKey(name: 'camera_id') final int cameraId,
-          @JsonKey(name: 'latitude') final double latitude,
-          @JsonKey(name: 'longitude') final double longitude,
-          required final double angle,
-          @JsonKey(name: 'start_pixel_x_coord') final double startPixelXCoord,
-          @JsonKey(name: 'start_pixel_y_coord') final double startPixelYCoord,
-          @JsonKey(name: 'end_pixel_x_coord') final double endPixelXCoord,
-          @JsonKey(name: 'ens_pixel_y_coord') final double endPixelYCoord,
-          required final String status,
-          @JsonKey(name: 'created_at') final String createdAt,
-          @JsonKey(name: 'updated_at') final String updatedAt}) =
-      _$_ParkingPlaceModel;
+      {required final int id,
+      @JsonKey(name: 'latitude') final String latitude,
+      @JsonKey(name: 'longitude') final String longitude,
+      required final String angle,
+      required final String status}) = _$_ParkingPlaceModel;
 
   factory _ParkingPlaceModel.fromJson(Map<String, dynamic> json) =
       _$_ParkingPlaceModel.fromJson;
 
   @override
   int get id;
-  @override
-  @JsonKey(name: 'parking_place_uid')
-  String get parkingPlaceUid;
-  @override
-  @JsonKey(name: 'parking_id')
-  int get parkingId;
-  @override
-  @JsonKey(name: 'camera_id')
-  int get cameraId;
-  @override
+  @override // @Default('parking_place_uid')
+// @JsonKey(name: 'parking_place_uid')
+//     String parkingPlaceUid,
+// @Default(0) @JsonKey(name: 'parking_id') int parkingId,
+// @Default(0) @JsonKey(name: 'camera_id') int cameraId,
   @JsonKey(name: 'latitude')
-  double get latitude;
+  String get latitude;
   @override
   @JsonKey(name: 'longitude')
-  double get longitude;
+  String get longitude;
   @override
-  double get angle;
-  @override
-  @JsonKey(name: 'start_pixel_x_coord')
-  double get startPixelXCoord;
-  @override
-  @JsonKey(name: 'start_pixel_y_coord')
-  double get startPixelYCoord;
-  @override
-  @JsonKey(name: 'end_pixel_x_coord')
-  double get endPixelXCoord;
-  @override
-  @JsonKey(name: 'ens_pixel_y_coord')
-  double get endPixelYCoord;
-  @override
+  String get angle;
+  @override // @Default(0) @JsonKey(name: 'start_pixel_x_coord') double startPixelXCoord,
+// @Default(0) @JsonKey(name: 'start_pixel_y_coord') double startPixelYCoord,
+// @Default(0) @JsonKey(name: 'end_pixel_x_coord') double endPixelXCoord,
+// @Default(0) @JsonKey(name: 'ens_pixel_y_coord') double endPixelYCoord,
   String get status;
-  @override
-  @JsonKey(name: 'created_at')
-  String get createdAt;
-  @override
-  @JsonKey(name: 'updated_at')
-  String get updatedAt;
   @override
   @JsonKey(ignore: true)
   _$$_ParkingPlaceModelCopyWith<_$_ParkingPlaceModel> get copyWith =>

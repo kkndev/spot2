@@ -23,7 +23,9 @@ class ParkingItemModel with _$ParkingItemModel {
     @JsonKey(name: 'favorite_name')
         String favoriteName,
     @Default('name') String name,
-    @Default([]) List<ParkingPlaceModel> parkingPlaces,
+    @Default([])
+    @JsonKey(name: 'parking_places')
+        List<ParkingPlaceModel> parkingPlaces,
     @Default([]) List<CameraModel> cameras,
   }) = _ParkingItemModel;
 

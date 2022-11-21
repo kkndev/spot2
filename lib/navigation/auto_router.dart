@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import '../features/auth2/presentation/pages/auth2_page.dart';
 import '../features/favorite_parking/presentation/pages/favorite_parkings_page.dart';
 import '../features/free_parking/presentation/pages/free_parkings_page.dart';
+import '../features/parking/presentation/pages/parking_cameras_page.dart';
 import '../features/parking/presentation/pages/parkings_page.dart';
 import '../features/user/presentation/pages/change_name_page.dart';
 import '/features/user/presentation/pages/information_page.dart';
@@ -45,6 +46,7 @@ class EmptyRouterPage extends AutoRouter {
         AutoRoute(path: 'favoriteParking', page: FavoriteParkingPage),
         AutoRoute(path: 'freeParking', page: FreeParkingPage),
         AutoRoute(path: 'parking', page: ParkingPage),
+        AutoRoute(path: 'parkingCameras', page: ParkingCamerasPage),
         AutoRoute(path: 'auth2', page: Auth2Page),
         // CustomRoute(
         //   durationInMilliseconds: 0,

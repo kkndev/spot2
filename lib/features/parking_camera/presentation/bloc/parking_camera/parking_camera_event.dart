@@ -2,6 +2,8 @@ abstract class ParkingCameraEvent {}
 
 class InitFreeParkingEvent extends ParkingCameraEvent {}
 
+class ResetParkingCamerasEvent extends ParkingCameraEvent {}
+
 class GetParkingCameraEvent extends ParkingCameraEvent {
   GetParkingCameraEvent({
     required this.cameraUid,

@@ -37,5 +37,12 @@ class ParkingCameraBloc extends Bloc<ParkingCameraEvent, ParkingCameraState> {
         ),
       );
     });
+    on<ResetParkingCamerasEvent>((event, emit) async {
+      emit(
+        state.copyWith(
+          imageUrlList: [],
+        ),
+      );
+    });
   }
 }

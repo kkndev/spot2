@@ -42,6 +42,7 @@ mixin _$ParkingItemModel {
   @JsonKey(name: 'favorite_name')
   String get favoriteName => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'parking_places')
   List<ParkingPlaceModel> get parkingPlaces =>
       throw _privateConstructorUsedError;
   List<CameraModel> get cameras => throw _privateConstructorUsedError;
@@ -71,7 +72,7 @@ abstract class $ParkingItemModelCopyWith<$Res> {
       @JsonKey(name: 'updated_at') String updatedAt,
       @JsonKey(name: 'favorite_name') String favoriteName,
       String name,
-      List<ParkingPlaceModel> parkingPlaces,
+      @JsonKey(name: 'parking_places') List<ParkingPlaceModel> parkingPlaces,
       List<CameraModel> cameras});
 }
 
@@ -185,7 +186,7 @@ abstract class _$$_ParkingItemModelCopyWith<$Res>
       @JsonKey(name: 'updated_at') String updatedAt,
       @JsonKey(name: 'favorite_name') String favoriteName,
       String name,
-      List<ParkingPlaceModel> parkingPlaces,
+      @JsonKey(name: 'parking_places') List<ParkingPlaceModel> parkingPlaces,
       List<CameraModel> cameras});
 }
 
@@ -281,18 +282,29 @@ class __$$_ParkingItemModelCopyWithImpl<$Res>
 class _$_ParkingItemModel implements _ParkingItemModel {
   const _$_ParkingItemModel(
       {required this.id,
-      @JsonKey(name: 'parking_uid') required this.parkingUid,
-      @JsonKey(name: 'address') required this.address,
-      @JsonKey(name: 'latitude') required this.latitude,
-      @JsonKey(name: 'longitude') required this.longitude,
-      @JsonKey(name: 'free_places_count') required this.freePlacesCount,
-      @JsonKey(name: 'occupied_places_count') required this.occupiedPlacesCount,
-      @JsonKey(name: 'unknown_places_count') required this.unknownPlacesCount,
-      @JsonKey(name: 'created_at') this.createdAt = 'created_at',
-      @JsonKey(name: 'updated_at') this.updatedAt = 'updated_at',
-      @JsonKey(name: 'favorite_name') this.favoriteName = 'favorite_name',
+      @JsonKey(name: 'parking_uid')
+          required this.parkingUid,
+      @JsonKey(name: 'address')
+          required this.address,
+      @JsonKey(name: 'latitude')
+          required this.latitude,
+      @JsonKey(name: 'longitude')
+          required this.longitude,
+      @JsonKey(name: 'free_places_count')
+          required this.freePlacesCount,
+      @JsonKey(name: 'occupied_places_count')
+          required this.occupiedPlacesCount,
+      @JsonKey(name: 'unknown_places_count')
+          required this.unknownPlacesCount,
+      @JsonKey(name: 'created_at')
+          this.createdAt = 'created_at',
+      @JsonKey(name: 'updated_at')
+          this.updatedAt = 'updated_at',
+      @JsonKey(name: 'favorite_name')
+          this.favoriteName = 'favorite_name',
       this.name = 'name',
-      final List<ParkingPlaceModel> parkingPlaces = const [],
+      @JsonKey(name: 'parking_places')
+          final List<ParkingPlaceModel> parkingPlaces = const [],
       final List<CameraModel> cameras = const []})
       : _parkingPlaces = parkingPlaces,
         _cameras = cameras;
@@ -337,7 +349,7 @@ class _$_ParkingItemModel implements _ParkingItemModel {
   final String name;
   final List<ParkingPlaceModel> _parkingPlaces;
   @override
-  @JsonKey()
+  @JsonKey(name: 'parking_places')
   List<ParkingPlaceModel> get parkingPlaces {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_parkingPlaces);
@@ -444,7 +456,8 @@ abstract class _ParkingItemModel implements ParkingItemModel {
       @JsonKey(name: 'favorite_name')
           final String favoriteName,
       final String name,
-      final List<ParkingPlaceModel> parkingPlaces,
+      @JsonKey(name: 'parking_places')
+          final List<ParkingPlaceModel> parkingPlaces,
       final List<CameraModel> cameras}) = _$_ParkingItemModel;
 
   factory _ParkingItemModel.fromJson(Map<String, dynamic> json) =
@@ -485,6 +498,7 @@ abstract class _ParkingItemModel implements ParkingItemModel {
   @override
   String get name;
   @override
+  @JsonKey(name: 'parking_places')
   List<ParkingPlaceModel> get parkingPlaces;
   @override
   List<CameraModel> get cameras;

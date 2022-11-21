@@ -6,6 +6,7 @@ import 'package:spot2/features/favorite_parking/presentation/bloc/favorite_parki
 import '../../features/free_parking/presentation/bloc/free_parking/free_parking_bloc.dart';
 import '../../features/map/presentation/bloc/map/map_bloc.dart';
 import '../../features/parking/presentation/bloc/parking/parking_bloc.dart';
+import '../../features/parking_camera/presentation/bloc/parking_camera/parking_camera_bloc.dart';
 import '/features/auth/presentation/bloc/auth/auth.dart';
 import '/features/user/presentation/bloc/user/user.dart';
 import '/injection_container.dart';
@@ -30,6 +31,8 @@ class RootScreen extends StatelessWidget implements AutoRouteWrapper {
         BlocProvider<FreeParkingBloc>(
             create: (context) => sl<FreeParkingBloc>()),
         BlocProvider<ParkingBloc>(create: (context) => sl<ParkingBloc>()),
+        BlocProvider<ParkingCameraBloc>(
+            create: (context) => sl<ParkingCameraBloc>()),
       ],
       child: this,
     );

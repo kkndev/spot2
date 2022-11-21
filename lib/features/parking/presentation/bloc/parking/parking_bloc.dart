@@ -54,12 +54,14 @@ class ParkingBloc extends Bloc<ParkingEvent, ParkingState> {
             getParkingItemRequestStatus: RequestStatus.failure(error: error),
           ),
         ),
-        (result) => emit(
-          state.copyWith(
-            getParkingItemRequestStatus: RequestStatus.success(data: result),
-            parkingItem: result,
-          ),
-        ),
+        (result) {
+          emit(
+            state.copyWith(
+              getParkingItemRequestStatus: RequestStatus.success(data: result),
+              parkingItem: result,
+            ),
+          );
+        },
       );
     });
     on<GetParkingByAddressEvent>((event, emit) async {

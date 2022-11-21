@@ -20,7 +20,7 @@ _$_ParkingItemModel _$$_ParkingItemModelFromJson(Map<String, dynamic> json) =>
       updatedAt: json['updated_at'] as String? ?? 'updated_at',
       favoriteName: json['favorite_name'] as String? ?? 'favorite_name',
       name: json['name'] as String? ?? 'name',
-      parkingPlaces: (json['parkingPlaces'] as List<dynamic>?)
+      parkingPlaces: (json['parking_places'] as List<dynamic>?)
               ?.map(
                   (e) => ParkingPlaceModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -45,6 +45,6 @@ Map<String, dynamic> _$$_ParkingItemModelToJson(_$_ParkingItemModel instance) =>
       'updated_at': instance.updatedAt,
       'favorite_name': instance.favoriteName,
       'name': instance.name,
-      'parkingPlaces': instance.parkingPlaces,
+      'parking_places': instance.parkingPlaces,
       'cameras': instance.cameras,
     };

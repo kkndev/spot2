@@ -89,7 +89,6 @@ class ParkingDataSourceImpl implements ParkingDataSource {
   Future<ParkingItemModel> getItem({required int id}) async {
     var box = await Hive.openBox('tokens');
     var spotToken = box.get('userSpotToken');
-    var freeParkingId = box.get('freeParkingId');
     client.options.headers = {
       'Authorization': '$spotToken',
       'Content-Type': 'application/json',
@@ -99,7 +98,7 @@ class ParkingDataSourceImpl implements ParkingDataSource {
       final response = await client.post(
         '$BASE_API_URL/spot/Parking/getItem',
         data: {
-          "id": freeParkingId,
+          "id": id,
           "withs": [
             "parking_places",
             "cameras",

@@ -45,23 +45,21 @@ class _MapPageState extends State<MapPage> {
   }
 
   void _onSymbolTapped(Symbol symbol) {
-    print(123000);
-    print(symbol.options.textField);
     var pressedParking = context
         .read<ParkingBloc>()
         .state
         .parkingList
         .firstWhere((element) =>
             element.longitude == symbol.options.geometry?.latitude);
-    var freeParking =
-        context.read<FreeParkingBloc>().state.freeParkingList.isNotEmpty;
+    var freeParking = context.read<FreeParkingBloc>().state.freeParkingList;
 
-    if (freeParking) {
+    if (freeParking.isNotEmpty) {
+      context
+          .read<ParkingBloc>()
+          .add(GetParkingItemEvent(parkingId: pressedParking.id));
       context.read<MapBloc>().add(
             SetBottomSheetEvent(
-              bottomSheet: ParkingInfoBottomSheet(
-                parking: pressedParking,
-              ),
+              bottomSheet: ParkingInfoBottomSheet(),
             ),
           );
     } else {
@@ -94,6 +92,15 @@ class _MapPageState extends State<MapPage> {
   }
 
   _updateParkingsOnMap(MapboxMapController controller, symbols) async {
+    await controller.clearSymbols();
+
+    await controller.addSymbols(
+      symbols,
+    );
+  }
+
+  _updateParkingPlacesOnMap(MapboxMapController controller, symbols) async {
+    await controller.clearSymbols();
     await controller.addSymbols(
       symbols,
     );
@@ -107,12 +114,25 @@ class _MapPageState extends State<MapPage> {
     var pinPrivateImage = await loadMarkerImage(AppImages.pinPrivatePng);
     var pinAvailableImage = await loadMarkerImage(AppImages.pinAvailablePng);
     var pinDisabledImage = await loadMarkerImage(AppImages.pinDisabledPng);
+    var placeAvailableImage =
+        await loadMarkerImage(AppImages.placeAvailablePng);
+    var placeUnavailableImage =
+        await loadMarkerImage(AppImages.placeUnavailablePng);
+    var placeErrorImage = await loadMarkerImage(AppImages.placeErrorPng);
 
     _mapController.addImage('pinPrivate', pinPrivateImage);
     _mapController.addImage('pinAvailable', pinAvailableImage);
     _mapController.addImage('pinDisabled', pinDisabledImage);
+    _mapController.addImage('placeAvailable', placeAvailableImage);
+    _mapController.addImage('placeUnavailable', placeUnavailableImage);
+    _mapController.addImage('placeError', placeErrorImage);
     _mapController.setSymbolIconAllowOverlap(true);
     _mapController.onSymbolTapped.add(_onSymbolTapped);
+    // _mapController.addListener(() {
+    //   if (_mapController.cameraPosition?.zoom != 18) {
+    //     _mapController.clearSymbols();
+    //   }
+    // });
   }
 
   @override
@@ -145,7 +165,7 @@ class _MapPageState extends State<MapPage> {
                         iconImage: 'pinAvailable',
                         geometry: LatLng(element.longitude, element.latitude),
                         textSize: 16,
-                        textField: '0',
+                        textField: element.freePlacesCount.toString(),
                         textColor: '#FFFFFF'),
                   );
                 });
@@ -162,7 +182,6 @@ class _MapPageState extends State<MapPage> {
                     initialCameraPosition: const CameraPosition(
                       target: LatLng(56.455114546767, 84.985119293168),
                       zoom: 14,
-                      bearing: 85,
                       tilt: 25,
                     ),
                     onMapCreated: _onMapCreated,
@@ -220,7 +239,43 @@ class _MapPageState extends State<MapPage> {
                       ),
                     ),
                   ),
-                  Positioned(
+                  BlocListener<ParkingBloc, ParkingState>(
+                    listenWhen: (prev, next) =>
+                        prev.parkingItem.parkingPlaces !=
+                        next.parkingItem.parkingPlaces,
+                    listener: (context, state) {
+                      if (state.parkingItem.id == 0) return;
+                      var symbols = <SymbolOptions>[];
+                      state.parkingItem.parkingPlaces.forEach((element) {
+                        var image = 'placeAvailable';
+                        if (element.status == 'occupied') {
+                          image = 'placeUnavailable';
+                        } else if (element.status == 'unknown') {
+                          image = 'placeError';
+                        }
+                        symbols.add(
+                          SymbolOptions(
+                            iconSize: 0.5,
+                            iconImage: image,
+                            geometry:
+                                LatLng(element.longitude, element.latitude),
+                            iconRotate: element.angle,
+                          ),
+                        );
+                      });
+                      _updateParkingPlacesOnMap(_mapController, symbols);
+
+                      _mapController.animateCamera(
+                        CameraUpdate.newLatLngZoom(
+                          LatLng(state.parkingItem.longitude,
+                              state.parkingItem.latitude),
+                          18,
+                        ),
+                      );
+                    },
+                    child: SizedBox(),
+                  ),
+                  const Positioned(
                     left: 16,
                     bottom: 72,
                     child: FreeParking(),

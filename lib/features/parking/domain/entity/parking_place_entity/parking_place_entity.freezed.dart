@@ -16,20 +16,14 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ParkingPlaceEntity {
-  int get id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'parking_place_uid')
-  String get parkingPlaceUid => throw _privateConstructorUsedError;
-  @JsonKey(name: 'parking_id')
-  int get parkingId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'camera_id')
-  int get cameraId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'latitude')
+  int get id =>
+      throw _privateConstructorUsedError; // @JsonKey(name: 'parking_place_uid') required String parkingPlaceUid,
+// @JsonKey(name: 'parking_id') required int parkingId,
+// @JsonKey(name: 'camera_id') required int cameraId,
   double get latitude => throw _privateConstructorUsedError;
-  @JsonKey(name: 'longitude')
   double get longitude => throw _privateConstructorUsedError;
   double get angle => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ParkingPlaceEntityCopyWith<ParkingPlaceEntity> get copyWith =>
@@ -43,15 +37,7 @@ abstract class $ParkingPlaceEntityCopyWith<$Res> {
       _$ParkingPlaceEntityCopyWithImpl<$Res, ParkingPlaceEntity>;
   @useResult
   $Res call(
-      {int id,
-      @JsonKey(name: 'parking_place_uid') String parkingPlaceUid,
-      @JsonKey(name: 'parking_id') int parkingId,
-      @JsonKey(name: 'camera_id') int cameraId,
-      @JsonKey(name: 'latitude') double latitude,
-      @JsonKey(name: 'longitude') double longitude,
-      double angle,
-      String status,
-      String name});
+      {int id, double latitude, double longitude, double angle, String status});
 }
 
 /// @nodoc
@@ -68,31 +54,15 @@ class _$ParkingPlaceEntityCopyWithImpl<$Res, $Val extends ParkingPlaceEntity>
   @override
   $Res call({
     Object? id = null,
-    Object? parkingPlaceUid = null,
-    Object? parkingId = null,
-    Object? cameraId = null,
     Object? latitude = null,
     Object? longitude = null,
     Object? angle = null,
     Object? status = null,
-    Object? name = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      parkingPlaceUid: null == parkingPlaceUid
-          ? _value.parkingPlaceUid
-          : parkingPlaceUid // ignore: cast_nullable_to_non_nullable
-              as String,
-      parkingId: null == parkingId
-          ? _value.parkingId
-          : parkingId // ignore: cast_nullable_to_non_nullable
-              as int,
-      cameraId: null == cameraId
-          ? _value.cameraId
-          : cameraId // ignore: cast_nullable_to_non_nullable
               as int,
       latitude: null == latitude
           ? _value.latitude
@@ -109,10 +79,6 @@ class _$ParkingPlaceEntityCopyWithImpl<$Res, $Val extends ParkingPlaceEntity>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -127,15 +93,7 @@ abstract class _$$_ParkingPlaceEntityCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
-      @JsonKey(name: 'parking_place_uid') String parkingPlaceUid,
-      @JsonKey(name: 'parking_id') int parkingId,
-      @JsonKey(name: 'camera_id') int cameraId,
-      @JsonKey(name: 'latitude') double latitude,
-      @JsonKey(name: 'longitude') double longitude,
-      double angle,
-      String status,
-      String name});
+      {int id, double latitude, double longitude, double angle, String status});
 }
 
 /// @nodoc
@@ -150,31 +108,15 @@ class __$$_ParkingPlaceEntityCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? parkingPlaceUid = null,
-    Object? parkingId = null,
-    Object? cameraId = null,
     Object? latitude = null,
     Object? longitude = null,
     Object? angle = null,
     Object? status = null,
-    Object? name = null,
   }) {
     return _then(_$_ParkingPlaceEntity(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      parkingPlaceUid: null == parkingPlaceUid
-          ? _value.parkingPlaceUid
-          : parkingPlaceUid // ignore: cast_nullable_to_non_nullable
-              as String,
-      parkingId: null == parkingId
-          ? _value.parkingId
-          : parkingId // ignore: cast_nullable_to_non_nullable
-              as int,
-      cameraId: null == cameraId
-          ? _value.cameraId
-          : cameraId // ignore: cast_nullable_to_non_nullable
               as int,
       latitude: null == latitude
           ? _value.latitude
@@ -192,10 +134,6 @@ class __$$_ParkingPlaceEntityCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 }
@@ -205,43 +143,28 @@ class __$$_ParkingPlaceEntityCopyWithImpl<$Res>
 class _$_ParkingPlaceEntity implements _ParkingPlaceEntity {
   const _$_ParkingPlaceEntity(
       {required this.id,
-      @JsonKey(name: 'parking_place_uid') required this.parkingPlaceUid,
-      @JsonKey(name: 'parking_id') required this.parkingId,
-      @JsonKey(name: 'camera_id') required this.cameraId,
-      @JsonKey(name: 'latitude') required this.latitude,
-      @JsonKey(name: 'longitude') required this.longitude,
+      required this.latitude,
+      required this.longitude,
       required this.angle,
-      required this.status,
-      this.name = 'name'});
+      required this.status});
 
   @override
   final int id;
+// @JsonKey(name: 'parking_place_uid') required String parkingPlaceUid,
+// @JsonKey(name: 'parking_id') required int parkingId,
+// @JsonKey(name: 'camera_id') required int cameraId,
   @override
-  @JsonKey(name: 'parking_place_uid')
-  final String parkingPlaceUid;
-  @override
-  @JsonKey(name: 'parking_id')
-  final int parkingId;
-  @override
-  @JsonKey(name: 'camera_id')
-  final int cameraId;
-  @override
-  @JsonKey(name: 'latitude')
   final double latitude;
   @override
-  @JsonKey(name: 'longitude')
   final double longitude;
   @override
   final double angle;
   @override
   final String status;
-  @override
-  @JsonKey()
-  final String name;
 
   @override
   String toString() {
-    return 'ParkingPlaceEntity(id: $id, parkingPlaceUid: $parkingPlaceUid, parkingId: $parkingId, cameraId: $cameraId, latitude: $latitude, longitude: $longitude, angle: $angle, status: $status, name: $name)';
+    return 'ParkingPlaceEntity(id: $id, latitude: $latitude, longitude: $longitude, angle: $angle, status: $status)';
   }
 
   @override
@@ -250,24 +173,17 @@ class _$_ParkingPlaceEntity implements _ParkingPlaceEntity {
         (other.runtimeType == runtimeType &&
             other is _$_ParkingPlaceEntity &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.parkingPlaceUid, parkingPlaceUid) ||
-                other.parkingPlaceUid == parkingPlaceUid) &&
-            (identical(other.parkingId, parkingId) ||
-                other.parkingId == parkingId) &&
-            (identical(other.cameraId, cameraId) ||
-                other.cameraId == cameraId) &&
             (identical(other.latitude, latitude) ||
                 other.latitude == latitude) &&
             (identical(other.longitude, longitude) ||
                 other.longitude == longitude) &&
             (identical(other.angle, angle) || other.angle == angle) &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.name, name) || other.name == name));
+            (identical(other.status, status) || other.status == status));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, parkingPlaceUid, parkingId,
-      cameraId, latitude, longitude, angle, status, name);
+  int get hashCode =>
+      Object.hash(runtimeType, id, latitude, longitude, angle, status);
 
   @JsonKey(ignore: true)
   @override
@@ -280,38 +196,23 @@ class _$_ParkingPlaceEntity implements _ParkingPlaceEntity {
 abstract class _ParkingPlaceEntity implements ParkingPlaceEntity {
   const factory _ParkingPlaceEntity(
       {required final int id,
-      @JsonKey(name: 'parking_place_uid') required final String parkingPlaceUid,
-      @JsonKey(name: 'parking_id') required final int parkingId,
-      @JsonKey(name: 'camera_id') required final int cameraId,
-      @JsonKey(name: 'latitude') required final double latitude,
-      @JsonKey(name: 'longitude') required final double longitude,
+      required final double latitude,
+      required final double longitude,
       required final double angle,
-      required final String status,
-      final String name}) = _$_ParkingPlaceEntity;
+      required final String status}) = _$_ParkingPlaceEntity;
 
   @override
   int get id;
-  @override
-  @JsonKey(name: 'parking_place_uid')
-  String get parkingPlaceUid;
-  @override
-  @JsonKey(name: 'parking_id')
-  int get parkingId;
-  @override
-  @JsonKey(name: 'camera_id')
-  int get cameraId;
-  @override
-  @JsonKey(name: 'latitude')
+  @override // @JsonKey(name: 'parking_place_uid') required String parkingPlaceUid,
+// @JsonKey(name: 'parking_id') required int parkingId,
+// @JsonKey(name: 'camera_id') required int cameraId,
   double get latitude;
   @override
-  @JsonKey(name: 'longitude')
   double get longitude;
   @override
   double get angle;
   @override
   String get status;
-  @override
-  String get name;
   @override
   @JsonKey(ignore: true)
   _$$_ParkingPlaceEntityCopyWith<_$_ParkingPlaceEntity> get copyWith =>

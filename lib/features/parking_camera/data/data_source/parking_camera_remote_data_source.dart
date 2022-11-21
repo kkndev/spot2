@@ -37,7 +37,7 @@ class ParkingCameraDataSourceImpl implements ParkingCameraDataSource {
       print(response);
       if (response.statusCode == 200) {
         final jsonMap = response.data as Map<String, dynamic>;
-        return jsonMap['action_result']['data'];
+        return jsonMap['action_result']['data']['image_src'];
       }
     } on DioError catch (e) {
       if (e.type == DioErrorType.response) {

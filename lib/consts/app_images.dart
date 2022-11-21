@@ -17,6 +17,7 @@ class AppImages {
   static const pinAvailablePng = 'assets/images/png/pin_available.png';
   static const pinDisabledPng = 'assets/images/png/pin_disabled.png';
   static const pinPrivatePng = 'assets/images/png/pin_private.png';
+  static const noAccess = 'assets/images/svg/no_access.svg';
   // bottom tab icons
   static const parkingTab = 'assets/images/icons/parking_tab.svg';
   static const parkingTabActive = 'assets/images/icons/parking_tab_active.svg';

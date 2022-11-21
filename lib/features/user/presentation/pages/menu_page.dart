@@ -18,7 +18,8 @@ class MenuPage extends StatefulWidget {
 class _MenuPageState extends State<MenuPage> {
   @override
   void initState() {
-    context.read<UserBloc>().add(GetUserEvent(id: 609));
+    var id = context.read<UserBloc>().state.userInfo.id;
+    context.read<UserBloc>().add(GetUserEvent(id: id));
     super.initState();
   }
 
