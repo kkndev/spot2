@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:spot2/features/map/presentation/widgets/parking_info_bottom_sheet.dart';
 import 'package:spot2/features/parking/presentation/bloc/parking/parking_bloc.dart';
 import 'package:spot2/features/parking/presentation/bloc/parking/parking_event.dart';
 
@@ -9,6 +10,8 @@ import '../../../../consts/app_images.dart';
 import '../../../../extensions/extensions.dart';
 import '../../../free_parking/presentation/bloc/free_parking/free_parking_bloc.dart';
 import '../../../free_parking/presentation/bloc/free_parking/free_parking_state.dart';
+import '../bloc/map/map_bloc.dart';
+import '../bloc/map/map_event.dart';
 
 class FreeParking extends StatelessWidget {
   const FreeParking({
@@ -36,6 +39,11 @@ class FreeParking extends StatelessWidget {
       //     15,
       //   ),
       // );
+      context.read<MapBloc>().add(
+        SetBottomSheetEvent(
+          bottomSheet: ParkingInfoBottomSheet(),
+        ),
+      );
     }
 
     return GestureDetector(

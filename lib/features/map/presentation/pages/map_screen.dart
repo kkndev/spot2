@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:location/location.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -44,7 +45,16 @@ class _MapPageState extends State<MapPage> {
     super.initState();
   }
 
+  void _onFeatureTapped(a, b, c) {
+    print(a);
+    print(b);
+    print(c);
+
+  }
+
   void _onSymbolTapped(Symbol symbol) {
+    print(symbol);
+
     var pressedParking = context
         .read<ParkingBloc>()
         .state
@@ -94,16 +104,65 @@ class _MapPageState extends State<MapPage> {
   _updateParkingsOnMap(MapboxMapController controller, symbols) async {
     await controller.clearSymbols();
 
+    await controller.removeSource('cars');
+    await controller.removeLayer('cars2');
+
     await controller.addSymbols(
       symbols,
     );
   }
 
-  _updateParkingPlacesOnMap(MapboxMapController controller, symbols) async {
+  _updateParkingPlacesOnMap(MapboxMapController controller, placesAvailable,placesUnavailable,placesError ) async {
     await controller.clearSymbols();
-    await controller.addSymbols(
-      symbols,
+    await controller.removeSource('cars');
+    await controller.removeLayer('cars2');
+
+    await controller.addGeoJsonSource("placesAvailableSource", {
+      "type": "FeatureCollection",
+      "features": placesAvailable,
+    });
+    await controller.addGeoJsonSource("placesUnavailableSource", {
+      "type": "FeatureCollection",
+      "features": placesUnavailable,
+    });
+    await controller.addGeoJsonSource("placesErrorSource", {
+      "type": "FeatureCollection",
+      "features": placesError,
+    });
+
+    await controller.addSymbolLayer(
+      'placesAvailableSource',
+      'placesAvailableLayer',
+      const SymbolLayerProperties(
+        iconImage: 'placeAvailable',
+        iconSize: ['interpolate', ['linear'], ['zoom'], 10, 0.75, 13, 0.6, 14, 0.5],
+        iconAllowOverlap: true,
+        iconRotationAlignment: 'map',
+      ),
     );
+
+    await controller.addSymbolLayer(
+      'placesUnavailableSource',
+      'placesUnavailableLayer',
+      const SymbolLayerProperties(
+        iconImage: 'placeUnavailable',
+        iconSize: ['interpolate', ['linear'], ['zoom'], 10, 0.75, 13, 0.6, 14, 0.5],
+        iconAllowOverlap: true,
+        iconRotationAlignment: 'map',
+      ),
+    );
+
+    await controller.addSymbolLayer(
+      'placesErrorSource',
+      'placesErrorLayer',
+      const SymbolLayerProperties(
+        iconImage: 'placeError',
+        iconSize: ['interpolate', ['linear'], ['zoom'], 10, 0.75, 13, 0.6, 14, 0.5],
+        iconAllowOverlap: true,
+        iconRotationAlignment: 'map',
+      ),
+    );
+
   }
 
   void _onMapCreated(MapboxMapController controller) async {
@@ -128,11 +187,35 @@ class _MapPageState extends State<MapPage> {
     _mapController.addImage('placeError', placeErrorImage);
     _mapController.setSymbolIconAllowOverlap(true);
     _mapController.onSymbolTapped.add(_onSymbolTapped);
-    // _mapController.addListener(() {
-    //   if (_mapController.cameraPosition?.zoom != 18) {
-    //     _mapController.clearSymbols();
-    //   }
-    // });
+    _mapController.onFeatureTapped.add(_onFeatureTapped);
+    _mapController.addListener(() async{
+      var zoom = await controller.getMetersPerPixelAtLatitude(90);
+      print(zoom);
+      if (zoom > 0.04) {
+         _mapController.removeLayer('cars2');
+         context.read<MapBloc>().add(
+           SetBottomSheetEvent(
+             bottomSheet: null,
+           ),
+         );
+      } else {
+         _mapController.addSymbolLayer(
+          'cars',
+          'cars2',
+          SymbolLayerProperties(
+            iconImage: 'placeUnavailable',
+            iconSize: ['interpolate', ['linear'], ['zoom'], 10, 0.75,13, 0.6, 14, 0.5],
+            iconAllowOverlap: true,
+            iconRotationAlignment: 'map',
+          ),
+        );
+         context.read<MapBloc>().add(
+           SetBottomSheetEvent(
+             bottomSheet: ParkingInfoBottomSheet(),
+           ),
+         );
+      }
+    });
   }
 
   @override
@@ -141,6 +224,7 @@ class _MapPageState extends State<MapPage> {
 
     return BlocBuilder<MapBloc, MapState>(builder: (_, state) {
       return Scaffold(
+        resizeToAvoidBottomInset: false,
         bottomSheet: state.bottomSheet,
         body: SizedBox(
             width: MediaQuery.of(context).size.width,
@@ -177,8 +261,7 @@ class _MapPageState extends State<MapPage> {
                     myLocationEnabled: true,
                     minMaxZoomPreference: const MinMaxZoomPreference(1, 18),
                     styleString: 'assets/style.json',
-                    accessToken:
-                        'sk.eyJ1Ijoic3JybXN0ayIsImEiOiJja3JuMTk4czExcnZ4Mm9wZXVzem9oOTB6In0.sRCyAAhGYYDPwyWrpgUTqQ',
+                    accessToken: dotenv.env['MAPBOX_TOKEN'] ?? '',
                     initialCameraPosition: const CameraPosition(
                       target: LatLng(56.455114546767, 84.985119293168),
                       zoom: 14,
@@ -234,8 +317,9 @@ class _MapPageState extends State<MapPage> {
                       iconName: AppImages.layers,
                       onTap: () => showCupertinoModalBottomSheet(
                         context: context,
-                        builder: (context) => const SizedBox(
-                            height: 176, child: FilterParkingModal()),
+                        builder: (context) => SizedBox(
+                            height: 176 + MediaQuery.of(context).padding.bottom,
+                            child: FilterParkingModal()),
                       ),
                     ),
                   ),
@@ -245,25 +329,27 @@ class _MapPageState extends State<MapPage> {
                         next.parkingItem.parkingPlaces,
                     listener: (context, state) {
                       if (state.parkingItem.id == 0) return;
-                      var symbols = <SymbolOptions>[];
+                      var placesAvailable = <Map<String, dynamic>>[];
+                      var placesUnavailable = <Map<String, dynamic>>[];
+                      var placesError = <Map<String, dynamic>>[];
+
                       state.parkingItem.parkingPlaces.forEach((element) {
-                        var image = 'placeAvailable';
+                        var symbol= SymbolOptions(
+                          geometry:
+                          LatLng(element.longitude, element.latitude),
+                          iconRotate: element.angle,
+                        ).toGeoJson();
                         if (element.status == 'occupied') {
-                          image = 'placeUnavailable';
+                          placesUnavailable.add(symbol);
                         } else if (element.status == 'unknown') {
-                          image = 'placeError';
+                          placesError.add(symbol);
+
+                        } else {
+                          placesAvailable.add(symbol);
+
                         }
-                        symbols.add(
-                          SymbolOptions(
-                            iconSize: 0.5,
-                            iconImage: image,
-                            geometry:
-                                LatLng(element.longitude, element.latitude),
-                            iconRotate: element.angle,
-                          ),
-                        );
                       });
-                      _updateParkingPlacesOnMap(_mapController, symbols);
+                      _updateParkingPlacesOnMap(_mapController, placesAvailable, placesUnavailable,placesError );
 
                       _mapController.animateCamera(
                         CameraUpdate.newLatLngZoom(
@@ -273,12 +359,22 @@ class _MapPageState extends State<MapPage> {
                         ),
                       );
                     },
-                    child: SizedBox(),
+                    child: const SizedBox(),
                   ),
-                  const Positioned(
-                    left: 16,
-                    bottom: 72,
-                    child: FreeParking(),
+                  BlocListener<UserBloc, UserState>(
+                    listener: (context, state) {
+                      if (state.userInfo.id != 0) {
+                        context
+                            .read<UserBloc>()
+                            .add(GetUserEvent(id: state.userInfo.id));
+                      }
+                    },
+                    listenWhen: (prev, next) => prev.userInfo != next.userInfo,
+                    child: Positioned(
+                      left: 16,
+                      bottom: 72 + MediaQuery.of(context).padding.bottom,
+                      child: const FreeParking(),
+                    ),
                   ),
                 ]);
               },
@@ -287,3 +383,53 @@ class _MapPageState extends State<MapPage> {
     });
   }
 }
+
+const _points = {
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": 2,
+      "properties": {
+        "type": "restaurant",
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [151.184913929732943, -33.874874486427181]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 3,
+      "properties": {
+        "type": "airport",
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [151.215730044667879, -33.874616048776858]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 4,
+      "properties": {
+        "type": "bakery",
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [151.228803547973598, -33.892188026142584]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 5,
+      "properties": {
+        "type": "college",
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [151.186470299174118, -33.902781145804774]
+      }
+    }
+  ]
+};

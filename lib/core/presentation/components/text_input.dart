@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '/consts/app_images.dart';
@@ -12,14 +13,22 @@ class TextInput extends StatelessWidget {
     this.errorText = '',
     this.onChanged,
     this.onClear,
+    this.keyboardType,
+    this.autofocus = false,
+    this.textAlign = TextAlign.start,
+    this.inputFormatters = const [],
+    this.textCapitalization = TextCapitalization.none,
   }) : super(key: key);
-
-  final _formKey = GlobalKey<FormState>();
 
   final TextEditingController controller;
   final String errorText;
-  final Function(String newText)? onChanged;
   final Function()? onClear;
+  final bool autofocus;
+  final TextAlign textAlign;
+  final TextInputType? keyboardType;
+  final Function(String newText)? onChanged;
+  final List<TextInputFormatter> inputFormatters;
+  final TextCapitalization textCapitalization;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +37,12 @@ class TextInput extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextField(
+          cursorWidth: 1,
+          autofocus: autofocus,
+          textCapitalization: textCapitalization,
+          inputFormatters: inputFormatters,
+          textAlign: textAlign,
+          keyboardType: keyboardType,
           onEditingComplete: () {},
           onChanged: onChanged,
           style: textStyles?.body1,
@@ -73,8 +88,10 @@ class TextInput extends StatelessWidget {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide:  BorderSide(
-                color: errorText.isNotEmpty? AppColorsPalette.strokeError:AppColorsPalette.strokeFocused,
+              borderSide: BorderSide(
+                color: errorText.isNotEmpty
+                    ? AppColorsPalette.strokeError
+                    : AppColorsPalette.strokeFocused,
                 width: 2,
               ),
             ),

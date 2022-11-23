@@ -1,11 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:spot2/features/auth/presentation/bloc/auth/auth.dart';
 
-import '/core/presentation/components/tertiary_button.dart';
-import '/core/presentation/components/header.dart';
-import '/core/presentation/components/text_input.dart';
 import '/extensions/app_colors.dart';
 import '/core/presentation/components/components.dart';
 import '/extensions/app_text_styles.dart';
@@ -44,7 +42,10 @@ class _SendCodePageState extends State<SendCodePage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 10, bottom: 36),
-                      child: TextInput(controller: codeController),
+                      child: TextInput(controller: codeController,                            keyboardType: TextInputType.phone,
+                        inputFormatters: [
+                          MaskTextInputFormatter(mask: "######"),
+                        ],),
                     ),
                     PrimaryButton(
                         label: 'отправить код',

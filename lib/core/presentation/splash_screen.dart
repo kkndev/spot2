@@ -17,7 +17,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  var _controller = TextEditingController();
+  final _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

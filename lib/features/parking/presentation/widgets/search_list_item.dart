@@ -8,7 +8,11 @@ import 'package:mapbox_gl/mapbox_gl.dart';
 import '../../../../consts/app_images.dart';
 import '../../../../extensions/extensions.dart';
 import '../../../map/presentation/bloc/map/map_bloc.dart';
+import '../../../map/presentation/bloc/map/map_event.dart';
+import '../../../map/presentation/widgets/parking_info_bottom_sheet.dart';
 import '../../domain/entity/parking_entity/parking_entity.dart';
+import '../bloc/parking/parking_bloc.dart';
+import '../bloc/parking/parking_event.dart';
 
 class SearchListItem extends StatelessWidget {
   const SearchListItem({
@@ -25,6 +29,14 @@ class SearchListItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).pop();
+        context
+            .read<ParkingBloc>()
+            .add(GetParkingItemEvent(parkingId: parking.id));
+        context.read<MapBloc>().add(
+          SetBottomSheetEvent(
+            bottomSheet: ParkingInfoBottomSheet(),
+          ),
+        );
         context.read<MapBloc>().state.mapController?.animateCamera(
               CameraUpdate.newLatLng(
                 LatLng(

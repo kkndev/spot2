@@ -27,9 +27,10 @@ class ChooseHomeParkingBottomSheet extends StatelessWidget {
 
     return Stack(clipBehavior: Clip.none, children: [
       Container(
-        height: 172,
+        height: 172 + MediaQuery.of(context).padding.bottom,
         width: double.infinity,
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.fromLTRB(
+            16, 16, 16, 16 + MediaQuery.of(context).padding.bottom),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           color: appColors.backgroundGlobe,

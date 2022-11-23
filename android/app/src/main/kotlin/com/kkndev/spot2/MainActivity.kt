@@ -1,4 +1,4 @@
-package com.kkndev.spot2
+package ru.spotparking.spot
 
 import io.flutter.embedding.android.FlutterActivity
 

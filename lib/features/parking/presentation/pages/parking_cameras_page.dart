@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:spot2/consts/app_images.dart';
+import 'package:spot2/features/parking/presentation/widgets/camera_modal.dart';
 
 import '../../../../core/presentation/components/header.dart';
 import '../../../../extensions/extensions.dart';
+import '../../../favorite_parking/presentation/widgets/favorite_parkings_modal.dart';
 import '../../../parking_camera/domain/entity/request_status/request_status.dart';
 import '../../../parking_camera/presentation/bloc/parking_camera/parking_camera.dart';
 import '../bloc/bloc.dart';
@@ -78,65 +81,79 @@ class _ParkingCamerasPageState extends State<ParkingCamerasPage> {
                                       .watch<ParkingCameraBloc>()
                                       .state
                                       .imageUrlList as List)
-                                  .map((e) => Container(
-                                        margin:
-                                            const EdgeInsets.only(bottom: 16),
-                                        child: Image.network(
-                                          e,
-                                          loadingBuilder: (BuildContext context,
-                                              Widget child,
-                                              ImageChunkEvent?
-                                                  loadingProgress) {
-                                            if (loadingProgress == null) {
-                                              return child;
-                                            }
-                                            return SizedBox(
-                                              height: 182,
-                                              child: Center(
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  value: loadingProgress
-                                                              .expectedTotalBytes !=
-                                                          null
-                                                      ? loadingProgress
-                                                              .cumulativeBytesLoaded /
-                                                          loadingProgress
-                                                              .expectedTotalBytes!
-                                                      : null,
+                                  .map((e) => GestureDetector(
+                                        onTap: () =>
+                                            showCupertinoModalBottomSheet(
+                                          context: context,
+                                          builder: (context) => SizedBox(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.8,
+                                              child:
+                                                   CameraModal(image: e)),
+                                        ),
+                                        child: Container(
+                                          margin:
+                                              const EdgeInsets.only(bottom: 16),
+                                          child: Image.network(
+                                            e,
+                                            loadingBuilder:
+                                                (BuildContext context,
+                                                    Widget child,
+                                                    ImageChunkEvent?
+                                                        loadingProgress) {
+                                              if (loadingProgress == null) {
+                                                return child;
+                                              }
+                                              return SizedBox(
+                                                height: 182,
+                                                child: Center(
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    value: loadingProgress
+                                                                .expectedTotalBytes !=
+                                                            null
+                                                        ? loadingProgress
+                                                                .cumulativeBytesLoaded /
+                                                            loadingProgress
+                                                                .expectedTotalBytes!
+                                                        : null,
+                                                  ),
                                                 ),
-                                              ),
-                                            );
-                                          },
-                                          errorBuilder: (context, _, __) {
-                                            return SizedBox(
-                                              height: 182,
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
-                                                children: [
-                                                  SvgPicture.asset(
-                                                    AppImages.noAccess,
-                                                    width: 64,
-                                                    height: 64,
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 12,
-                                                  ),
-                                                  Text(
-                                                    'Камера недоступна',
-                                                    style: textStyles.body1
-                                                        .copyWith(
-                                                      color: appColors
-                                                          .textSecondary,
+                                              );
+                                            },
+                                            errorBuilder: (context, _, __) {
+                                              return SizedBox(
+                                                height: 182,
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    SvgPicture.asset(
+                                                      AppImages.noAccess,
+                                                      width: 64,
+                                                      height: 64,
                                                     ),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 48,
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          },
+                                                    const SizedBox(
+                                                      height: 12,
+                                                    ),
+                                                    Text(
+                                                      'Камера недоступна',
+                                                      style: textStyles.body1
+                                                          .copyWith(
+                                                        color: appColors
+                                                            .textSecondary,
+                                                      ),
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 48,
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                          ),
                                         ),
                                       ))
                                   .toList())

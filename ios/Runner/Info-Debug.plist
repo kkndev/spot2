@@ -24,15 +24,25 @@
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
 	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.googleusercontent.apps.861823949799-vc35cprkp249096uujjn0vvnmcvjppkn</string>
-			</array>
-		</dict>
-	</array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>com.googleusercontent.apps.1014572488216-bqciir1oipia5o4dn0ume7al2lu9f0fs</string>
+            </array>
+        </dict>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLName</key>
+            <string>vk8093161</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>vk8093161</string>
+            </array>
+        </dict>
+    </array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -43,10 +53,6 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSBonjourServices</key>
-	<array>
-		<string>_dartobservatory._tcp</string>
-	</array>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -56,17 +62,26 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>VKAppId</key>
 	<string>7503887</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Определение геолокации в приложении необходимо, чтобы пользователь мог видеть свое местоположение относительно парковок и строить маршрут до них.</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Определение геолокации в приложении необходимо, чтобы пользователь мог видеть свое местоположение относительно парковок и строить маршрут до них.</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Определение геолокации в приложении необходимо, чтобы пользователь мог видеть свое местоположение относительно парковок и строить маршрут до них.</string>
+
 </dict>
 </plist>

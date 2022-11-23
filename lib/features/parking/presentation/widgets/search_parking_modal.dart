@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:spot2/core/presentation/components/components.dart';
 import 'package:spot2/features/parking/domain/entity/request_status/request_status.dart';
 import 'package:spot2/features/parking/presentation/bloc/parking/parking.dart';
 
 import '../../../../consts/app_images.dart';
 import '../../../../extensions/extensions.dart';
+import '../../../parking_camera/presentation/widgets/tertiary_button.dart';
 import 'search_input.dart';
 import 'search_list_item.dart';
 
@@ -22,7 +22,7 @@ class _SearchParkingModalState extends State<SearchParkingModal> {
   @override
   void initState() {
     searchController.addListener(() {
-      if (searchController.value.text.length > 3) {
+      if (searchController.value.text.length > 2) {
         context.read<ParkingBloc>().add(
             GetParkingByAddressEvent(searchValue: searchController.value.text));
       }

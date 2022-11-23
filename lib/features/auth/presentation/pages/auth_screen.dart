@@ -1,7 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:rive/rive.dart';
+import 'package:spot2/features/auth/google_auth.dart';
+import 'package:spot2/features/auth/vk_auth.dart';
 
+import '../../apple_auth.dart';
 import '/extensions/app_colors.dart';
 import '/features/auth/presentation/widgets/apple_icon_button.dart';
 import '/features/auth/presentation/widgets/vk_icon_button.dart';
@@ -39,8 +43,18 @@ class AuthPage extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: PrimaryButton(
                   label: 'Вход и регистрация',
-                  // onTap: () => context.router.pushNamed('getCode'),
-                  onTap: () => context.router.pushNamed('map'),
+                  onTap: () async {
+                    var box = await Hive.openBox('tokens');
+                    var userMasterRefreshToken =
+                        box.get('userMasterRefreshToken');
+                    if (userMasterRefreshToken != null &&
+                        userMasterRefreshToken != '') {
+                      context.router.pushNamed('map');
+
+                    } else {
+                      context.router.pushNamed('getCode');
+                    }
+                  },
                 ),
               ),
               Padding(
@@ -54,19 +68,19 @@ class AuthPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GoogleIconButton(
-                      onTap: () {},
+                      onTap: authGoogle,
                     ),
                     const SizedBox(
                       width: 16,
                     ),
                     AppleIconButton(
-                      onTap: () {},
+                      onTap: authApple,
                     ),
                     const SizedBox(
                       width: 16,
                     ),
                     VkIconButton(
-                      onTap: () {},
+                      onTap: vkAuth,
                     ),
                   ],
                 ),

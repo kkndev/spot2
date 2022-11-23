@@ -5,6 +5,8 @@ import 'package:spot2/features/map/presentation/bloc/map/map.dart';
 
 import '../../../../consts/app_images.dart';
 import '../../../../extensions/extensions.dart';
+import '../../../parking/presentation/bloc/parking/parking.dart';
+import '../../../parking/presentation/bloc/parking/parking_bloc.dart';
 
 class MapModalHeader extends StatelessWidget {
   const MapModalHeader({
@@ -25,9 +27,10 @@ class MapModalHeader extends StatelessWidget {
           style: textStyles.subtitle1,
         ),
         GestureDetector(
-          onTap: () => context
-              .read<MapBloc>()
-              .add(SetBottomSheetEvent(bottomSheet: null)),
+          onTap: () {
+            context.read<MapBloc>().add(SetBottomSheetEvent(bottomSheet: null));
+            context.read<ParkingBloc>().add(GetParkingEvent());
+          },
           child: SvgPicture.asset(
             AppImages.closeCircle,
             width: 28,

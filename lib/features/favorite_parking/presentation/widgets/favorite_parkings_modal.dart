@@ -20,12 +20,11 @@ class FavoriteParkingModal extends StatefulWidget {
 class _FavoriteParkingModalState extends State<FavoriteParkingModal> {
   @override
   void initState() {
-    context.read<UserBloc>().add(
-          GetUserEvent(id: 609),
-        );
+    var userUid= context.read<UserBloc>().state.user.uid;
+    print(userUid);
     context.read<FavoriteParkingBloc>().add(
           GetFavoriteParkingEvent(
-              userUid: '87adafcf-38fa-4e22-9ab0-2f6c8fbffefc'),
+              userUid: userUid),
         );
     super.initState();
   }
@@ -56,15 +55,11 @@ class _FavoriteParkingModalState extends State<FavoriteParkingModal> {
                   success: (data) => Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: data.map((e) {
-                      return e.id == 1
-                          ? Padding(
+                      return  Padding(
                               padding: const EdgeInsets.only(bottom: 16),
                               child: HomeListItem(parking: e),
-                            )
-                          : Padding(
-                              padding: const EdgeInsets.only(bottom: 16),
-                              child: ListItem(parking: e),
                             );
+
                     }).toList(),
                   ),
                   failure: (error) => Text(error.toString()),

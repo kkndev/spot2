@@ -44,5 +44,27 @@ class FavoriteParkingBloc
         ),
       );
     });
+    on<CreateFavoriteParkingEvent>((event, emit) async {
+      emit(
+        state.copyWith(
+          favoriteParkingRequestStatus: const RequestStatus.loading(),
+        ),
+      );
+      var result = await createFavoriteParkingUsecase(
+          CreateFavoriteParkingParams(userUid: event.userUid, parkingId: event.parkingId, name: ''));
+      result.fold(
+        (error) => emit(
+          state.copyWith(
+            favoriteParkingRequestStatus: RequestStatus.failure(error: error),
+          ),
+        ),
+        (result) => emit(
+          state.copyWith(
+            favoriteParkingRequestStatus: RequestStatus.success(data: result),
+            favoriteParkingList: result,
+          ),
+        ),
+      );
+    });
   }
 }

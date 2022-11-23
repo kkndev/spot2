@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -23,7 +25,8 @@ class _FilterParkingModalState extends State<FilterParkingModal> {
     return Scaffold(
       body: BlocBuilder<ParkingBloc, ParkingState>(
         builder: (context, state) {
-          return Padding(
+          return Container(
+            margin: EdgeInsets.only(bottom: Platform.isIOS ? 40 : 0),
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               children: [

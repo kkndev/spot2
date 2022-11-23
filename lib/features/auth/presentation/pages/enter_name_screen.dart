@@ -37,16 +37,15 @@ class _EnterNamePageState extends State<EnterNamePage> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 10, bottom: 36),
-                      child: TextInput(controller: nameController),
+                      child: TextInput(
+                        controller: nameController,
+                        autofocus: true,
+                      ),
                     ),
                     PrimaryButton(
                       label: 'войти',
                       onTap: () => context.router.pushNamed('map'),
                     ),
-                    Text(context.watch<AuthBloc>().state.userMasterToken),
-                    Text(
-                        context.watch<AuthBloc>().state.userMasterRefreshToken),
-                    Text(context.watch<AuthBloc>().state.userSpotToken),
                   ],
                 ),
               ),

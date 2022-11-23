@@ -1,56 +1,64 @@
 {
   "project_info": {
-    "project_number": "296887782739",
-    "project_id": "spot2-4bc57",
-    "storage_bucket": "spot2-4bc57.appspot.com"
+    "project_number": "1014572488216",
+    "project_id": "spot-d8ec1",
+    "storage_bucket": "spot-d8ec1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:296887782739:android:1c03719e8d749dccb5e5a6",
+        "mobilesdk_app_id": "1:1014572488216:android:3d449afc6b997ca975d56d",
         "android_client_info": {
-          "package_name": "com.kkndev.spot2"
+          "package_name": "ru.spotparking.spot"
         }
       },
       "oauth_client": [
         {
-          "client_id": "296887782739-1o0jsvbtdsdvprs8bl45muq1avb4b5in.apps.googleusercontent.com",
+          "client_id": "1014572488216-48aemclj3qiflho2hus161idh2rp2k39.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.kkndev.spot2",
-            "certificate_hash": "5b2601a39c20aa88b6da4f345efdce861620b073"
+            "package_name": "ru.spotparking.spot",
+            "certificate_hash": "b478744aa30782d5548c593b7accbfc830cb8248"
           }
         },
         {
-          "client_id": "296887782739-n9tn3b2j9ffr6i2p7pal7uqgk6lbj2nv.apps.googleusercontent.com",
+          "client_id": "1014572488216-8e9knultju327a8opk219olpr5eb6j6s.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.kkndev.spot2",
-            "certificate_hash": "7f0f69c82d28601d897d644d2db1f9f76f403d1a"
+            "package_name": "ru.spotparking.spot",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
         },
         {
-          "client_id": "296887782739-mikqdt87unpnh3616nmegsueub4ceaek.apps.googleusercontent.com",
+          "client_id": "1014572488216-f4mij7jfugdbauncsv8nq92s5db9v1q0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.spotparking.spot",
+            "certificate_hash": "c6b7e29c2a245817e6a22527df068827b8e889e4"
+          }
+        },
+        {
+          "client_id": "1014572488216-ddo1d0egvntqg2ulfsain12iiirbefmo.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDb4o9AxxKN-E-Ct1WUK21t2A_JHRlZQqY"
+          "current_key": "AIzaSyBTt9F7rvTOoNC95DcWCCYeFVcz7MK4Zrs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "296887782739-mikqdt87unpnh3616nmegsueub4ceaek.apps.googleusercontent.com",
+              "client_id": "1014572488216-ddo1d0egvntqg2ulfsain12iiirbefmo.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "296887782739-lmfjnvkrfntmvuh22cgrkul3jkf78vhu.apps.googleusercontent.com",
+              "client_id": "1014572488216-bqciir1oipia5o4dn0ume7al2lu9f0fs.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "ru.spotparking.spot2"
+                "bundle_id": "ru.spotparking.spot"
               }
             }
           ]

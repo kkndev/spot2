@@ -19,7 +19,8 @@ class BottomTabs extends StatelessWidget {
     var appColors = Theme.of(context).extension<AppColors>()!;
     var textStyles = Theme.of(context).extension<AppTextStyles>()!;
     return Container(
-      height: 60,
+      height: 60 + MediaQuery.of(context).padding.bottom,
+      padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
       decoration: BoxDecoration(
         color: appColors.backgroundGlobe,
       ),

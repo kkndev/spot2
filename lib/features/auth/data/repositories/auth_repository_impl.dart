@@ -59,26 +59,4 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(ServerFailure());
     }
   }
-
-  @override
-  Future<Either<Failure, List<ParkingEntity>>> getParkingItems(
-      String code) async {
-    try {
-      final result = await remoteDataSource.getParkingItems(code);
-      return Right(result);
-    } on ServerException {
-      return Left(ServerFailure());
-    }
-  }
-
-  @override
-  Future<Either<Failure, List<ParkingPlaceEntity>>> getParkingPlaces(
-      String code, int id) async {
-    try {
-      final result = await remoteDataSource.getParkingPlaces(code, id);
-      return Right(result);
-    } on ServerException {
-      return Left(ServerFailure());
-    }
-  }
 }
